@@ -1,5 +1,9 @@
 import { useEffect } from 'react'
-import './App.css'
+import './App.scss'
+import { Routes, Route } from 'react-router-dom'
+import { LoginPage } from './pages/LoginPage'
+import { SigninPage } from './pages/SigninPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 
 function App() {
   useEffect(() => {
@@ -10,9 +14,17 @@ function App() {
       console.log(data)
     }
 
-    fetchServerData()
+    // fetchServerData()
   }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signin" element={<SigninPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </div>
+  )
 }
 
 export default App
