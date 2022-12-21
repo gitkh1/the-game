@@ -1,26 +1,23 @@
 import React, { FC } from 'react'
-import { EFormFieldType, TFormSchemeItem } from '../../types'
+import { T_FormField } from '../../types'
 import TextField from '@mui/material/TextField'
+import { useFormContext } from 'react-hook-form'
 
-export const FieldBuilder: FC<TFormSchemeItem> = ({
-  id,
-  label,
-  name,
-  type,
-  defaultValue,
-}) => {
-  if (type === EFormFieldType.Text || type === EFormFieldType.Password) {
-    return (
-      <TextField
-        key={id}
-        label={label}
-        type={type}
-        name={name}
-        defaultValue={defaultValue ?? ''}
-        variant="standard"
-      />
-    )
-  }
+export const FieldBuilder: FC<T_FormField> = ({ label, name, type }) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext()
 
-  return null
+  const hasError = !!errors?.[name]
+
+  return (
+    <TextField
+      variant="standard"
+      label={label}
+      type={type}
+      error={hasError}
+      {...control.register(name)}
+    />
+  )
 }

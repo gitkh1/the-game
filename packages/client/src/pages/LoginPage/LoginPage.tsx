@@ -1,41 +1,47 @@
 import React, { FC } from 'react'
 import classes from './LoginPage.module.scss'
 import {
-  EFormFieldType,
+  E_FormFieldType,
   FormBuilder,
-  TFormLink,
-  TFormScheme,
+  T_FormStructure,
 } from '../../modules/formBuilder'
+import { Box } from '@mui/material'
 
-const LOGIN_FORM_SCHEME: TFormScheme = [
+const FIELDS = [
   {
     id: 'login',
-    type: EFormFieldType.Text,
+    type: E_FormFieldType.Text,
     name: 'login',
     label: 'Логин',
+    defaultValue: '',
   },
   {
     id: 'password',
-    type: EFormFieldType.Password,
+    type: E_FormFieldType.Password,
     name: 'password',
     label: 'Пароль',
+    defaultValue: '',
   },
 ]
 
-const LOGIN_FORM_LINK: TFormLink = {
-  to: '/signin',
-  title: 'Нет аккаунта?',
-}
-
 export const LoginPage: FC = () => {
+  const getFormStructure = (): T_FormStructure => {
+    return {
+      title: 'Вход',
+      fields: FIELDS,
+      link: {
+        to: '/signin',
+        title: 'Нет аккаунта?',
+      },
+      submit: {
+        title: 'Авторизоваться',
+      },
+    }
+  }
+
   return (
-    <div className={classes.root}>
-      <FormBuilder
-        title="Вход"
-        scheme={LOGIN_FORM_SCHEME}
-        submitTitle="Авторизоваться"
-        link={LOGIN_FORM_LINK}
-      />
-    </div>
+    <Box className={classes.root}>
+      <FormBuilder structure={getFormStructure()} />
+    </Box>
   )
 }
