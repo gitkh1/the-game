@@ -141,7 +141,7 @@ export default function Profile() {
     });
   };
 
-  const [isChangingData, setIsChangingData] = React.useState(true);
+  const [isChangingData, setIsChangingData] = React.useState(false);
   const [isChangingPassword, setIsChangingPassword] = React.useState(false);
 
   return (
@@ -163,7 +163,7 @@ export default function Profile() {
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             {isChangingPassword
               ? <PasswordFields />
-              : <ProfileFields isDisabled={isChangingData} />
+              : <ProfileFields isDisabled={!isChangingData} />
             }
             <Box sx={{ mt: 4 }}>
               {!isChangingPassword &&
@@ -171,11 +171,11 @@ export default function Profile() {
                   <Link
                     onClick={() => setIsChangingData(!isChangingData)}
                   >
-                    {isChangingData ? 'Изменить данные' : 'Сохранить'}
+                    {isChangingData ? 'Сохранить' : 'Изменить данные'}
                   </Link>
                 </FormControl>
               }
-              {isChangingData &&
+              {!isChangingData &&
                 <FormControl sx={{ borderBottom: '1px solid grey' }}>
                   <Link
                     onClick={() => setIsChangingPassword(!isChangingPassword)}
