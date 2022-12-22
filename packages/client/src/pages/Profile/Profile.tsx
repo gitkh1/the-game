@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -39,10 +39,10 @@ const theme = createTheme({
   }
 });
 
-type ProfileFiedsProps = {
+type T_ProfileFiedsProps = {
   isDisabled: boolean;
 }
-function ProfileFields({ isDisabled }: ProfileFiedsProps) {
+const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
   return (
     <>
       <TextField
@@ -103,7 +103,7 @@ function ProfileFields({ isDisabled }: ProfileFiedsProps) {
   )
 }
 
-function PasswordFields() {
+const PasswordFields: FC = () => {
   return (
     <>
       <TextField
@@ -131,18 +131,26 @@ function PasswordFields() {
   )
 }
 
-export default function Profile() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
+const Profile: FC = () => {
+  const formRef = React.useRef();
   const [isChangingData, setIsChangingData] = React.useState(false);
   const [isChangingPassword, setIsChangingPassword] = React.useState(false);
+
+  const changeDataHandler = () => {
+    if (isChangingData) {
+      const data = Object.values(formRef.current || {});
+      console.log(data)
+    };
+    setIsChangingData(!isChangingData);
+  };
+
+  const changePasswordHandler = () => {
+    if (isChangingPassword) {
+      const data = Object.values(formRef.current || {});
+      console.log(data)
+    };
+    setIsChangingPassword(!isChangingPassword);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -160,7 +168,7 @@ export default function Profile() {
           <Typography component="h1" variant="h5">
             Иван
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" ref={formRef} noValidate sx={{ mt: 1 }}>
             {isChangingPassword
               ? <PasswordFields />
               : <ProfileFields isDisabled={!isChangingData} />
@@ -169,7 +177,7 @@ export default function Profile() {
               {!isChangingPassword &&
                 <FormControl sx={{ borderBottom: '1px solid grey' }}>
                   <Link
-                    onClick={() => setIsChangingData(!isChangingData)}
+                    onClick={changeDataHandler}
                   >
                     {isChangingData ? 'Сохранить' : 'Изменить данные'}
                   </Link>
@@ -178,7 +186,7 @@ export default function Profile() {
               {!isChangingData &&
                 <FormControl sx={{ borderBottom: '1px solid grey' }}>
                   <Link
-                    onClick={() => setIsChangingPassword(!isChangingPassword)}
+                    onClick={changePasswordHandler}
                   >{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}
                   </Link>
                 </FormControl>
@@ -193,3 +201,5 @@ export default function Profile() {
     </ThemeProvider>
   )
 }
+
+export default Profile;
