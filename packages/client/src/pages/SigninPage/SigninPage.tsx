@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import * as yup from 'yup'
-import classes from './SigninPage.module.scss'
+import { STYLES } from './SigninPage.styles'
 import { FormBuilder, T_FormStructure } from '../../modules/formBuilder'
 import { Box } from '@mui/material'
 import { Layout } from '../../Layout'
@@ -61,14 +61,12 @@ export const SigninPage: FC = () => {
   }
 
   return (
-    <Layout>
-      <Box className={classes.root}>
-        <FormBuilder<T_Data, T_Schema>
-          onSubmit={onSubmit}
-          structure={getFormStructure()}
-          validationSchema={validationSchema}
-        />
-      </Box>
-    </Layout>
+    <Box sx={STYLES.root}>
+      <FormBuilder<T_Data, T_Schema>
+        onSubmit={onSubmit}
+        structure={getFormStructure()}
+        validationSchema={validationSchema}
+      />
+    </Box>
   )
 }

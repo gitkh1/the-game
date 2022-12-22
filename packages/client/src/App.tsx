@@ -1,9 +1,8 @@
 import { useEffect } from 'react'
 import './App.scss'
-import { Routes, Route } from 'react-router-dom'
-import { LoginPage } from './pages/LoginPage'
-import { SigninPage } from './pages/SigninPage'
-import { NotFoundPage } from './pages/NotFoundPage'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Layout } from './Layout'
+import { routes } from './routes'
 
 function App() {
   useEffect(() => {
@@ -14,16 +13,12 @@ function App() {
       console.log(data)
     }
 
-    // fetchServerData()
+    fetchServerData()
   }, [])
   return (
-    <div className="App">
-      <Routes>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="signin" element={<SigninPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </div>
+    <Layout>
+      <RouterProvider router={createBrowserRouter(routes)} />
+    </Layout>
   )
 }
 

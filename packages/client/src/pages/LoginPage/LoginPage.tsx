@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import * as yup from 'yup'
-import classes from './LoginPage.module.scss'
 import { FormBuilder, T_FormStructure } from '../../modules/formBuilder'
 import { Box } from '@mui/material'
 import { Layout } from '../../Layout'
 import { getFormFields } from '../../modules/formBuilder/utils'
 import { REG_EX } from '../../modules/formBuilder/constants/regEx'
+import { STYLES } from './LoginPage.styles'
 
 const getFormStructure = (): T_FormStructure => {
   return {
@@ -39,14 +39,12 @@ export const LoginPage: FC = () => {
   }
 
   return (
-    <Layout>
-      <Box className={classes.root}>
-        <FormBuilder<T_Data, T_Schema>
-          onSubmit={onSubmit}
-          structure={getFormStructure()}
-          validationSchema={validationSchema}
-        />
-      </Box>
-    </Layout>
+    <Box sx={STYLES.root}>
+      <FormBuilder<T_Data, T_Schema>
+        onSubmit={onSubmit}
+        structure={getFormStructure()}
+        validationSchema={validationSchema}
+      />
+    </Box>
   )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import classes from './FormBuilder.module.scss'
 import { T_FormStructure } from '../../types'
 import { FieldBuilder } from '../FieldBuilder'
 import { CustomLink } from '../../../../components/CustomLink'
@@ -8,6 +7,7 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import { FieldValues } from 'react-hook-form/dist/types'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AnyObjectSchema } from 'yup'
+import { STYLES } from './FormBuilder.styles'
 
 type T_Props<T_Data, T_Schema> = {
   structure: T_FormStructure
@@ -34,16 +34,16 @@ export const FormBuilder = <
       <Box
         component="form"
         onSubmit={formApi.handleSubmit(onFormSubmit)}
-        className={classes.root}>
-        <Typography variant="h4" className={classes.root__title}>
+        sx={STYLES.root}>
+        <Typography variant="h4" sx={STYLES.title}>
           {structure.title}
         </Typography>
-        <Box className={classes.root__fields}>
+        <Box sx={STYLES.fields}>
           {structure.fields.map(item => (
             <FieldBuilder key={item.id} {...item} />
           ))}
         </Box>
-        <Box className={classes.root__footer}>
+        <Box sx={STYLES.footer}>
           <Button type="submit" variant="contained">
             {structure.submit.title}
           </Button>
