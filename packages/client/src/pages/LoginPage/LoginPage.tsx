@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import * as yup from 'yup'
 import { FormBuilder, T_FormStructure } from '../../modules/formBuilder'
 import { Box } from '@mui/material'
-import { Layout } from '../../Layout'
 import { getFormFields } from '../../modules/formBuilder/utils'
-import { REG_EX } from '../../modules/formBuilder/constants/regEx'
-import { STYLES } from './LoginPage.styles'
+import { yup } from '../../modules/formBuilder/constants/validation'
+import classes from './LoginPage.module.scss'
 
 const getFormStructure = (): T_FormStructure => {
   return {
@@ -22,8 +20,8 @@ const getFormStructure = (): T_FormStructure => {
 }
 
 const validationSchema = yup.object().shape({
-  login: yup.string().trim().matches(REG_EX.login),
-  password: yup.string().trim().matches(REG_EX.password),
+  login: yup.string().required().login(),
+  password: yup.string().required().password(),
 })
 
 type T_Schema = typeof validationSchema
@@ -39,12 +37,14 @@ export const LoginPage: FC = () => {
   }
 
   return (
-    <Box sx={STYLES.root}>
-      <FormBuilder<T_Data, T_Schema>
-        onSubmit={onSubmit}
-        structure={getFormStructure()}
-        validationSchema={validationSchema}
-      />
+    <Box className={classes.root}>
+      <Box className={classes.root__formWrapper}>
+        <FormBuilder<T_Data, T_Schema>
+          onSubmit={onSubmit}
+          structure={getFormStructure()}
+          validationSchema={validationSchema}
+        />
+      </Box>
     </Box>
   )
 }

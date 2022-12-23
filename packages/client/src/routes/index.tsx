@@ -1,5 +1,5 @@
 import { LoginPage } from '../pages/LoginPage'
-import { SigninPage } from '../pages/SigninPage'
+import { SignupPage } from '../pages/SignupPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
 
 export const routes = [
@@ -9,7 +9,7 @@ export const routes = [
   },
   {
     path: '/signin',
-    element: <SigninPage />,
+    element: <SignupPage />,
   },
   {
     path: '*',

@@ -3,7 +3,13 @@ import { T_FormField } from '../../types'
 import TextField from '@mui/material/TextField'
 import { useFormContext } from 'react-hook-form'
 
-export const FieldBuilder: FC<T_FormField> = ({ label, name, type }) => {
+export const FieldBuilder: FC<T_FormField> = ({
+  label,
+  name,
+  type,
+  defaultValue,
+  disabled = false,
+}) => {
   const {
     control,
     formState: { errors },
@@ -17,7 +23,10 @@ export const FieldBuilder: FC<T_FormField> = ({ label, name, type }) => {
       label={label}
       type={type}
       error={hasError}
-      {...control.register(name)}
+      {...control.register(name, {
+        disabled,
+        value: defaultValue,
+      })}
     />
   )
 }

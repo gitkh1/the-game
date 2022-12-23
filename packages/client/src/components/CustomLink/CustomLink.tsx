@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { STYLES } from './CustomLink.style'
+import classes from './CustomLink.module.scss'
 
 type Props = {
   to: string
@@ -9,7 +9,7 @@ type Props = {
 
 export const CustomLink: FC<Props> = ({ to, title }) => {
   return (
-    <Link style={STYLES.root} to={to}>
+    <Link className={classes.root} to={to}>
       {title}
     </Link>
   )

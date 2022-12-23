@@ -12,6 +12,7 @@ export type T_FormField = {
   label: string
   defaultValue?: unknown
   mask?: string
+  disabled?: boolean
 }
 
 export type T_FormLink = {
@@ -26,4 +27,9 @@ export type T_From_Submit = {
 export enum E_FormFieldType {
   Text = 'text',
   Password = 'password',
+}
+
+export enum E_FormMode {
+  Edit = 'edit',
+  View = 'view',
 }

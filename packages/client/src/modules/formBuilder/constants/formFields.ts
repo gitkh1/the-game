@@ -15,24 +15,24 @@ export const FORM_FIELDS = {
     label: 'Пароль',
     defaultValue: '',
   },
-  mail: {
-    id: 'mail',
+  email: {
+    id: 'email',
     type: E_FormFieldType.Text,
-    name: 'mail',
+    name: 'email',
     label: 'Почта',
     defaultValue: '',
   },
-  name: {
-    id: 'name',
+  firstName: {
+    id: 'first_name',
     type: E_FormFieldType.Text,
-    name: 'name',
+    name: 'first_name',
     label: 'Имя',
     defaultValue: '',
   },
-  lastName: {
-    id: 'lastName',
+  secondName: {
+    id: 'second_name',
     type: E_FormFieldType.Text,
-    name: 'lastName',
+    name: 'second_name',
     label: 'Фамилия',
     defaultValue: '',
   },

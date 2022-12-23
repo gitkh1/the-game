@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
 import { CustomLink } from '../../components/CustomLink'
-import { STYLES } from './NotFoundPage.styles'
 import { Box, Typography } from '@mui/material'
+import classes from './NotFoundPage.module.scss'
 
 export const NotFoundPage: FC = () => {
   return (
-    <Box sx={STYLES.root}>
-      <Typography variant="h1" sx={STYLES.title}>
+    <Box className={classes.root}>
+      <Typography variant="h1" className={classes.root__title}>
         404
       </Typography>
-      <Typography sx={STYLES.subtitle}>Не туда попали</Typography>
+      <Typography className={classes.root__subtitle}>Не туда попали</Typography>
       <CustomLink to="/" title="На главную" />
     </Box>
   )

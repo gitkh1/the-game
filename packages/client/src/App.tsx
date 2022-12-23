@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import './App.scss'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Layout } from './Layout'
 import { routes } from './routes'
