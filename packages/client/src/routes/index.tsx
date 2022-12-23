@@ -1,9 +1,9 @@
-import { LoginPage } from '../pages/LoginPage'
-import { SignupPage } from '../pages/SignupPage'
-import { NotFoundPage } from '../pages/NotFoundPage'
-import Profile from '../pages/Profile/Profile'
-import LeaderBoard from '../pages/LeaderBoard/LeaderBoard'
-import Alert from '@mui/material/Alert'
+import { LoginPage } from '../pages/LoginPage';
+import { SignupPage } from '../pages/SignupPage';
+import { NotFoundPage } from '../pages/NotFoundPage';
+import Profile from '../pages/Profile/Profile';
+import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
+import Alert from '@mui/material/Alert';
 
 export const routes = [
   {
@@ -31,4 +31,4 @@ export const routes = [
     element: <NotFoundPage />,
     errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
   },
-]
+];

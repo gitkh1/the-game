@@ -1,24 +1,25 @@
-import { useEffect } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Layout } from './Layout'
-import { routes } from './routes'
+import { useEffect } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Layout } from './Layout';
+import { routes } from './routes';
 
 function App() {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+      const url = `http://localhost:${__SERVER_PORT__}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    };
 
-    fetchServerData()
-  }, [])
+    fetchServerData();
+  }, []);
+
   return (
     <Layout>
       <RouterProvider router={createBrowserRouter(routes)} />
     </Layout>
-  )
+  );
 }
 
-export default App
+export default App;

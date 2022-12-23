@@ -1,4 +1,4 @@
-import { E_FormFieldType } from '../types'
+import { E_FormFieldType } from '../types';
 
 export const FORM_FIELDS = {
   login: {
@@ -50,4 +50,4 @@ export const FORM_FIELDS = {
     label: 'Пароль (ещё раз)',
     defaultValue: '',
   },
-}
+};

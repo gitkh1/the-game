@@ -1,21 +1,15 @@
-import React, { FC } from 'react'
-import { T_FormField } from '../../types'
-import TextField from '@mui/material/TextField'
-import { useFormContext } from 'react-hook-form'
+import React, { FC } from 'react';
+import { T_FormField } from '../../types';
+import TextField from '@mui/material/TextField';
+import { useFormContext } from 'react-hook-form';
 
-export const FieldBuilder: FC<T_FormField> = ({
-  label,
-  name,
-  type,
-  defaultValue,
-  disabled = false,
-}) => {
+export const FieldBuilder: FC<T_FormField> = ({ label, name, type, defaultValue, disabled = false }) => {
   const {
     control,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext();
 
-  const hasError = !!errors?.[name]
+  const hasError = !!errors?.[name];
 
   return (
     <TextField
@@ -28,5 +22,5 @@ export const FieldBuilder: FC<T_FormField> = ({
         value: defaultValue,
       })}
     />
-  )
-}
+  );
+};
