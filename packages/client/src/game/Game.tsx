@@ -1,19 +1,18 @@
-import { FC, useEffect, useRef } from 'react'
-import runGame from './runGame'
+import { FC, useEffect, useRef } from 'react';
+import runGame from './runGame';
 
 const Game: FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (!canvasRef.current) return
+    if (!canvasRef.current) return;
 
     return runGame({
-      canvas: canvasRef.current
-    })
-  }, [canvasRef.current])
+      canvas: canvasRef.current,
+    });
+  }, [canvasRef.current]);
 
-  return <canvas ref={canvasRef}></canvas>
-}
+  return <canvas ref={canvasRef}></canvas>;
+};
 
-
-export default Game
+export default Game;
