@@ -22,14 +22,14 @@ export const FORM_FIELDS = {
     label: 'Почта',
     defaultValue: '',
   },
-  firstName: {
+  first_name: {
     id: 'first_name',
     type: E_FormFieldType.Text,
     name: 'first_name',
     label: 'Имя',
     defaultValue: '',
   },
-  secondName: {
+  second_name: {
     id: 'second_name',
     type: E_FormFieldType.Text,
     name: 'second_name',

@@ -1,24 +1,18 @@
 import React, { FC } from 'react';
 import { FormBuilder, T_FormStructure, yup, getFormFields } from '../../modules/formBuilder';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import classes from './Signup.module.scss';
-
-type T_Data = {
-  mail: string;
-  login: string;
-  name: string;
-  lastName: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
-};
+import { T_SignupData } from '../../global/types';
+import { authApi } from '../../api';
+import { useNavigate } from 'react-router-dom';
+import { useNotification } from '../../global/hooks';
 
 const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Регистрация',
-    fields: getFormFields(['email', 'login', 'firstName', 'secondName', 'phone', 'password', 'confirmPassword']),
+    fields: getFormFields(['email', 'login', 'first_name', 'second_name', 'phone', 'password', 'confirmPassword']),
     link: {
-      to: '/login',
+      to: '/signin',
       title: 'Войти',
     },
     submit: {
@@ -28,29 +22,34 @@ const getFormStructure = (): T_FormStructure => {
 };
 
 const validationSchema = yup.object().shape({
-  mail: yup.string().trim().email().required(),
-  login: yup.string().login().required(),
-  name: yup.string().name().required(),
-  lastName: yup.string().name().required(),
-  phone: yup.number().required().phone(),
-  password: yup.string().password().required(),
-  confirmPassword: yup
-    .string()
-    .required()
-    .oneOf([yup.ref('password')]),
+  email: yup.string().mail(),
+  login: yup.string().login(),
+  first_name: yup.string().name(),
+  second_name: yup.string().name(),
+  phone: yup.string().phone(),
+  password: yup.string().password(),
+  confirmPassword: yup.string().confirmPassword(),
 });
 
 type T_Schema = typeof validationSchema;
 
 export const SignupPage: FC = () => {
-  const onSubmit = (data: T_Data) => {
-    console.log(data);
+  const navigate = useNavigate();
+  const { showAlert } = useNotification();
+
+  const onSubmit = async (data: T_SignupData) => {
+    try {
+      await authApi.signup(data);
+      navigate('/');
+    } catch (e) {
+      if (e instanceof Error && showAlert) showAlert(e.message);
+    }
   };
 
   return (
     <Box className={classes.root}>
       <Box className={classes.root__formWrapper}>
-        <FormBuilder<T_Data, T_Schema> onSubmit={onSubmit} structure={getFormStructure()} validationSchema={validationSchema} />
+        <FormBuilder<T_SignupData, T_Schema> onSubmit={onSubmit} structure={getFormStructure()} validationSchema={validationSchema} />
       </Box>
     </Box>
   );

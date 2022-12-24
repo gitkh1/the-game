@@ -3,3 +3,5 @@ export const REG_EX = {
   login: /(\d?)+([-|_]?)+[a-zA-z]+([-|_]?)+[a-zA-z]+(\d?)+/,
   password: /^(?=.*\d)(?=.*[A-Z])\w+/,
 };
+
+export const PHONE_CHARS = /\(|\)|-/g;

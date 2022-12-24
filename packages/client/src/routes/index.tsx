@@ -1,4 +1,4 @@
-import { LoginPage } from '../pages/LoginPage';
+import { SigninPage } from '../pages/SigninPage';
 import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import Profile from '../pages/Profile/Profile';
@@ -7,8 +7,8 @@ import Alert from '@mui/material/Alert';
 
 export const routes = [
   {
-    path: '/login',
-    element: <LoginPage />,
+    path: '/signin',
+    element: <SigninPage />,
     errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
   },
   {
