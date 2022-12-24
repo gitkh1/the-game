@@ -5,6 +5,25 @@ type Props = {
   canvas: HTMLCanvasElement
 }
 
+type Projectile = {
+  x: number
+  y: number
+  dx: number
+  dy: number
+  angle: number
+  color: string
+  size: number
+  falled: boolean
+}
+
+type ProjectileStubs = {
+  x: number
+  y: number
+  angle: number
+  ttl: number
+  offsetFrame: number
+}
+
 export default function runGame({ canvas }: Props) {
   const WIDTH = 800
   const HEIGHT = 500
@@ -111,17 +130,6 @@ export default function runGame({ canvas }: Props) {
     mousePressed = false
   })
 
-  type Projectile = {
-    x: number
-    y: number
-    dx: number
-    dy: number
-    angle: number
-    color: string
-    size: number
-    falled: boolean
-  }
-
   let projectiles: Projectile[] = []
   const GRAVITY = 9.8
   const SPAWN_X = 50
@@ -220,14 +228,6 @@ export default function runGame({ canvas }: Props) {
       createProjectile(p, enemy)
     }
     return !!p
-  }
-
-  type ProjectileStubs = {
-    x: number
-    y: number
-    angle: number
-    ttl: number
-    offsetFrame: number
   }
 
   let projectileStubs: ProjectileStubs[] = []
