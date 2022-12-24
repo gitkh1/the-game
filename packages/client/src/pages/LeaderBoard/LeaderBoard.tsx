@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,24 +13,20 @@ const theme = createTheme({
         sx: {
           borderBottom: '1px solid #3369F3',
           '&:last-child td, &:last-child th': { border: 0 },
-        }
-      }
-    }, MuiTableCell: {
+        },
+      },
+    },
+    MuiTableCell: {
       defaultProps: {
         sx: {
           border: 0,
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 });
 
-function createData(
-  avatar: string,
-  first_name: string,
-  second_name: string,
-  score: number,
-) {
+function createData(avatar: string, first_name: string, second_name: string, score: number) {
   return { avatar, name: `${first_name} ${second_name}`, score };
 }
 
@@ -67,27 +63,25 @@ const LeaderBoard: FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.sort((a, b) => b.score - a.score).map((row, id) => (
-                  <TableRow key={row.name} >
-                    <TableCell align="center">{id + 1}</TableCell>
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      sx={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}
-                    >
-                      <Avatar src={row.avatar}></Avatar>
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.score}</TableCell>
-                  </TableRow>
-                ))}
+                {rows
+                  .sort((a, b) => b.score - a.score)
+                  .map((row, id) => (
+                    <TableRow key={row.name}>
+                      <TableCell align="center">{id + 1}</TableCell>
+                      <TableCell component="th" scope="row" sx={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
+                        <Avatar src={row.avatar}></Avatar>
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.score}</TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
         </Box>
       </Container>
     </ThemeProvider>
-  )
-}
+  );
+};
 
 export default LeaderBoard;
