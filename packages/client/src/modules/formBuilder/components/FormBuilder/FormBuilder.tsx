@@ -29,7 +29,7 @@ export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema e
   });
 
   useEffect(() => {
-    if (getFormApi) getFormApi(formApi);
+    if (getFormApi) getFormApi(formApi as UseFormReturn);
   }, []);
 
   const isEdit = useMemo(() => mode === E_FormMode.Edit, [mode]);
