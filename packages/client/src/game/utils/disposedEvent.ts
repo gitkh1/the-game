@@ -1,5 +1,5 @@
 export default function makeDisposedEvent() {
-  const disposers: Array<() => unknown> = []
+  const disposers: Array<() => unknown> = [];
 
   type Disposer = {
     <K extends keyof DocumentEventMap>(
@@ -7,9 +7,9 @@ export default function makeDisposedEvent() {
       type: K,
       listener: (this: HTMLElement, ev: DocumentEventMap[K]) => unknown,
       options?: EventListenerOptions
-    ): void
-    disposeAll(): void
-  }
+    ): void;
+    disposeAll(): void;
+  };
 
   const disposedEvent = function disposedEvent<
     K extends keyof DocumentEventMap
@@ -19,16 +19,16 @@ export default function makeDisposedEvent() {
     listener: (this: HTMLElement, ev: DocumentEventMap[K]) => unknown,
     options?: EventListenerOptions
   ) {
-    element.addEventListener(type, listener as EventListener, options)
+    element.addEventListener(type, listener as EventListener, options);
     disposers.push(() => {
-      element.removeEventListener(type, listener as EventListener, options)
-    })
-  } as Disposer
+      element.removeEventListener(type, listener as EventListener, options);
+    });
+  } as Disposer;
 
   disposedEvent.disposeAll = () => {
-    disposers.forEach(fn => fn())
-    disposers.length = 0
-  }
+    disposers.forEach(fn => fn());
+    disposers.length = 0;
+  };
 
-  return disposedEvent
+  return disposedEvent;
 }
