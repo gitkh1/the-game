@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
-import MainPage from './pages/MainPage/MainPage'
-import './App.css'
+import { useEffect } from 'react';
+import './main.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Layout } from './Layout';
 import { routes } from './routes';
