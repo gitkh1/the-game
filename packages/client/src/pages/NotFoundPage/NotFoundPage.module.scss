@@ -1,0 +1,19 @@
+.root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__title {
+    font-weight: 500;
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+
+  &__subtitle {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 70px;
+  }
+}
