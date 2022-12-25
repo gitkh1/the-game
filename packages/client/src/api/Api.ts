@@ -19,6 +19,7 @@ export class Api {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
+          creditinals: 'include',
           ...headers,
         },
       });

@@ -35,7 +35,7 @@ type T_Schema = typeof validationSchema;
 export const SigninPage: FC = () => {
   const navigate = useNavigate();
   const { showAlert } = useNotification();
-  const [formApi, setFormApi] = useState<UseFormReturn | null>();
+  const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
 
   const setFieldErrors = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
