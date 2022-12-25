@@ -29,6 +29,7 @@
     z-index: -1;
     width: 100vw;
     height: 100vh;
+    object-fit: cover;
 }
 
 
@@ -36,13 +37,13 @@
     width: 50%;
 }
 
-.tutorial__item_description{
+.tutorial__description{
     width: 100%;
     color: white;
     font-size: 1.3em;
     text-align: center;
 }
 
-.tutorial__item_image{
+.tutorial__image{
     width: 100%;
 }

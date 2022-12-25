@@ -11,7 +11,7 @@ export default function MainPage(){
           <div className={ classes.mainPage }>
             <h1>Norman the Necromancer</h1>
             <span className={ classes.description }>Это экшен-РПГ игра, в которой вам предстоит взять на себя роль могущественного некроманта и защитить свои владения от волн недружелюбных к вам местных жителей.</span>
-            <div className={ classes.buttons_container }>
+            <div className={ classes.buttons__container }>
               <NavLink to='/login'>
                 <Button color = "primary" variant="contained">Логин</Button>
               </NavLink>

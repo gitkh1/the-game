@@ -12,16 +12,16 @@ export default function TutorialPage(){
             <img src={gameMainMenuBG} alt="main-page-background" className={ classes.background }/>
             <div className={ classes.tutorial }>
                 <div className={ classes.tutorial__item }>
-                    <div className={ classes.tutorial__item_description }>
+                    <div className={ classes.tutorial__description }>
                         Нажимайте ЛЕВУЮ КНОПКУ МЫШИ, чтобы метать снаряды во врагов.
                     </div>
-                    <img src={tutorialImageOne} alt="tutorial-1" className={ classes.tutorial__item_image }/>
+                    <img src={tutorialImageOne} alt="tutorial-1" className={ classes.tutorial__image }/>
                 </div>
                 <div className={ classes.tutorial__item }>
-                    <div className={ classes.tutorial__item_description }>
+                    <div className={ classes.tutorial__description }>
                         Нажимайте ПРОБЕЛ, чтобы оживлять врагов в виде скелетов.
                     </div>
-                    <img src={tutorialImageTwo} alt="tutorial-2" className={ classes.tutorial__item_image }/>
+                    <img src={tutorialImageTwo} alt="tutorial-2" className={ classes.tutorial__image }/>
                 </div>
                 
                 <NavLink to='/main-menu'>
