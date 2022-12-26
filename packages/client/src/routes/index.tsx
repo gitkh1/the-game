@@ -1,4 +1,4 @@
-import { LoginPage } from '../pages/LoginPage';
+import { SigninPage } from '../pages/SigninPage';
 import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import MainPage from '../pages/MainPage/MainPage';
@@ -15,8 +15,8 @@ export const routes = [
     errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
   },
   {
-    path: '/login',
-    element: <LoginPage />,
+    path: '/signin',
+    element: <SigninPage />,
     errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
   },
   {

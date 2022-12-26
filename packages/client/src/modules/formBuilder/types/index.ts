@@ -1,3 +1,7 @@
+import { FORM_FIELDS } from '../constants';
+
+export type T_FormFieldNames = Array<keyof typeof FORM_FIELDS>;
+
 export type T_FormStructure = {
   title: string;
   fields: T_FormField[];
