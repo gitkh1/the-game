@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { CustomLink } from '../../components/CustomLink';
 import { Box, Typography } from '@mui/material';
 import classes from './ErrorPage.module.scss';
 
@@ -10,7 +9,7 @@ export const ErrorPage: FC = () => {
         Ошибка
       </Typography>
       <Typography className={classes.root__subtitle}>Что-то пошло не так</Typography>
-      <CustomLink to="/" title="На главную" />
+      <Typography className={classes.root__subtitle}>Попробуйте перезагрузить страницу</Typography>
     </Box>
   );
 };

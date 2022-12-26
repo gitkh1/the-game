@@ -1,11 +1,11 @@
 import { Component, ErrorInfo, PropsWithChildren } from "react";
 import { ErrorPage } from "../../pages/ErrorPage";
 
-type T_State = {
+interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<PropsWithChildren, T_State> {
+export class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
   constructor(props: PropsWithChildren) {
     super(props);
     this.state = { hasError: false };
