@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import './main.scss';
-import MainPage from './pages/MainPage/MainPage';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Layout } from './Layout';
 import { routes } from './routes';
+import { ErrorBoundary } from './modules/ErrorBoundary/ErrorBoundary';
 
 function App() {
   useEffect(() => {
@@ -19,7 +19,9 @@ function App() {
 
   return (
     <Layout>
-      <RouterProvider router={createBrowserRouter(routes)} />
+      <ErrorBoundary>
+        <RouterProvider router={createBrowserRouter(routes)} />
+      </ErrorBoundary>
     </Layout>
   );
 }
