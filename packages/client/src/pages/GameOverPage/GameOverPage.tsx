@@ -3,7 +3,11 @@ import Button from '@mui/material/Button';
 import gameOverBG from '../../assets/images/game-over-bg.png';
 import { NavLink } from 'react-router-dom';
 
-export default function GameOverPage(props){
+type T_GameOverPageProps = {
+    score?: number,
+};
+
+export default function GameOverPage(props: T_GameOverPageProps){
 
     return(
         <div className={ classes.container }>
