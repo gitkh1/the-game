@@ -3,7 +3,9 @@ import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import MainPage from '../pages/MainPage/MainPage';
 import GameMainMenu from '../pages/GameMainMenu/GameMainMenu';
+import Game from '../game/Game';
 import TutorialPage from '../pages/TutorialPage/TutorialPage';
+import GameOverPage from '../pages/GameOverPage/GameOverPage';
 import Profile from '../pages/Profile/Profile';
 import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
 import Alert from '@mui/material/Alert';
@@ -30,8 +32,18 @@ export const routes = [
     errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
   },
   {
+    path: '/game',
+    element: <Game />,
+    errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
+  },
+  {
     path: '/tutorial',
     element: <TutorialPage />,
+    errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
+  },
+  {
+    path: '/game-over',
+    element: <GameOverPage />,
     errorElement: <Alert severity="error">Что-то пошло не так...</Alert>,
   },
   {
