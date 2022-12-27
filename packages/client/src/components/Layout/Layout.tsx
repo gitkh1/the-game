@@ -11,6 +11,32 @@ const theme = createTheme({
   palette: {
     mode: 'light',
   },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        margin: 'dense',
+        variant: 'standard',
+        fullWidth: true,
+        inputProps: {
+          sx: { textAlign: 'right' },
+        },
+      },
+    },
+    MuiFormControl: {
+      defaultProps: {
+        margin: 'dense',
+        fullWidth: true,
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        underline: 'hover',
+        sx: {
+          cursor: 'pointer',
+        },
+      },
+    },
+  },
 });
 
 export const Layout: FC<T_Props> = ({ children }) => {

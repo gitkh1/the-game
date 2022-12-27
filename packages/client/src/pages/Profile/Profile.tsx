@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -8,36 +7,6 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme({
-  components: {
-    MuiTextField: {
-      defaultProps: {
-        margin: 'dense',
-        variant: 'standard',
-        fullWidth: true,
-        inputProps: {
-          sx: { textAlign: 'right' },
-        },
-      },
-    },
-    MuiFormControl: {
-      defaultProps: {
-        margin: 'dense',
-        fullWidth: true,
-      },
-    },
-    MuiLink: {
-      defaultProps: {
-        underline: 'hover',
-        sx: {
-          cursor: 'pointer',
-        },
-      },
-    },
-  },
-});
 
 type T_ProfileFiedsProps = {
   isDisabled: boolean;
@@ -153,43 +122,40 @@ const Profile: FC = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="sm" sx={{ mt: 8 }}>
-        <CssBaseline />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'grey', width: '130px', height: '140px' }}></Avatar>
-          <Typography component="h1" variant="h5">
-            Иван
-          </Typography>
-          <Box component="form" ref={formRef} noValidate sx={{ mt: 1 }}>
-            {isChangingPassword ? <PasswordFields /> : <ProfileFields isDisabled={!isChangingData} />}
-            <Box sx={{ mt: 4 }}>
-              {!isChangingPassword && (
-                <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                  <Link onClick={changeDataHandler}>{isChangingData ? 'Сохранить' : 'Изменить данные'}</Link>
-                </FormControl>
-              )}
-              {!isChangingData && (
-                <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                  <Link onClick={changePasswordHandler}>{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}</Link>
-                </FormControl>
-              )}
+    <Container component="main" maxWidth="sm" sx={{ mt: 8 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'grey', width: '130px', height: '140px' }}></Avatar>
+        <Typography component="h1" variant="h5">
+          Иван
+        </Typography>
+        <Box component="form" ref={formRef} noValidate sx={{ mt: 1 }}>
+          {isChangingPassword ? <PasswordFields /> : <ProfileFields isDisabled={!isChangingData} />}
+          <Box sx={{ mt: 4 }}>
+            {!isChangingPassword && (
               <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                <Link href="#" sx={{ color: 'red' }}>
-                  Выйти
-                </Link>
+                <Link onClick={changeDataHandler}>{isChangingData ? 'Сохранить' : 'Изменить данные'}</Link>
               </FormControl>
-            </Box>
+            )}
+            {!isChangingData && (
+              <FormControl sx={{ borderBottom: '1px solid grey' }}>
+                <Link onClick={changePasswordHandler}>{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}</Link>
+              </FormControl>
+            )}
+            <FormControl sx={{ borderBottom: '1px solid grey' }}>
+              <Link href="#" sx={{ color: 'red' }}>
+                Выйти
+              </Link>
+            </FormControl>
           </Box>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 };
 
