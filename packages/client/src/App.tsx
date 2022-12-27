@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import './main.scss';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Layout } from './Layout';
+import { Layout } from './components/Layout';
 import { routes } from './routes';
 
 function App() {

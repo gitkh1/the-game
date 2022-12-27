@@ -9,17 +9,21 @@ export default function MainPage() {
       <img src={mainPageBG} alt="main-page-background" className={classes.background} />
       <div className={classes.mainPage}>
         <h1>Norman the Necromancer</h1>
-        <span className={classes.description}>Это экшен-РПГ игра, в которой вам предстоит взять на себя роль могущественного некроманта и защитить свои владения от волн недружелюбных к вам местных жителей.</span>
+        <span className={classes.description}>
+          Это экшен-РПГ игра, в которой вам предстоит взять на себя роль могущественного некроманта и защитить свои владения от волн недружелюбных к
+          вам местных жителей.
+        </span>
         <div className={classes.buttons__container}>
-          <NavLink to='/login'>
-            <Button color="primary" variant="contained">Логин</Button>
+          <NavLink to="/signin">
+            <Button color="primary" variant="contained">
+              Логин
+            </Button>
           </NavLink>
-          <NavLink to='/signup'>
+          <NavLink to="/signup">
             <Button variant="contained">Регистрация</Button>
           </NavLink>
         </div>
       </div>
     </div>
   );
-};
-
+}

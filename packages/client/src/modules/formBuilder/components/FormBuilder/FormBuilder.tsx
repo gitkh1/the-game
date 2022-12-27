@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { E_FormMode, T_FormStructure } from '../../types';
 import { FieldBuilder } from '../FieldBuilder';
 import { CustomLink } from '../../../../components/CustomLink';
 import { Box, Typography, Button } from '@mui/material';
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+import { useForm, SubmitHandler, FormProvider, UseFormReturn } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form/dist/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AnyObjectSchema } from 'yup';
@@ -14,6 +14,7 @@ type T_Props<T_Data, T_Schema> = {
   structure: T_FormStructure;
   validationSchema?: T_Schema;
   onSubmit: (data: T_Data) => void;
+  getFormApi?: (api: UseFormReturn) => void;
 };
 
 export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema extends AnyObjectSchema = AnyObjectSchema>({
@@ -21,10 +22,15 @@ export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema e
   structure,
   validationSchema,
   onSubmit,
+  getFormApi,
 }: T_Props<T_Data, T_Schema>) => {
   const formApi = useForm<T_Data>({
     resolver: validationSchema && yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    if (getFormApi) getFormApi(formApi as UseFormReturn);
+  }, []);
 
   const isEdit = useMemo(() => mode === E_FormMode.Edit, [mode]);
 

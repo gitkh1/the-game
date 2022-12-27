@@ -1,9 +1,11 @@
-import { LoginPage } from '../pages/LoginPage';
+import { SigninPage } from '../pages/SigninPage';
 import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import MainPage from '../pages/MainPage/MainPage';
 import GameMainMenu from '../pages/GameMainMenu/GameMainMenu';
+import Game from '../game/Game';
 import TutorialPage from '../pages/TutorialPage/TutorialPage';
+import GameOverPage from '../pages/GameOverPage/GameOverPage';
 import Profile from '../pages/Profile/Profile';
 import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
 
@@ -13,8 +15,8 @@ export const routes = [
     element: <MainPage />,
   },
   {
-    path: '/login',
-    element: <LoginPage />,
+    path: '/signin',
+    element: <SigninPage />,
   },
   {
     path: '/signup',
@@ -25,8 +27,16 @@ export const routes = [
     element: <GameMainMenu />,
   },
   {
+    path: '/game',
+    element: <Game />,
+  },
+  {
     path: '/tutorial',
     element: <TutorialPage />,
+  },
+  {
+    path: '/game-over',
+    element: <GameOverPage />,
   },
   {
     path: '/profile',
