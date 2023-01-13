@@ -1,0 +1,13 @@
+.preloader {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.preloader-placeholder {
+  position: absolute;
+  font-size: 100px;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}

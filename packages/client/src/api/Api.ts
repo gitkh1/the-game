@@ -17,9 +17,9 @@ export class Api {
     try {
       const response = await fetch(`${this.baseUrl}${endPoint}`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
-          creditinals: 'include',
           ...headers,
         },
       });
@@ -34,6 +34,7 @@ export class Api {
     try {
       const response = await fetch(`${this.baseUrl}${endPoint}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           ...headers,

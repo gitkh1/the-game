@@ -8,43 +8,55 @@ import TutorialPage from '../pages/TutorialPage/TutorialPage';
 import GameOverPage from '../pages/GameOverPage/GameOverPage';
 import Profile from '../pages/Profile/Profile';
 import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
+import { RouteObject } from 'react-router-dom';
+import { GuestOnlyRouter, SignedInOnlyRouter } from '../modules/RouterWithAuth';
 
-export const routes = [
+export const routes: RouteObject[] = [
   {
-    path: '/',
-    element: <MainPage />,
+    element: <GuestOnlyRouter invalidRedirectTo="/main-menu" />,
+    children: [
+      {
+        path: '/',
+        element: <MainPage />,
+      },
+      {
+        path: '/signin',
+        element: <SigninPage />,
+      },
+      {
+        path: '/signup',
+        element: <SignupPage />,
+      },
+    ],
   },
   {
-    path: '/signin',
-    element: <SigninPage />,
-  },
-  {
-    path: '/signup',
-    element: <SignupPage />,
-  },
-  {
-    path: '/main-menu',
-    element: <GameMainMenu />,
-  },
-  {
-    path: '/game',
-    element: <Game />,
-  },
-  {
-    path: '/tutorial',
-    element: <TutorialPage />,
-  },
-  {
-    path: '/game-over',
-    element: <GameOverPage />,
-  },
-  {
-    path: '/profile',
-    element: <Profile />,
-  },
-  {
-    path: '/leaders',
-    element: <LeaderBoard />,
+    element: <SignedInOnlyRouter invalidRedirectTo="/" />,
+    children: [
+      {
+        path: '/main-menu',
+        element: <GameMainMenu />,
+      },
+      {
+        path: '/game',
+        element: <Game />,
+      },
+      {
+        path: '/tutorial',
+        element: <TutorialPage />,
+      },
+      {
+        path: '/game-over',
+        element: <GameOverPage />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
+      },
+      {
+        path: '/leaders',
+        element: <LeaderBoard />,
+      },
+    ],
   },
   {
     path: '*',

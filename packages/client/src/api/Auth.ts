@@ -6,15 +6,18 @@ const api = new Api(AUTH_BASE_URL);
 
 export const authApi = {
   signin: <T>(data: T_SigninData): Promise<T | unknown> => {
-    return api.post('/signin', data);
+    return api.post('signin', data);
   },
   signup: async <T>(data: T_SignupData): Promise<T | unknown> => {
     try {
-      const response = await api.post('/signup', data);
+      const response = await api.post('signup', data);
       return await response.json();
     } catch (err) {
       if (err instanceof Error) throw err;
       throw new Error(ERROR_MESSAGE);
     }
+  },
+  getUserData: <T>(): Promise<T | unknown> => {
+    return api.get('user');
   },
 };
