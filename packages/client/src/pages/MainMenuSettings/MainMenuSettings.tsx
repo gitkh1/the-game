@@ -4,31 +4,41 @@ import mainPageBG from '../../assets/images/game-main-menu-bg.jpg';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-function toggleFullscreen(e) {
-    const elem = document.documentElement;
-    if (!document.fullscreenElement) {
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      }
-      e.target.textContent = 'Полноэкранный';
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-      e.target.textContent = 'Оконный';
-    }
-}
+
 
 export default function MainMenuSettings() {
     const [windowMode, setWindowMode] = useState('Оконный');
-
-    useEffect(() => {
+    
+    function windowModeToggle(){
         if (!document.fullscreenElement) {
             setWindowMode('Оконный');
-          } else {
+        } else {
             setWindowMode('Полноэкранный');
-          }
+        }
+    }
+
+    useEffect(() => {
+        windowModeToggle();
     }, []);
+
+    function toggleFullscreen() {
+        const elem = document.documentElement;
+        if (!document.fullscreenElement) {
+          if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+          }
+          setWindowMode('Полноэкранный');
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+          setWindowMode('Оконный');
+        }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+        windowModeToggle();
+    });
 
     return(
         <div className={ classes.container }>
