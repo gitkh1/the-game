@@ -13,7 +13,7 @@ export const Preloader: FC<Props> = ({ loaded, children }) => {
       <Fade in={loaded}>
         <div>{children}</div>
       </Fade>
-      <Fade className={classes.preloaderPlaceholder} in={!loaded}>
+      <Fade className={classes.preloader__placeholder} in={!loaded}>
         <div>Loading...</div>
       </Fade>
     </Box>
