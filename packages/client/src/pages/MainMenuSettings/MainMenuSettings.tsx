@@ -4,7 +4,7 @@ import mainPageBG from '../../assets/images/game-main-menu-bg.jpg';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-type T_WindowMode = string;
+type T_WindowMode = 'Оконный' | 'Полноэкранный';
 
 export default function MainMenuSettings() {
     const [windowMode, setWindowMode] = useState<T_WindowMode>('Оконный');
