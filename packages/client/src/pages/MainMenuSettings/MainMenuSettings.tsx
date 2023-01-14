@@ -4,12 +4,12 @@ import mainPageBG from '../../assets/images/game-main-menu-bg.jpg';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-
+type T_WindowMode = string;
 
 export default function MainMenuSettings() {
-    const [windowMode, setWindowMode] = useState('Оконный');
+    const [windowMode, setWindowMode] = useState<T_WindowMode>('Оконный');
     
-    function windowModeToggle(){
+    function toggleWindowMode(){
         if (!document.fullscreenElement) {
             setWindowMode('Оконный');
         } else {
@@ -18,7 +18,13 @@ export default function MainMenuSettings() {
     }
 
     useEffect(() => {
-        windowModeToggle();
+        toggleWindowMode();
+
+        document.addEventListener('fullscreenchange', toggleWindowMode);
+
+        return () => {
+            document.removeEventListener('fullscreenchange', toggleWindowMode);
+        };
     }, []);
 
     function toggleFullscreen() {
@@ -35,10 +41,6 @@ export default function MainMenuSettings() {
           setWindowMode('Оконный');
         }
     }
-
-    document.addEventListener('fullscreenchange', () => {
-        windowModeToggle();
-    });
 
     return(
         <div className={ classes.container }>
