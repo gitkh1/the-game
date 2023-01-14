@@ -27,12 +27,18 @@ self.addEventListener('fetch', event => {
 async function cacheData(request) {
   const cashedRequest = await caches.match(request);
   if (staticAssets.some(sa => request.url.indexOf(sa) >= 0) || request.headers.get('accept').includes('text/html')) {
-    return cashedRequest || await caches.match('/offline.html') || networkFirst(request);
+    return cashedRequest || networkFirst(request);
   }
   return cashedRequest || networkFirst(request);
 }
 
 async function networkFirst(request) {
+  if (
+    request.url.startsWith('chrome-extension') ||
+    request.url.includes('extension') ||
+    !(request.url.indexOf('http') === 0)
+  ) return;
+
   const cache = await caches.open(DYNAMIC_CACHE_NAME);
   try {
     const response = await fetch(request);
