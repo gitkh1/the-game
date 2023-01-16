@@ -7,7 +7,7 @@ const PlayGame: FC = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    return runGame({
+    runGame({
       canvas: canvasRef.current,
     });
   }, [canvasRef.current]);
