@@ -12,5 +12,7 @@ export const Game: FC = () => {
     });
   }, [canvasRef.current]);
 
-  return <canvas ref={canvasRef}></canvas>;
+  return (
+    <canvas ref={canvasRef}></canvas>
+  );
 };
