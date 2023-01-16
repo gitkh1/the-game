@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 import runGame from './runGame';
 
-export const PlayGame: FC = () => {
+const PlayGame: FC = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -16,3 +16,5 @@ export const PlayGame: FC = () => {
     <canvas ref={canvasRef}></canvas>
   );
 };
+
+export default PlayGame;

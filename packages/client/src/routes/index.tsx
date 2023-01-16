@@ -9,7 +9,7 @@ import { Profile } from '../pages/Profile';
 import { LeaderBoard } from '../pages/LeaderBoard';
 import { ProfileChangeData } from '../pages/ProfileChangeData';
 import { ProfileChangePwd } from '../pages/ProfileChangePwd';
-import { PlayGame } from '../Game';
+import PlayGame from '../Game/Game';
 
 export const PATHS = {
   MAIN: '/',
