@@ -3,13 +3,13 @@ import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { MainPage } from '../pages/MainPage';
 import { GameMainMenu } from '../pages/GameMainMenu';
-import { Game } from '../Game';
 import { TutorialPage } from '../pages/TutorialPage';
 import { GameOverPage } from '../pages/GameOverPage';
 import { Profile } from '../pages/Profile';
 import { LeaderBoard } from '../pages/LeaderBoard';
 import { ProfileChangeData } from '../pages/ProfileChangeData';
 import { ProfileChangePwd } from '../pages/ProfileChangePwd';
+import { Game } from '../Game';
 
 export const PATHS = {
   MAIN: '/',
