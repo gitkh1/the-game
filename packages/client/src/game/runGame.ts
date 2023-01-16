@@ -5,7 +5,7 @@ type Props = {
   canvas: HTMLCanvasElement;
 };
 
-export default function runGame({ canvas }: Props) {
+const runGame = ({ canvas }: Props) => {
   const WIDTH = 800;
   const HEIGHT = 500;
   const FLOOR = 400;
@@ -373,4 +373,6 @@ export default function runGame({ canvas }: Props) {
     raf.stop();
     disposedEvent.disposeAll();
   };
-}
+};
+
+export default runGame;
