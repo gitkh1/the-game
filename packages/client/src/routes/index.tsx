@@ -9,7 +9,7 @@ import { Profile } from '../pages/Profile';
 import { LeaderBoard } from '../pages/LeaderBoard';
 import { ProfileChangeData } from '../pages/ProfileChangeData';
 import { ProfileChangePwd } from '../pages/ProfileChangePwd';
-import { Game } from '../Game';
+import { PlayGame } from '../Game';
 
 export const PATHS = {
   MAIN: '/',
@@ -45,7 +45,7 @@ export const routes = [
   },
   {
     path: PATHS.GAME,
-    element: <Game />,
+    element: <PlayGame />,
   },
   {
     path: PATHS.TUTORIAL,
