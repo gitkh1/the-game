@@ -9,9 +9,7 @@ import { Profile } from '../pages/Profile';
 import { LeaderBoard } from '../pages/LeaderBoard';
 import { ProfileChangeData } from '../pages/ProfileChangeData';
 import { ProfileChangePwd } from '../pages/ProfileChangePwd';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import PlayGame from '../Game/Game';
+import { Game } from '../Game';
 
 export const PATHS = {
   MAIN: '/',
@@ -47,7 +45,7 @@ export const routes = [
   },
   {
     path: PATHS.GAME,
-    element: <PlayGame />,
+    element: <Game />,
   },
   {
     path: PATHS.TUTORIAL,
