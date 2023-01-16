@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { FormBuilder, T_FormStructure, yup, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
 import { Box } from '@mui/material';
 import classes from './Signup.module.scss';
-import { T_SignupData } from '../../global/types';
+import { I_SignupData } from '../../global/types';
 import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
@@ -45,7 +45,7 @@ export const SignupPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: T_SignupData) => {
+  const onSubmit = async (data: I_SignupData) => {
     try {
       await authApi.signup(data);
       navigate('/');
@@ -64,7 +64,7 @@ export const SignupPage: FC = () => {
   return (
     <Box className={classes.root}>
       <Box className={classes.root__formWrapper}>
-        <FormBuilder<T_SignupData, T_Schema>
+        <FormBuilder<I_SignupData, T_Schema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationSchema}

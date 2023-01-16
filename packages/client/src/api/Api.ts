@@ -19,9 +19,9 @@ export class Api {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
-          creditinals: 'include',
           ...headers,
         },
+        credentials: 'include',
       });
       return await this.parseResponse(response);
     } catch (err) {
@@ -38,6 +38,7 @@ export class Api {
           'Content-Type': 'application/json;charset=utf-8',
           ...headers,
         },
+        credentials: 'include',
         body: JSON.stringify(data),
       });
 

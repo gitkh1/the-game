@@ -1,9 +1,9 @@
-export interface T_SigninData {
+export interface I_SigninData {
   login: string;
   password: string;
 }
 
-export interface T_SignupData {
+export interface I_SignupData {
   mail: string;
   login: string;
   name: string;

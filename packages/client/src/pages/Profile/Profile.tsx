@@ -1,12 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { userActions } from '../../global/store/actions';
+import { useAppSelector } from '../../global/hooks';
+import { Typography } from '@mui/material';
 
 type T_ProfileFiedsProps = {
   isDisabled: boolean;
@@ -104,6 +106,17 @@ const Profile: FC = () => {
   const formRef = React.useRef();
   const [isChangingData, setIsChangingData] = React.useState(false);
   const [isChangingPassword, setIsChangingPassword] = React.useState(false);
+  const { user } = useAppSelector((state) => state.user);
+  const { getUser } = userActions;
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  // TODO Удалить при рефакторинге
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const changeDataHandler = () => {
     if (isChangingData) {
