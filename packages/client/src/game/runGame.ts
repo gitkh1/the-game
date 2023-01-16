@@ -19,31 +19,18 @@ export default function runGame({ canvas }: Props) {
   // random(max) <==> random(0, max)
   const random = (min = 1, max = 0) => Math.random() * (max - min) + min;
   const randInt = (min: number, max = 0) => Math.floor(random(min, max));
-  const randIntSign = (min: number, max = 0) =>
-    randInt(min, max) * (Math.random() > 0.5 ? 1 : -1);
+  const randIntSign = (min: number, max = 0) => randInt(min, max) * (Math.random() > 0.5 ? 1 : -1);
 
   function clearScreen() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
   }
 
-  function rect(
-    color: string,
-    x: number,
-    y: number,
-    width: number,
-    height: number
-  ) {
+  function rect(color: string, x: number, y: number, width: number, height: number) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
   }
 
-  function text(
-    color: string,
-    str: string,
-    font: string,
-    x: number,
-    y: number
-  ) {
+  function text(color: string, str: string, font: string, x: number, y: number) {
     ctx.font = font;
     ctx.fillStyle = color;
     ctx.fillText(str, x, y);
@@ -65,28 +52,10 @@ export default function runGame({ canvas }: Props) {
     text('black', `Убито: ${scoreKills}`, 'bold 18px Verdana', 20, 35);
     text('darkred', `Пропущено: ${scoreFails}`, 'bold 18px Verdana', 20, 55);
     text('lightblue', `Врагов: ${enemies.length}`, 'bold 18px Verdana', 20, 75);
-    text(
-      'lightblue',
-      `Снарядов: ${projectiles.length}`,
-      'bold 18px Verdana',
-      20,
-      95
-    );
-    text(
-      'lightblue',
-      `Следов попадания: ${projectileStubs.length}`,
-      'bold 18px Verdana',
-      20,
-      115
-    );
+    text('lightblue', `Снарядов: ${projectiles.length}`, 'bold 18px Verdana', 20, 95);
+    text('lightblue', `Следов попадания: ${projectileStubs.length}`, 'bold 18px Verdana', 20, 115);
 
-    text(
-      'darkorange',
-      `Курсор: (${[mousePos.x, mousePos.y].join(', ')})`,
-      'bold 18px Verdana',
-      20,
-      135
-    );
+    text('darkorange', `Курсор: (${[mousePos.x, mousePos.y].join(', ')})`, 'bold 18px Verdana', 20, 135);
   }
 
   let mousePos = { x: 0, y: 0 };
@@ -98,7 +67,7 @@ export default function runGame({ canvas }: Props) {
   disposedEvent(canvas, 'mousedown', () => {
     mousePressed = true;
   });
-  disposedEvent(window, 'mousemove', event => {
+  disposedEvent(window, 'mousemove', (event) => {
     let { offsetX: x, offsetY: y } = event;
     if (event.target !== canvas) {
       const rect = canvas.getBoundingClientRect();
@@ -153,10 +122,7 @@ export default function runGame({ canvas }: Props) {
       dx,
       dy,
       angle: randInt(360),
-      color: `hsl(130 ${randInt(40, 100)}% ${randInt(20, 60)}% / ${randInt(
-        50,
-        100
-      )}%)`,
+      color: `hsl(130 ${randInt(40, 100)}% ${randInt(20, 60)}% / ${randInt(50, 100)}%)`,
       size: PROJECTILE_SIZE + randInt(-5, 5),
       falled: false,
     });
@@ -167,12 +133,10 @@ export default function runGame({ canvas }: Props) {
     }
 
     projectiles = projectiles.filter(({ x, y }) => {
-      return (
-        y < HEIGHT && -PROJECTILE_RADIUS < x && x < WIDTH + PROJECTILE_RADIUS
-      );
+      return y < HEIGHT && -PROJECTILE_RADIUS < x && x < WIDTH + PROJECTILE_RADIUS;
     });
 
-    projectiles.forEach(p => {
+    projectiles.forEach((p) => {
       p.angle += p.dx * dt * PROJECTILE_ROTATE;
       p.x += p.dx * dt;
       p.y += p.dy * dt;
@@ -216,7 +180,7 @@ export default function runGame({ canvas }: Props) {
       return left <= x && x <= right && top <= y && y <= bottom;
     });
     if (p) {
-      projectiles = projectiles.filter(e => e !== p);
+      projectiles = projectiles.filter((e) => e !== p);
       createProjectile(p, enemy);
     }
     return !!p;
@@ -245,25 +209,22 @@ export default function runGame({ canvas }: Props) {
   }
 
   function updateProjectileStubs(dt: number) {
-    projectileStubs.forEach(ps => {
+    projectileStubs.forEach((ps) => {
       ps.ttl -= dt;
     });
-    projectileStubs = projectileStubs.filter(ps => {
+    projectileStubs = projectileStubs.filter((ps) => {
       return ps.ttl > 0;
     });
   }
 
   function drawProjectileStubs(frame: number) {
-    projectileStubs.forEach(ps => {
+    projectileStubs.forEach((ps) => {
       const elapsedTime = PROJECTILE_STUBS_TTL_MS - ps.ttl;
-      const sizePerMs =
-        (PROJECTILE_STUBS_MAXSIZE - PROJECTILE_SIZE) / PROJECTILE_STUBS_TTL_MS;
+      const sizePerMs = (PROJECTILE_STUBS_MAXSIZE - PROJECTILE_SIZE) / PROJECTILE_STUBS_TTL_MS;
       const size = sizePerMs * elapsedTime + PROJECTILE_SIZE;
 
       const opacity = Math.floor((ps.ttl / PROJECTILE_STUBS_TTL_MS) * 100);
-      const color = `hsl(${
-        (frame + ps.offsetFrame) % 360
-      } 70% 50% / ${opacity}%)`;
+      const color = `hsl(${(frame + ps.offsetFrame) % 360} 70% 50% / ${opacity}%)`;
 
       const revert = rotate(ps.x, ps.y, ps.angle);
       rect(color, -size / 2, -size / 2, size, size);
@@ -285,7 +246,7 @@ export default function runGame({ canvas }: Props) {
 
   let enemiesSpawnPause = 0;
   function updateEnemies(dt: number) {
-    enemies = enemies.filter(enemy => {
+    enemies = enemies.filter((enemy) => {
       if (enemy.x <= -ENEMY_WIDTH) {
         scoreFails += 1;
         shakeScreenActivate();
@@ -298,13 +259,12 @@ export default function runGame({ canvas }: Props) {
       return true;
     });
     if (enemiesSpawnPause <= 0 && enemies.length < 500) {
-      enemiesSpawnPause =
-        randInt(ENEMIES_SPAWN_PAUSE_MS_MIN, ENEMIES_SPAWN_PAUSE_MS_MAX) / 1000;
+      enemiesSpawnPause = randInt(ENEMIES_SPAWN_PAUSE_MS_MIN, ENEMIES_SPAWN_PAUSE_MS_MAX) / 1000;
       enemies.push({ x: WIDTH, offsetFrame: randInt(1000) });
     }
     enemiesSpawnPause -= dt;
 
-    enemies.forEach(enemy => {
+    enemies.forEach((enemy) => {
       enemy.x -= ENEMY_SPEED * dt;
     });
   }
@@ -337,10 +297,7 @@ export default function runGame({ canvas }: Props) {
   }
 
   function shakeScreenGetOffset() {
-    const time =
-      shakeTime > SHAKE_TIME_FRAMES / 2
-        ? SHAKE_TIME_FRAMES - shakeTime
-        : shakeTime;
+    const time = shakeTime > SHAKE_TIME_FRAMES / 2 ? SHAKE_TIME_FRAMES - shakeTime : shakeTime;
     return time / SHAKE_TIME_FRAMES;
   }
 
