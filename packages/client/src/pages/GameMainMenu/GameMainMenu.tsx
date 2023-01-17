@@ -18,6 +18,9 @@ export default function GameMainMenu(){
                 <NavLink to='/settings'>
                     <Button color = "primary" variant="contained">Настройки</Button>
                 </NavLink>
+                <NavLink to='/profile'>
+                    <Button color = "primary" variant="contained">Профиль</Button>
+                </NavLink>
                 <NavLink to='/leaders'>
                     <Button color = "primary" variant="contained">Таблица лидеров</Button>
                 </NavLink>
