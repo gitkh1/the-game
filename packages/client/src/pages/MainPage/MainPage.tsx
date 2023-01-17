@@ -1,6 +1,6 @@
 import classes from './MainPage.module.scss';
 import Button from '@mui/material/Button';
-import mainPageBG from '../../assets/images/main-page-bg.jpg';
+import mainPageBG from '../../assets/images/main-page-bg.png';
 import { NavLink } from 'react-router-dom';
 
 export default function MainPage() {
