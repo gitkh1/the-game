@@ -26,7 +26,10 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Почта</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         disabled={isDisabled}
@@ -36,7 +39,10 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Логин</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         disabled={isDisabled}
@@ -46,7 +52,10 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Имя</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         disabled={isDisabled}
@@ -56,7 +65,10 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Фамилия</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         disabled={isDisabled}
@@ -66,7 +78,10 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Имя в чате</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         disabled={isDisabled}
@@ -76,7 +91,10 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Телефон</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
     </>
   );
@@ -91,7 +109,10 @@ const PasswordFields: FC = () => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Старый пароль</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         id="newPassword"
@@ -99,7 +120,10 @@ const PasswordFields: FC = () => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Новый пароль</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
       <TextField
         id="newPassword2"
@@ -107,7 +131,10 @@ const PasswordFields: FC = () => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Новый пароль еще раз</InputAdornment>,
         }}
-        className={ classes.profile__field }
+        sx={{
+          borderRadius: '10px',
+          background: 'white'
+        }}
       />
     </>
   );
@@ -143,27 +170,45 @@ const Profile: FC = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh'
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'grey', width: '130px', height: '140px' }}></Avatar>
           <Typography component="h1" variant="h3" sx={{ color: 'white' }}>
             Иван
           </Typography>
-          <Box component="form" ref={formRef} noValidate sx={{ mt: 1 }} className={classes.profile__form}>
+          <Box component="form" ref={formRef} noValidate 
+              sx={{ 
+                mt: 1,
+                padding: '25px',
+                borderRadius: '10px',
+                background: 'rgba(0,0,0,.5)'
+              }} 
+             
+          >
             {isChangingPassword ? <PasswordFields /> : <ProfileFields isDisabled={!isChangingData} />}
             <Box sx={{ mt: 4 }}>
               {!isChangingPassword && (
-                <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                  <Link onClick={changeDataHandler}>{isChangingData ? 'Сохранить' : 'Изменить данные'}</Link>
+                <FormControl sx={{ borderBottom: '1px solid grey', fontSize:'20px' }}>
+                  <Button 
+                    color = "primary" 
+                    variant="contained" 
+                    onClick={changeDataHandler}>{isChangingData ? 'Сохранить' : 'Изменить данные'}
+                  </Button>
                 </FormControl>
               )}
               {!isChangingData && (
-                <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                  <Link onClick={changePasswordHandler}>{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}</Link>
+                <FormControl sx={{ borderBottom: '1px solid grey', fontSize:'20px' }}>
+                  <Button 
+                    color = "primary" 
+                    variant="contained" 
+                    onClick={changePasswordHandler}>{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}
+                  </Button>
                 </FormControl>
               )}
               <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                <Link href="#" sx={{ color: 'red' }}>
+                <Link href="#" sx={{ color: 'red', fontSize:'20px' }}>
                   Выйти
                 </Link>
               </FormControl>
