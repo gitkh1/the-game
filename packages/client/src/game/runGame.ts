@@ -1,5 +1,5 @@
-import rafLoop from './utils/rafLoop';
 import makeDisposedEvent from './utils/disposedEvent';
+import rafLoop from './utils/rafLoop';
 
 type Props = {
   canvas: HTMLCanvasElement;
