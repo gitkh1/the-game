@@ -10,10 +10,10 @@ export default function MainMenuSettings() {
     const [windowMode, setWindowMode] = useState<T_WindowMode>('Оконный');
     
     function toggleWindowMode(){
-        if (!document.fullscreenElement) {
-            setWindowMode('Оконный');
-        } else {
+        if (document.fullscreenElement) {
             setWindowMode('Полноэкранный');
+        } else {
+            setWindowMode('Оконный');
         }
     }
 
