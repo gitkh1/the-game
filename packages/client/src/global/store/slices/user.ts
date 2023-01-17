@@ -16,19 +16,25 @@ export interface I_User {
 interface T_State {
   user: I_User | null;
   isLoading: boolean;
-  error: Error | null;
+  isError: boolean;
+  errorMessage: string | null;
 }
 
 const initialState: T_State = {
   user: null,
   isLoading: false,
-  error: null,
+  isError: false,
+  errorMessage: null,
 };
 
-const getUser = createAsyncThunk('leaderBoard/fetchTodoStatus', async () => {
-  const response = await authApi.getUser();
-  const fromJson = await response.json();
-  return fromJson;
+const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithValue }) => {
+  try {
+    const response = await authApi.getUser();
+    const fromJson = await response.json();
+    return fromJson;
+  } catch (e) {
+    return rejectWithValue(e);
+  }
 });
 
 export const userSlice = createSlice({
@@ -42,12 +48,16 @@ export const userSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getUser.rejected, (state, action: PayloadAction<unknown>) => {
+        console.log(action);
         if (action.payload instanceof Error) {
-          state.error = action.payload;
+          state.isError = true;
+          state.errorMessage = action.payload.message;
         }
       })
       .addCase(getUser.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = null;
       });
   },
 });
