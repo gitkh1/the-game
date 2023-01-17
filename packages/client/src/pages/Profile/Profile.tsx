@@ -170,7 +170,7 @@ const Profile: FC = () => {
             </Box>
           </Box>
           <NavLink to='/main-menu' className={classes.back__button}>
-            <Button color = "primary" variant="contained" sx={{textDecoration: "none"}}>Вернуться в меню</Button>
+            <Button color = "primary" variant="contained">Вернуться в меню</Button>
           </NavLink>
         </Box>
       </Container>
