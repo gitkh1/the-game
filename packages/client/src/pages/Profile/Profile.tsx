@@ -7,6 +7,10 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import classes from './Profile.module.scss';
+import profileBG from '../../assets/images/game-main-menu-bg.jpg';
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 type T_ProfileFiedsProps = {
   isDisabled: boolean;
@@ -22,6 +26,7 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Почта</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         disabled={isDisabled}
@@ -31,6 +36,7 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Логин</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         disabled={isDisabled}
@@ -40,6 +46,7 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Имя</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         disabled={isDisabled}
@@ -49,6 +56,7 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Фамилия</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         disabled={isDisabled}
@@ -58,6 +66,7 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Имя в чате</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         disabled={isDisabled}
@@ -67,6 +76,7 @@ const ProfileFields: FC<T_ProfileFiedsProps> = ({ isDisabled }) => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Телефон</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
     </>
   );
@@ -81,6 +91,7 @@ const PasswordFields: FC = () => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Старый пароль</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         id="newPassword"
@@ -88,6 +99,7 @@ const PasswordFields: FC = () => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Новый пароль</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
       <TextField
         id="newPassword2"
@@ -95,6 +107,7 @@ const PasswordFields: FC = () => {
         InputProps={{
           startAdornment: <InputAdornment position="start">Новый пароль еще раз</InputAdornment>,
         }}
+        className={ classes.profile__field }
       />
     </>
   );
@@ -122,40 +135,46 @@ const Profile: FC = () => {
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mt: 8 }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'grey', width: '130px', height: '140px' }}></Avatar>
-        <Typography component="h1" variant="h5">
-          Иван
-        </Typography>
-        <Box component="form" ref={formRef} noValidate sx={{ mt: 1 }}>
-          {isChangingPassword ? <PasswordFields /> : <ProfileFields isDisabled={!isChangingData} />}
-          <Box sx={{ mt: 4 }}>
-            {!isChangingPassword && (
+    <>
+      <img src={profileBG} alt="profile-background" className={ classes.background }/>
+      <Container component="main" maxWidth="sm" >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'grey', width: '130px', height: '140px' }}></Avatar>
+          <Typography component="h1" variant="h3" sx={{ color: 'white' }}>
+            Иван
+          </Typography>
+          <Box component="form" ref={formRef} noValidate sx={{ mt: 1 }} className={classes.profile__form}>
+            {isChangingPassword ? <PasswordFields /> : <ProfileFields isDisabled={!isChangingData} />}
+            <Box sx={{ mt: 4 }}>
+              {!isChangingPassword && (
+                <FormControl sx={{ borderBottom: '1px solid grey' }}>
+                  <Link onClick={changeDataHandler}>{isChangingData ? 'Сохранить' : 'Изменить данные'}</Link>
+                </FormControl>
+              )}
+              {!isChangingData && (
+                <FormControl sx={{ borderBottom: '1px solid grey' }}>
+                  <Link onClick={changePasswordHandler}>{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}</Link>
+                </FormControl>
+              )}
               <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                <Link onClick={changeDataHandler}>{isChangingData ? 'Сохранить' : 'Изменить данные'}</Link>
+                <Link href="#" sx={{ color: 'red' }}>
+                  Выйти
+                </Link>
               </FormControl>
-            )}
-            {!isChangingData && (
-              <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                <Link onClick={changePasswordHandler}>{isChangingPassword ? 'Сохранить' : 'Изменить пароль'}</Link>
-              </FormControl>
-            )}
-            <FormControl sx={{ borderBottom: '1px solid grey' }}>
-              <Link href="#" sx={{ color: 'red' }}>
-                Выйти
-              </Link>
-            </FormControl>
+            </Box>
           </Box>
+          <NavLink to='/main-menu' className={classes.back__button}>
+            <Button color = "primary" variant="contained" sx={{textDecoration: "none"}}>Вернуться в меню</Button>
+          </NavLink>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
 

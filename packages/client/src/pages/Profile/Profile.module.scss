@@ -1,0 +1,21 @@
+.back__button{
+    text-decoration: none;
+}
+
+.profile__form{
+    padding: 25px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.5);
+}
+.profile__field{
+    border-radius: 10px;
+    background: white;
+}
+
+.background{
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
