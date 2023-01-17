@@ -9,6 +9,7 @@ import GameOverPage from '../pages/GameOverPage/GameOverPage';
 import Profile from '../pages/Profile/Profile';
 import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
 import MainMenuSettings from '../pages/MainMenuSettings/MainMenuSettings';
+import AboutPage from '../pages/AboutPage/AboutPage';
 
 export const routes = [
   {
@@ -50,6 +51,10 @@ export const routes = [
   {
     path: '/leaders',
     element: <LeaderBoard />,
+  },
+  {
+    path: '/about',
+    element: <AboutPage />,
   },
   {
     path: '*',
