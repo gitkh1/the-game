@@ -1,6 +1,6 @@
 import classes from './GameOverPage.module.scss';
 import Button from '@mui/material/Button';
-import gameOverBG from '../../assets/images/game-over-bg.png';
+import gameOverBG from '../../assets/images/game-over-bg.jpg';
 import { NavLink } from 'react-router-dom';
 
 type T_GameOverPageProps = {

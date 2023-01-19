@@ -6,12 +6,8 @@
     height: 100vh;
     width: 100vw;
 }
-.about__header{
-    font-size: 2em;
-    color: white;
-    margin-bottom: 20px;
-}
-.aboutPage{
+
+.about{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +15,26 @@
     padding: 25px;
     border-radius: 10px;
     background: rgba(0,0,0,.5);
+    &__header{
+        font-size: 2em;
+        color: white;
+        margin-bottom: 20px;
+    }
+    &__item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 300px;
+        margin-bottom: 15px;
+    }
+    &__description{
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        color: white;
+        font-size: 1.3em;
+        text-align: center;
+    }
     & a{
         text-decoration: none;
     }
@@ -26,23 +42,8 @@
         width: 200px;
         margin: 10px;
     }
+}
 
-}
-.about__item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 300px;
-    margin-bottom: 15px;
-}
-.about__description{
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    color: white;
-    font-size: 1.3em;
-    text-align: center;
-}
 
 .background{
     position: absolute;

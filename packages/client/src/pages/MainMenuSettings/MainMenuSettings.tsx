@@ -45,7 +45,7 @@ export default function MainMenuSettings() {
     return(
         <div className={ classes.container }>
             <img src={mainPageBG} alt="game-main-menu-background" className={ classes.background }/>
-            <div className={ classes.mainMenuSettings }>
+            <div className={ classes.settings }>
             <h2 className={ classes.settings__header }>Настройки</h2>
                 <div className={ classes.settings__item }>
                     <div className={ classes.settings__description }>

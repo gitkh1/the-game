@@ -8,7 +8,7 @@ export default function GameMainMenu(){
     return(
         <div className={ classes.container }>
             <img src={gameMainMenuBG} alt="game-main-menu-background" className={ classes.background }/>
-            <div className={ classes.gameMainMenu }>
+            <div className={ classes.menu }>
                 <NavLink to='/game'>
                     <Button color = "primary" variant="contained">Начать игру</Button>
                 </NavLink>
