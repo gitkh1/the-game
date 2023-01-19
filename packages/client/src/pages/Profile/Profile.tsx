@@ -207,15 +207,14 @@ const Profile: FC = () => {
                   </Button>
                 </FormControl>
               )}
-              <FormControl sx={{ borderBottom: '1px solid grey' }}>
-                <Link href="#" sx={{ color: 'red', fontSize:'20px' }}>
-                  Выйти
-                </Link>
-              </FormControl>
+              
             </Box>
           </Box>
           <NavLink to='/main-menu' className={classes.back__button}>
             <Button color = "primary" variant="contained">Вернуться в меню</Button>
+          </NavLink>
+          <NavLink to='/' className={classes.back__button}>
+            <Button color = "error" variant="contained">Выйти из аккаунта</Button>
           </NavLink>
         </Box>
       </Container>
