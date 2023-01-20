@@ -33,9 +33,9 @@ export const Profile: FC = () => {
   const [userInfo, setUserInfo] = useState<T_UserInfoData | undefined>(undefined);
 
   useEffect(() => {
-    authApi.getInfo()
+    authApi.getInfo<T_UserInfoData>()
       .then((response) => {
-        setUserInfo(response as T_UserInfoData);
+        setUserInfo(response);
       }).catch((e) => console.log(e));
   }, []);
 

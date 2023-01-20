@@ -49,23 +49,25 @@ export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema e
         <Box className={classes.root__fields}>
           <LabledFiledInput
             isActive={isEditableAvatar}
-            value={values && values.avatar || ''} />
+            value={values?.avatar} />
         </Box>
         <Typography variant="h4" className={classes.root__title}>
           {structure.title}
         </Typography>
         <Box className={classes.root__fields}>
           {structure.fields.map((item) => (
-            <FieldBuilder key={item.id} {...{ ...item, defaultValue: values && values[item.name], disabled: !isEdit }} />
+            <FieldBuilder key={item.id} {...{ ...item, defaultValue: values?.[item.name], disabled: !isEdit }} />
           ))}
         </Box>
         <Box className={classes.root__footer}>
-          {structure.submit && structure.submit.title &&
+          {structure?.submit?.title ?
             <Button type="submit" variant="contained">
               {structure.submit.title}
-            </Button>}
-          {structure.links &&
-            structure.links.map(link => <CustomLink key={link.to} to={link.to} title={link.title} />)}
+            </Button>
+            : null}
+          {structure.links ?
+            structure.links.map(link => <CustomLink key={link.to} to={link.to} title={link.title} />)
+            : null}
         </Box>
       </Box>
     </FormProvider >

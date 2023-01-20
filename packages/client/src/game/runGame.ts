@@ -297,7 +297,8 @@ const runGame = ({ canvas }: Props) => {
   }
 
   function shakeScreenGetOffset() {
-    const time = shakeTime > SHAKE_TIME_FRAMES / 2 ? SHAKE_TIME_FRAMES - shakeTime : shakeTime;
+    const isFirstHalfOfScreenShakeTime = shakeTime > SHAKE_TIME_FRAMES / 2;
+    const time = isFirstHalfOfScreenShakeTime ? SHAKE_TIME_FRAMES - shakeTime : shakeTime;
     return time / SHAKE_TIME_FRAMES;
   }
 

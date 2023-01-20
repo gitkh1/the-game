@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { T_LabledFiledInput } from '../../types';
 import classes from './LabledFiledInput.module.scss';
@@ -10,23 +10,17 @@ export const LabledFiledInput: FC<T_LabledFiledInput> = ({
 }) => {
   const { control } = useFormContext();
 
-  const [val, setVal] = useState(value);
-  useEffect(() => {
-    setVal(value);
-  }, [value]);
-
+  const [newValue, setNewValue] = useState(value);
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!(e && e.target && e.target.files && e.target.files[0])) {
+    if (!e.target?.files?.[0]) {
       return;
     }
-    setVal(URL.createObjectURL(e.target.files[0]));
+    setNewValue(URL.createObjectURL(e.target.files[0]));
   }
 
   return (
     <label className={classes.label} style={isActive ? { cursor: 'pointer' } : { cursor: 'default' }}>
-      {val &&
-        <img className={classes.label__img} src={val} />
-      }
+      <img className={classes.label__img} src={newValue || value} />
       <input
         className={classes.label__input}
         type='file'
