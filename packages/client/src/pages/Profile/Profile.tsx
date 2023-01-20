@@ -163,7 +163,7 @@ const Profile: FC = () => {
 
   return (
     <>
-      <img src={profileBG} alt="profile-background" className={ classes.background }/>
+      <img src={profileBG} alt="profile-background" className={ classes['background'] }/>
       <Container component="main" maxWidth="sm" >
         <Box
           sx={{
@@ -210,10 +210,10 @@ const Profile: FC = () => {
               
             </Box>
           </Box>
-          <NavLink to='/main-menu' className={classes.back__button}>
+          <NavLink to='/main-menu' className={classes['back__button']}>
             <Button color = "primary" variant="contained">Вернуться в меню</Button>
           </NavLink>
-          <NavLink to='/' className={classes.back__button}>
+          <NavLink to='/' className={classes['back__button']}>
             <Button color = "error" variant="contained">Выйти из аккаунта</Button>
           </NavLink>
         </Box>

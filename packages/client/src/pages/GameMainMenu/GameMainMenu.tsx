@@ -6,9 +6,9 @@ import { NavLink } from 'react-router-dom';
 export default function GameMainMenu(){
 
     return(
-        <div className={ classes.container }>
-            <img src={gameMainMenuBG} alt="game-main-menu-background" className={ classes.background }/>
-            <div className={ classes.menu }>
+        <div className={ classes['container'] }>
+            <img src={gameMainMenuBG} alt="game-main-menu-background" className={ classes['background'] }/>
+            <div className={ classes['main-menu'] }>
                 <NavLink to='/game'>
                     <Button color = "primary" variant="contained">Начать игру</Button>
                 </NavLink>

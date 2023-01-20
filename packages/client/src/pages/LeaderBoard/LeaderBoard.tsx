@@ -45,7 +45,7 @@ const rows = [
 const LeaderBoard: FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <img src={leaderBoardBG} alt="leader-board-background" className={ classes.background }/>
+      <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
@@ -91,7 +91,7 @@ const LeaderBoard: FC = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <NavLink to='/main-menu' className={classes.back__button}>
+          <NavLink to='/main-menu' className={classes['back__button']}>
             <Button color = "primary" variant="contained">Вернуться в меню</Button>
           </NavLink>
         </Box>

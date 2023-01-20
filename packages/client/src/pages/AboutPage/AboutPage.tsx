@@ -14,13 +14,13 @@ const developers = [
 export default function AboutPage() {
 
     return(
-        <div className={ classes.container }>
-            <img src={aboutBG} alt="game-main-menu-background" className={ classes.background }/>
-            <div className={ classes.about }>
-                <h2 className={ classes.about__header }>Об авторах</h2>
+        <div className={ classes['container'] }>
+            <img src={aboutBG} alt="game-main-menu-background" className={ classes['background'] }/>
+            <div className={ classes['about-page'] }>
+                <h2 className={ classes['about-page__header'] }>Об авторах</h2>
 
-                { developers.map(({id, name, link})=><div className={ classes.about__item } key={ id }>
-                    <div className={ classes.about__description }>{ name }</div>
+                { developers.map(({id, name, link})=><div className={ classes['about-page__item'] } key={ id }>
+                    <div className={ classes['about-page__description'] }>{ name }</div>
                     <Button href={ link } target="_blank" rel="noopener" color = "success" variant="contained">GitHub</Button>
                 </div>) }
 

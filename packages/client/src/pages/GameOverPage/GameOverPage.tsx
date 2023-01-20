@@ -10,12 +10,12 @@ type T_GameOverPageProps = {
 export default function GameOverPage(props: T_GameOverPageProps){
 
     return(
-        <div className={ classes.container }>
-            <img src={gameOverBG} alt="game-over-background" className={ classes.background }/>
-            <div className={ classes.gameOver }>
-                <h2 className={ classes.gameOver__title }>Конец игры</h2>
-                <span className={ classes.gameOver__score }>Итоговый счёт: {props.score}</span>
-                <div className={ classes.buttons__container }>
+        <div className={ classes['container'] }>
+            <img src={gameOverBG} alt="game-over-background" className={ classes['background'] }/>
+            <div className={ classes['game-over'] }>
+                <h2 className={ classes['game-over__title'] }>Конец игры</h2>
+                <span className={ classes['game-over__score'] }>Итоговый счёт: {props.score}</span>
+                <div className={ classes['buttons__container'] }>
                     <NavLink to='/game'>
                         <Button color = "primary" variant="contained">Повторить</Button>
                     </NavLink>

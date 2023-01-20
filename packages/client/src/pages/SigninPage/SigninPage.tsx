@@ -59,10 +59,10 @@ export const SigninPage: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
-      <img src={leaderBoardBG} alt="leader-board-background" className={ classes.background }/>
+    <Box className={classes['root']}>
+      <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
       <Box 
-        className={classes.root__formWrapper} 
+        className={classes['root__formWrapper']} 
         sx={{
           padding: '25px',
           borderRadius: '10px',
