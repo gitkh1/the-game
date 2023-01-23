@@ -5,6 +5,7 @@ import gameMainMenuBG from '../../assets/images/game-main-menu-bg.jpg';
 import tutorialImageOne from '../../assets/images/tutorial/tutorial-1.jpg';
 import tutorialImageTwo from '../../assets/images/tutorial/tutorial-2.jpg';
 import { NavLink } from 'react-router-dom';
+import { PATHS } from '../../routes';
 
 export const TutorialPage: FC = () => {
     return(
@@ -25,7 +26,7 @@ export const TutorialPage: FC = () => {
                     <img src={tutorialImageTwo} alt="tutorial-2" className={classes.tutorial__image} />
                 </div>
 
-                <NavLink to='/main-menu'>
+                <NavLink to={PATHS.MAIN_MENU}>
                     <Button color="primary" variant="contained">Вернуться в меню</Button>
                 </NavLink>
             </div>

@@ -7,6 +7,7 @@ import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
+import { PATHS } from '../../routes';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'phone', 'password', 'confirmPassword'];
 
@@ -15,7 +16,7 @@ const getFormStructure = (): T_FormStructure => {
     title: 'Регистрация',
     fields: getFormFields(FIELDS),
     links: [{
-      to: '/signin',
+      to: PATHS.SIGN_IN,
       title: 'Войти',
     }],
     submit: {
@@ -36,7 +37,7 @@ export const SignupPage: FC = () => {
   const onSubmit = async (data: T_SignupData) => {
     try {
       await authApi.signup(data);
-      navigate('/');
+      navigate(PATHS.MAIN);
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);

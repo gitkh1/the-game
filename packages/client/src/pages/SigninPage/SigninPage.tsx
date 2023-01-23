@@ -17,7 +17,7 @@ const getFormStructure = (): T_FormStructure => {
     title: 'Вход',
     fields: getFormFields(FIELDS),
     links: [{
-      to: '/signup',
+      to: PATHS.SIGN_UP,
       title: 'Нет аккаунта?',
     }],
     submit: {

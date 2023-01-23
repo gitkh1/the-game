@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from './constants';
+import { DEFAULT_HEADERS, ERROR_MESSAGE, METHODS, T_CRUD_METHODS } from './constants';
 
 const DEFAULT_TIMEOUT = 500;
 export class Api {
@@ -10,21 +10,20 @@ export class Api {
       const message = 'reason' in error ? error.reason : ERROR_MESSAGE;
       throw new Error(message);
     }
-
     return response;
   }
 
-  public async get(endPoint: string, headers?: HeadersInit): Promise<Response> {
+  private async fetchMethod(url: string, method: T_CRUD_METHODS, data?: unknown) {
     try {
-      const response = await fetch(`${this.baseUrl}${endPoint}`, {
-        method: 'GET',
+      let requestInit: RequestInit = {
+        method: method,
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          'Access-Control-Allow-Origin': '*',
-          ...headers,
-        },
-      });
+        headers: DEFAULT_HEADERS,
+      };
+      if (data) {
+        requestInit = { ...requestInit, body: JSON.stringify(data) };
+      }
+      const response = await fetch(url, requestInit);
       return await this.parseResponse(response);
     } catch (err) {
       if (err instanceof Error) throw err;
@@ -32,60 +31,35 @@ export class Api {
     }
   }
 
-  public async post(endPoint: string, data?: unknown, headers?: HeadersInit): Promise<Response> {
-    try {
-      const response = await fetch(`${this.baseUrl}${endPoint}`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          'Access-Control-Allow-Origin': '*',
-          ...headers,
-        },
-        body: JSON.stringify(data),
-      });
-      return await this.parseResponse(response);
-    } catch (err) {
-      if (err instanceof Error) throw err;
-      throw new Error(ERROR_MESSAGE);
-    }
+  public async get(endPoint: string): Promise<Response> {
+    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.GET);
   }
 
-  public async put(endPoint: string, data?: unknown, headers?: HeadersInit): Promise<Response> {
-    try {
-      const response = await fetch(`${this.baseUrl}${endPoint}`, {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          'Access-Control-Allow-Origin': '*',
-          ...headers,
-        },
-        body: JSON.stringify(data),
-      });
-      return await this.parseResponse(response);
-    } catch (err) {
-      if (err instanceof Error) throw err;
-      throw new Error(ERROR_MESSAGE);
-    }
+  public async put(endPoint: string, data?: unknown): Promise<Response> {
+    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.PUT, data);
   }
+
+  public async post(endPoint: string, data?: unknown): Promise<Response> {
+    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.POST, data);
+  }
+
+  public async delete(endPoint: string, data?: unknown): Promise<Response> {
+    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.DELETE, data);
+  }
+
   public async putFile(endPoint: string, data?: FormData): Promise<XMLHttpRequest> {
     try {
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('PUT', `${this.baseUrl}${endPoint}`);
-
+        xhr.open(METHODS.PUT, `${this.baseUrl}${endPoint}`);
         xhr.withCredentials = true;
         xhr.timeout = DEFAULT_TIMEOUT;
-
         xhr.onload = function () {
           resolve(xhr);
         };
-
         xhr.onabort = reject;
         xhr.onerror = reject;
         xhr.ontimeout = reject;
-
         xhr.send(data);
       });
     } catch (err) {
