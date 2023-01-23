@@ -7,13 +7,13 @@ import tutorialImageTwo from '../../assets/images/tutorial/tutorial-2.jpg';
 import { NavLink } from 'react-router-dom';
 
 export const TutorialPage: FC = () => {
-
-    return (
-        <div className={classes.container}>
-            <img src={gameMainMenuBG} alt="main-page-background" className={classes.background} />
-            <div className={classes.tutorial}>
-                <div className={classes.tutorial__item}>
-                    <div className={classes.tutorial__description}>
+    return(
+        <div className={ classes.container }>
+            <img src={gameMainMenuBG} alt="main-page-background" className={ classes.background }/>
+            <div className={ classes.tutorial }>
+                <h2 className={ classes.tutorial__header }>Как играть</h2>
+                <div className={ classes.tutorial__item }>
+                    <div className={ classes.tutorial__description }>
                         Нажимайте ЛЕВУЮ КНОПКУ МЫШИ, чтобы метать снаряды во врагов.
                     </div>
                     <img src={tutorialImageOne} alt="tutorial-1" className={classes.tutorial__image} />
