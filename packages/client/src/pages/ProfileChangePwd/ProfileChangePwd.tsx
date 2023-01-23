@@ -9,6 +9,9 @@ import { PATHS } from '../../routes';
 import { userApi } from '../../api/User';
 import classes from './ProfileChangePwd.module.scss';
 import { authApi } from '../../api';
+import profileBG from '../../assets/images/game-main-menu-bg.jpg';
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const FIELDS: T_FormFieldNames = ['oldPassword', 'newPassword', 'confirmPassword'];
 
@@ -16,10 +19,6 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Пользователь',
     fields: getFormFields(FIELDS),
-    links: [{
-      to: PATHS.PROFILE,
-      title: 'Назад',
-    }],
     submit: {
       title: 'Сохранить',
     },
@@ -61,6 +60,7 @@ export const ProfileChangePwd: FC = () => {
 
   return (
     <Box className={classes.root}>
+      <img src={profileBG} alt="profile-background" className={ classes['background'] }/>
       <Box className={classes.root__formWrapper}>
         <FormBuilder<T_UserInfoData, T_ProfileSchema>
           onSubmit={onSubmit}
@@ -69,6 +69,9 @@ export const ProfileChangePwd: FC = () => {
           getFormApi={getFormApi}
           values={userInfo}
         />
+        <NavLink to={ PATHS.PROFILE } className={classes['profile__button']}>
+          <Button color = "primary" variant="contained">Назад</Button>
+        </NavLink>
       </Box>
     </Box>
   );
