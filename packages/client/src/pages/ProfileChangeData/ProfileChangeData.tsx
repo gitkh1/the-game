@@ -9,6 +9,9 @@ import { authApi } from '../../api';
 import { PATHS } from '../../routes';
 import classes from './ProfileChangeData.module.scss';
 import { userApi } from '../../api/User';
+import profileBG from '../../assets/images/game-main-menu-bg.jpg';
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'display_name', 'phone'];
 
@@ -16,10 +19,6 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Пользователь',
     fields: getFormFields(FIELDS),
-    links: [{
-      to: PATHS.PROFILE,
-      title: 'Назад',
-    }],
     submit: {
       title: 'Сохранить',
     },
@@ -65,8 +64,9 @@ export const ProfileChangeData: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.root__formWrapper}>
+    <Box className={classes['root']}>
+      <img src={profileBG} alt="profile-background" className={ classes['background'] }/>
+      <Box className={classes['root__formWrapper']}>
         <FormBuilder<T_UserInfoData, T_ProfileSchema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
@@ -76,6 +76,9 @@ export const ProfileChangeData: FC = () => {
           isEditableAvatar={true}
           formRef={formRef}
         />
+        <NavLink to={ PATHS.PROFILE } className={classes['profile__button']}>
+          <Button color = "primary" variant="contained">Назад</Button>
+        </NavLink>
       </Box>
     </Box>
   );
