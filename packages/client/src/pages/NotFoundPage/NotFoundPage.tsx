@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { CustomLink } from '../../components/CustomLink';
 import { Box, Typography } from '@mui/material';
 import classes from './NotFoundPage.module.scss';
