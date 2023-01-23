@@ -62,7 +62,7 @@ export const SignupPage: FC = () => {
           color:'white'
         }}
       >
-        <FormBuilder<T_SignupData, T_Schema>
+        <FormBuilder<T_SignupData>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationSignUpSchema}
