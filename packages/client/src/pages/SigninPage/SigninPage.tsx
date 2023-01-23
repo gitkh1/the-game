@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { FormBuilder, T_FormFieldNames, T_FormStructure, getFormFields } from '../../modules/formBuilder';
 import { Box } from '@mui/material';
 import { yup } from '../../modules/formBuilder/constants/validation';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
+import { PATHS } from '../../routes';
 
 const FIELDS: T_FormFieldNames = ['login', 'password'];
 
@@ -16,10 +17,10 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Вход',
     fields: getFormFields(FIELDS),
-    link: {
+    links: [{
       to: '/signup',
       title: 'Нет аккаунта?',
-    },
+    }],
     submit: {
       title: 'Авторизоваться',
     },
@@ -45,7 +46,7 @@ export const SigninPage: FC = () => {
   const onSubmit = async (data: T_SigninData) => {
     try {
       await authApi.signin(data);
-      navigate('/');
+      navigate(PATHS.PROFILE);
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);

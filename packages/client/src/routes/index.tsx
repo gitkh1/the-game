@@ -1,39 +1,58 @@
 import { SigninPage } from '../pages/SigninPage';
 import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
-import MainPage from '../pages/MainPage/MainPage';
-import GameMainMenu from '../pages/GameMainMenu/GameMainMenu';
-import Game from '../game/Game';
-import TutorialPage from '../pages/TutorialPage/TutorialPage';
-import GameOverPage from '../pages/GameOverPage/GameOverPage';
-import Profile from '../pages/Profile/Profile';
-import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
+import { MainPage } from '../pages/MainPage';
+import { GameMainMenu } from '../pages/GameMainMenu';
+import { TutorialPage } from '../pages/TutorialPage';
+import { GameOverPage } from '../pages/GameOverPage';
+import { Profile } from '../pages/Profile';
+import { LeaderBoard } from '../pages/LeaderBoard';
+import { ProfileChangeData } from '../pages/ProfileChangeData';
+import { ProfileChangePwd } from '../pages/ProfileChangePwd';
+import { Game } from '../game';
 import MainMenuSettings from '../pages/MainMenuSettings/MainMenuSettings';
 import AboutPage from '../pages/AboutPage/AboutPage';
 
+export const PATHS = {
+  MAIN: '/',
+  SIGN_IN: '/signin',
+  SIGN_UP: '/signup',
+  MAIN_MENU: '/main-menu',
+  GAME: '/game',
+  TUTORIAL: '/tutorial',
+  GAMEOVER: '/game-over',
+  PROFILE: '/profile',
+  PROFILE_CHANGE_DATA: '/profilechangedata',
+  PROFILE_CHANGE_PWD: '/profilechangepwd',
+  LEADERS: '/leaders',
+  ABOUT: '/about',
+  NOT_FOUND_PAGE: '*',
+};
+
+
 export const routes = [
   {
-    path: '/',
+    path: PATHS.MAIN,
     element: <MainPage />,
   },
   {
-    path: '/signin',
+    path: PATHS.SIGN_IN,
     element: <SigninPage />,
   },
   {
-    path: '/signup',
+    path: PATHS.SIGN_UP,
     element: <SignupPage />,
   },
   {
-    path: '/main-menu',
+    path: PATHS.MAIN_MENU,
     element: <GameMainMenu />,
   },
   {
-    path: '/game',
+    path: PATHS.GAME,
     element: <Game />,
   },
   {
-    path: '/tutorial',
+    path: PATHS.TUTORIAL,
     element: <TutorialPage />,
   },
   {
@@ -45,19 +64,27 @@ export const routes = [
     element: <GameOverPage />,
   },
   {
-    path: '/profile',
+    path: PATHS.PROFILE,
     element: <Profile />,
   },
   {
-    path: '/leaders',
+    path: PATHS.PROFILE_CHANGE_DATA,
+    element: <ProfileChangeData />,
+  },
+  {
+    path: PATHS.PROFILE_CHANGE_PWD,
+    element: <ProfileChangePwd />,
+  },
+  {
+    path: PATHS.LEADERS,
     element: <LeaderBoard />,
   },
   {
-    path: '/about',
+    path: PATHS.ABOUT,
     element: <AboutPage />,
   },
   {
-    path: '*',
+    path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
   },
 ];

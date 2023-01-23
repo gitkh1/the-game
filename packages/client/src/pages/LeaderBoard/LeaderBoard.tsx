@@ -1,34 +1,13 @@
-import React, { FC } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+import { FC } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Avatar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import classes from './LeaderBoard.module.scss';
 import leaderBoardBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-const theme = createTheme({
-  components: {
-    MuiTableRow: {
-      defaultProps: {
-        sx: {
-          borderBottom: '1px solid #3369F3',
-          '&:last-child td, &:last-child th': { border: 0 },
-        },
-      },
-    },
-    MuiTableCell: {
-      defaultProps: {
-        sx: {
-          border: 0,
-        },
-      },
-    },
-  },
-});
 
 function createData(avatar: string, first_name: string, second_name: string, score: number) {
   return { avatar, name: `${first_name} ${second_name}`, score };
@@ -42,7 +21,7 @@ const rows = [
   createData('', 'Илья', 'Ильин', 94),
 ];
 
-const LeaderBoard: FC = () => {
+export const LeaderBoard: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
@@ -99,5 +78,3 @@ const LeaderBoard: FC = () => {
     </ThemeProvider>
   );
 };
-
-export default LeaderBoard;

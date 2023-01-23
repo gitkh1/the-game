@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import classes from './GameOverPage.module.scss';
 import Button from '@mui/material/Button';
 import gameOverBG from '../../assets/images/game-over-bg.jpg';
@@ -7,7 +8,7 @@ type T_GameOverPageProps = {
     score?: number,
 };
 
-export default function GameOverPage(props: T_GameOverPageProps){
+export const GameOverPage: FC = (props: T_GameOverPageProps) => {
 
     return(
         <div className={ classes['container'] }>
@@ -17,13 +18,13 @@ export default function GameOverPage(props: T_GameOverPageProps){
                 <span className={ classes['game-over__score'] }>Итоговый счёт: {props.score}</span>
                 <div className={ classes['buttons__container'] }>
                     <NavLink to='/game'>
-                        <Button color = "primary" variant="contained">Повторить</Button>
+                        <Button color="primary" variant="contained">Повторить</Button>
                     </NavLink>
                     <NavLink to='/main-menu'>
-                        <Button color = "primary" variant="contained">Вернуться в меню</Button>
+                        <Button color="primary" variant="contained">Вернуться в меню</Button>
                     </NavLink>
                 </div>
-                
+
             </div>
         </div>
     );

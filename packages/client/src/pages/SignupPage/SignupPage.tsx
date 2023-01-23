@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import { FormBuilder, T_FormStructure, yup, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
+import { FC, useState } from 'react';
+import { FormBuilder, T_FormStructure, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
 import { Box } from '@mui/material';
 import classes from './Signup.module.scss';
-import { T_SignupData } from '../../global/types';
+import { T_SignupData, T_SignUpSchema, validationSignUpSchema } from '../../global/types';
 import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
@@ -15,27 +15,15 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Регистрация',
     fields: getFormFields(FIELDS),
-    link: {
+    links: [{
       to: '/signin',
       title: 'Войти',
-    },
+    }],
     submit: {
       title: 'Зарегистрироваться',
     },
   };
 };
-
-const validationSchema = yup.object().shape({
-  email: yup.string().mail(),
-  login: yup.string().login(),
-  first_name: yup.string().name(),
-  second_name: yup.string().name(),
-  phone: yup.string().phone(),
-  password: yup.string().password(),
-  confirmPassword: yup.string().confirmPassword(),
-});
-
-type T_Schema = typeof validationSchema;
 
 export const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -77,7 +65,7 @@ export const SignupPage: FC = () => {
         <FormBuilder<T_SignupData, T_Schema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
-          validationSchema={validationSchema}
+          validationSchema={validationSignUpSchema}
           getFormApi={getFormApi}
         />
       </Box>

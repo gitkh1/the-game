@@ -1,9 +1,4 @@
-import React, { FC } from 'react';
-import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
+import { FC, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -11,6 +6,7 @@ import classes from './Profile.module.scss';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { authApi } from '../../api';
 
 type T_ProfileFiedsProps = {
   isDisabled: boolean;
@@ -140,26 +136,15 @@ const PasswordFields: FC = () => {
   );
 };
 
-const Profile: FC = () => {
-  const formRef = React.useRef();
-  const [isChangingData, setIsChangingData] = React.useState(false);
-  const [isChangingPassword, setIsChangingPassword] = React.useState(false);
+export const Profile: FC = () => {
+  const [userInfo, setUserInfo] = useState<T_UserInfoData | undefined>(undefined);
 
-  const changeDataHandler = () => {
-    if (isChangingData) {
-      const data = Object.values(formRef.current || {});
-      console.log(data);
-    }
-    setIsChangingData(!isChangingData);
-  };
-
-  const changePasswordHandler = () => {
-    if (isChangingPassword) {
-      const data = Object.values(formRef.current || {});
-      console.log(data);
-    }
-    setIsChangingPassword(!isChangingPassword);
-  };
+  useEffect(() => {
+    authApi.getInfo<T_UserInfoData>()
+      .then((response) => {
+        setUserInfo(response);
+      }).catch((e) => console.log(e));
+  }, []);
 
   return (
     <>
@@ -221,5 +206,3 @@ const Profile: FC = () => {
     </>
   );
 };
-
-export default Profile;

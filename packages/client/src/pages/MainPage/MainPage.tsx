@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import classes from './MainPage.module.scss';
 import Button from '@mui/material/Button';
 import mainPageBG from '../../assets/images/main-page-bg.jpg';
 import { NavLink } from 'react-router-dom';
 
-export default function MainPage() {
+export const MainPage: FC = () => {
   return (
     <div className={classes['container']}>
       <img src={mainPageBG} alt="main-page-background" className={classes['background']} />
@@ -26,4 +27,4 @@ export default function MainPage() {
       </div>
     </div>
   );
-}
+};
