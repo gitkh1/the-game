@@ -23,10 +23,9 @@ const rows = [
 
 export const LeaderBoard: FC = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
       <Container component="main" maxWidth="sm">
-        <CssBaseline />
         <Box
           sx={{
             display: 'flex',
@@ -75,6 +74,6 @@ export const LeaderBoard: FC = () => {
           </NavLink>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   );
 };

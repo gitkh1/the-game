@@ -1,4 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
+import Avatar from '@mui/material/Avatar';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -6,7 +10,40 @@ import classes from './Profile.module.scss';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { T_ProfileSchema, T_UserInfoData } from '../../global/types';
+import { useState, useEffect } from 'react';
 import { authApi } from '../../api';
+import { PATHS } from '../../routes';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        margin: "dense",
+        variant: "standard",
+        fullWidth: true,
+        inputProps: {
+          sx: { textAlign: 'right' }
+        }
+      }
+    },
+    MuiFormControl: {
+      defaultProps: {
+        margin: "dense",
+        fullWidth: true,
+      }
+    },
+    MuiLink: {
+      defaultProps: {
+        underline: "hover",
+        sx: {
+          cursor: "pointer",
+        }
+      }
+    }
+  }
+});
 
 type T_ProfileFiedsProps = {
   isDisabled: boolean;
@@ -136,7 +173,8 @@ const PasswordFields: FC = () => {
   );
 };
 
-export const Profile: FC = () => {
+const Profile: FC = () => {
+
   const [userInfo, setUserInfo] = useState<T_UserInfoData | undefined>(undefined);
 
   useEffect(() => {
@@ -146,8 +184,28 @@ export const Profile: FC = () => {
       }).catch((e) => console.log(e));
   }, []);
 
+  const formRef = React.useRef();
+  const [isChangingData, setIsChangingData] = React.useState(false);
+  const [isChangingPassword, setIsChangingPassword] = React.useState(false);
+
+  const changeDataHandler = () => {
+    if (isChangingData) {
+      const data = Object.values(formRef.current || {});
+      console.log(data);
+    }
+    setIsChangingData(!isChangingData);
+  };
+
+  const changePasswordHandler = () => {
+    if (isChangingPassword) {
+      const data = Object.values(formRef.current || {});
+      console.log(data);
+    }
+    setIsChangingPassword(!isChangingPassword);
+  };
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <img src={profileBG} alt="profile-background" className={ classes['background'] }/>
       <Container component="main" maxWidth="sm" >
         <Box
@@ -195,14 +253,16 @@ export const Profile: FC = () => {
               
             </Box>
           </Box>
-          <NavLink to='/main-menu' className={classes['back__button']}>
+          <NavLink to={PATHS.MAIN_MENU} className={classes['back__button']}>
             <Button color = "primary" variant="contained">Вернуться в меню</Button>
           </NavLink>
-          <NavLink to='/' className={classes['back__button']}>
+          <NavLink to={PATHS.MAIN} className={classes['back__button']}>
             <Button color = "error" variant="contained">Выйти из аккаунта</Button>
           </NavLink>
         </Box>
       </Container>
-    </>
+    </ThemeProvider>
   );
 };
+
+export default Profile;
