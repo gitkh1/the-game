@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "test": "jest ./"
   },
+  "typings": "lib",
   "dependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",

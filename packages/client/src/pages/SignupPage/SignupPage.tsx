@@ -1,12 +1,14 @@
-import React, { FC, useState } from 'react';
-import { FormBuilder, T_FormStructure, yup, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
+import { FC, useState } from 'react';
+import { FormBuilder, T_FormStructure, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
 import { Box } from '@mui/material';
 import classes from './Signup.module.scss';
-import { I_SignupData } from '../../global/types';
+import { I_SignupData, validationSignUpSchema } from '../../global/types';
 import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
+import { PATHS } from '../../routes';
+import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'phone', 'password', 'confirmPassword'];
 
@@ -14,27 +16,17 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Регистрация',
     fields: getFormFields(FIELDS),
-    link: {
-      to: '/signin',
-      title: 'Войти',
-    },
+    links: [
+      {
+        to: PATHS.SIGN_IN,
+        title: 'Войти',
+      },
+    ],
     submit: {
       title: 'Зарегистрироваться',
     },
   };
 };
-
-const validationSchema = yup.object().shape({
-  email: yup.string().mail(),
-  login: yup.string().login(),
-  first_name: yup.string().name(),
-  second_name: yup.string().name(),
-  phone: yup.string().phone(),
-  password: yup.string().password(),
-  confirmPassword: yup.string().confirmPassword(),
-});
-
-type T_Schema = typeof validationSchema;
 
 export const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -48,7 +40,7 @@ export const SignupPage: FC = () => {
   const onSubmit = async (data: I_SignupData) => {
     try {
       await authApi.signup(data);
-      navigate('/');
+      navigate(PATHS.MAIN);
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);
@@ -62,13 +54,23 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.root__formWrapper}>
-        <FormBuilder<I_SignupData, T_Schema>
+    <Box className={classes['root']}>
+      <img src={leaderBoardBG} alt="leader-board-background" className={classes['background']} />
+      <Box
+        className={classes['root__formWrapper']}
+        sx={{
+          padding: '25px',
+          borderRadius: '10px',
+          background: 'rgba(0,0,0,.5)',
+          color: 'white',
+        }}
+      >
+        <FormBuilder<I_SignupData>
           onSubmit={onSubmit}
           structure={getFormStructure()}
-          validationSchema={validationSchema}
+          validationSchema={validationSignUpSchema}
           getFormApi={getFormApi}
+          displayAvatar={false}
         />
       </Box>
     </Box>

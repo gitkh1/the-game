@@ -17,8 +17,9 @@
     "packages/*"
   ],
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
+  "typings": "lib",
   "devDependencies": {
     "@evilmartians/lefthook": "1.1.1",
     "identity-obj-proxy": "3.0.0",
