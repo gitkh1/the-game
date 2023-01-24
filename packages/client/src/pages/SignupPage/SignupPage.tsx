@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { FormBuilder, T_FormStructure, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
 import { Box } from '@mui/material';
 import classes from './Signup.module.scss';
-import { T_SignupData, T_SignUpSchema, validationSignUpSchema } from '../../global/types';
+import { T_SignupData, validationSignUpSchema } from '../../global/types';
 import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
@@ -53,14 +53,14 @@ export const SignupPage: FC = () => {
 
   return (
     <Box className={classes['root']}>
-      <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
-      <Box 
-        className={classes['root__formWrapper']} 
+      <img src={leaderBoardBG} alt="leader-board-background" className={classes['background']} />
+      <Box
+        className={classes['root__formWrapper']}
         sx={{
           padding: '25px',
           borderRadius: '10px',
           background: 'rgba(0,0,0,.5)',
-          color:'white'
+          color: 'white'
         }}
       >
         <FormBuilder<T_SignupData>
@@ -68,6 +68,7 @@ export const SignupPage: FC = () => {
           structure={getFormStructure()}
           validationSchema={validationSignUpSchema}
           getFormApi={getFormApi}
+          displayAvatar={false}
         />
       </Box>
     </Box>

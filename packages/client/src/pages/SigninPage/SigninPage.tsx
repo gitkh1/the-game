@@ -76,6 +76,7 @@ export const SigninPage: FC = () => {
           structure={getFormStructure()}
           validationSchema={validationSchema}
           getFormApi={getFormApi}
+          displayAvatar={false}
         />
       </Box>
     </Box>
