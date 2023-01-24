@@ -18,6 +18,7 @@ type T_Props<T_Data, T_Schema> = {
   getFormApi?: (api: UseFormReturn) => void;
   values?: T_Data;
   isEditableAvatar?: boolean;
+  displayAvatar?: boolean;
   formRef?: MutableRefObject<HTMLFormElement | null>;
 };
 
@@ -29,6 +30,7 @@ export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema e
   getFormApi,
   values,
   isEditableAvatar = false,
+  displayAvatar = true,
   formRef,
 }: T_Props<T_Data, T_Schema>) => {
   const formApi = useForm<T_Data>({
@@ -47,9 +49,11 @@ export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema e
     <FormProvider {...formApi}>
       <Box component="form" onSubmit={formApi.handleSubmit(onFormSubmit)} className={classes.root} ref={formRef}>
         <Box className={classes.root__fields}>
-          <LabledFiledInput
-            isActive={isEditableAvatar}
-            value={values?.avatar} />
+          {displayAvatar ?
+            <LabledFiledInput
+              isActive={isEditableAvatar}
+              value={values?.avatar} />
+            : null}
         </Box>
         <Typography variant="h4" className={classes.root__title}>
           {structure.title}

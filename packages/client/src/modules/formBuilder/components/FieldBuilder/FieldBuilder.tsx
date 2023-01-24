@@ -2,6 +2,19 @@ import { FC, useEffect, useRef } from 'react';
 import { T_FormField } from '../../types';
 import TextField from '@mui/material/TextField';
 import { useFormContext } from 'react-hook-form';
+import { InputAdornment } from '@mui/material';
+import styled from '@emotion/styled';
+
+const CssTextField = styled(TextField)({
+  '& .MuiInputBase-root': {
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: '3px 10px'
+  },
+  '& .MuiInputBase-input': {
+    textAlign: 'right',
+  }
+});
 
 export const FieldBuilder: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = '' }) => {
   const {
@@ -20,9 +33,12 @@ export const FieldBuilder: FC<T_FormField> = ({ label, name, type, disabled = fa
   const hasError = !!errors?.[name];
 
   return (
-    <TextField
+    <CssTextField
       variant="standard"
-      label={label}
+      InputProps={{
+        startAdornment: <InputAdornment position="start">{label}</InputAdornment>,
+      }}
+      focused={false}
       type={type}
       error={hasError}
       disabled={disabled}

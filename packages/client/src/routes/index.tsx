@@ -10,8 +10,8 @@ import { LeaderBoard } from '../pages/LeaderBoard';
 import { ProfileChangeData } from '../pages/ProfileChangeData';
 import { ProfileChangePwd } from '../pages/ProfileChangePwd';
 import { Game } from '../game';
-import MainMenuSettings from '../pages/MainMenuSettings/MainMenuSettings';
-import AboutPage from '../pages/AboutPage/AboutPage';
+import { MainMenuSettings } from '../pages/MainMenuSettings';
+import { AboutPage } from '../pages/AboutPage';
 
 export const PATHS = {
   MAIN: '/',
@@ -21,6 +21,7 @@ export const PATHS = {
   GAME: '/game',
   TUTORIAL: '/tutorial',
   GAMEOVER: '/game-over',
+  SETTINGS: '/settings',
   PROFILE: '/profile',
   PROFILE_CHANGE_DATA: '/profilechangedata',
   PROFILE_CHANGE_PWD: '/profilechangepwd',
@@ -56,11 +57,11 @@ export const routes = [
     element: <TutorialPage />,
   },
   {
-    path: '/settings',
+    path: PATHS.SETTINGS,
     element: <MainMenuSettings />,
   },
   {
-    path: '/game-over',
+    path: PATHS.GAMEOVER,
     element: <GameOverPage />,
   },
   {
