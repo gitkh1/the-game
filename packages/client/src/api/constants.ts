@@ -5,14 +5,14 @@ export const AUTH_BASE_URL = BASE_URL + '/auth';
 export const USER_BASE_URL = BASE_URL + '/user';
 export const RESOURCES_BASE_URL = BASE_URL + '/resources';
 
-export type T_CRUD_METHODS = 'GET' | 'PUT' | 'POST' | 'DELETE';
-
-export const METHODS: Record<T_CRUD_METHODS, T_CRUD_METHODS> = {
+export const METHODS = {
   GET: 'GET',
   PUT: 'PUT',
   POST: 'POST',
   DELETE: 'DELETE',
-};
+} as const;
+
+export type T_CRUD_METHODS = keyof typeof METHODS;
 
 export const DEFAULT_HEADERS = {
   'Content-Type': 'application/json;charset=utf-8',
