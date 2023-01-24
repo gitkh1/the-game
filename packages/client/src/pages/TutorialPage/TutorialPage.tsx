@@ -9,21 +9,21 @@ import { PATHS } from '../../routes';
 
 export const TutorialPage: FC = () => {
     return(
-        <div className={ classes.container }>
-            <img src={gameMainMenuBG} alt="main-page-background" className={ classes.background }/>
-            <div className={ classes.tutorial }>
-                <h2 className={ classes.tutorial__header }>Как играть</h2>
-                <div className={ classes.tutorial__item }>
-                    <div className={ classes.tutorial__description }>
+        <div className={ classes['container']}>
+            <img src={gameMainMenuBG} alt="main-page-background" className={ classes['background'] }/>
+            <div className={ classes['tutorial'] }>
+                <h2 className={ classes['tutorial__header'] }>Как играть</h2>
+                <div className={ classes['tutorial__item'] }>
+                    <div className={ classes['tutorial__description'] }>
                         Нажимайте ЛЕВУЮ КНОПКУ МЫШИ, чтобы метать снаряды во врагов.
                     </div>
-                    <img src={tutorialImageOne} alt="tutorial-1" className={classes.tutorial__image} />
+                    <img src={tutorialImageOne} alt="tutorial-1" className={ classes['tutorial__image'] }/>
                 </div>
-                <div className={classes.tutorial__item}>
-                    <div className={classes.tutorial__description}>
+                <div className={ classes['tutorial__item'] }>
+                    <div className={ classes['tutorial__description'] }>
                         Нажимайте ПРОБЕЛ, чтобы оживлять врагов в виде скелетов.
                     </div>
-                    <img src={tutorialImageTwo} alt="tutorial-2" className={classes.tutorial__image} />
+                    <img src={tutorialImageTwo} alt="tutorial-2" className={ classes['tutorial__image'] }/>
                 </div>
 
                 <NavLink to={PATHS.MAIN_MENU}>

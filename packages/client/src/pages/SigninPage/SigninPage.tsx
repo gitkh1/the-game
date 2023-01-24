@@ -8,6 +8,7 @@ import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
+import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
 import { PATHS } from '../../routes';
 
 const FIELDS: T_FormFieldNames = ['login', 'password'];
@@ -59,8 +60,17 @@ export const SigninPage: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.root__formWrapper}>
+    <Box className={classes['root']}>
+      <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
+      <Box 
+        className={classes['root__formWrapper']} 
+        sx={{
+          padding: '25px',
+          borderRadius: '10px',
+          background: 'rgba(0,0,0,.5)',
+          color:'white'
+        }}
+      >
         <FormBuilder<T_SigninData, T_Schema>
           onSubmit={onSubmit}
           structure={getFormStructure()}

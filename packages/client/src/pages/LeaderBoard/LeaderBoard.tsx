@@ -3,6 +3,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Avatar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import classes from './LeaderBoard.module.scss';
+import leaderBoardBG from '../../assets/images/game-main-menu-bg.jpg';
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 
 function createData(avatar: string, first_name: string, second_name: string, score: number) {
@@ -19,43 +23,57 @@ const rows = [
 
 export const LeaderBoard: FC = () => {
   return (
-    <Container component="main" maxWidth="sm" sx={{ mt: 8 }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Typography component="h1" variant="h4" mb={4}>
-          LeaderBoard
-        </Typography>
-        <TableContainer>
-          <Table sx={{ minWidth: 300 }}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Place</TableCell>
-                <TableCell align="left">Name</TableCell>
-                <TableCell align="right">Score</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows
-                .sort((a, b) => b.score - a.score)
-                .map((row, id) => (
-                  <TableRow key={row.name}>
-                    <TableCell align="center">{id + 1}</TableCell>
-                    <TableCell component="th" scope="row" sx={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
-                      <Avatar src={row.avatar}></Avatar>
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.score}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </Container>
+    <>
+      <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
+      <Container component="main" maxWidth="sm">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh'
+          }}
+        >
+          <Typography component="h1" variant="h3" mb={4} sx={{color: "white"}}>
+            Таблица лидеров
+          </Typography>
+          <TableContainer >
+            <Table sx={{ 
+              minWidth: 300,
+              padding: '25px',
+              borderRadius: '10px',
+              background: 'rgba(0,0,0,.5)',
+              }}
+            >
+              <TableHead>
+                <TableRow >
+                  <TableCell align="center" sx={{color:'white'}}>Place</TableCell>
+                  <TableCell align="left" sx={{color:'white'}}>Name</TableCell>
+                  <TableCell align="right" sx={{color:'white'}}>Score</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .sort((a, b) => b.score - a.score)
+                  .map((row, id) => (
+                    <TableRow key={row.name}>
+                      <TableCell align="center" sx={{color:'white'}}>{id + 1}</TableCell>
+                      <TableCell component="th" scope="row" sx={{ display: 'flex', columnGap: '10px', alignItems: 'center', color:'white' }}>
+                        <Avatar src={row.avatar}></Avatar>
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right" sx={{color:'white'}}>{row.score}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <NavLink to='/main-menu' className={classes['back__button']}>
+            <Button color = "primary" variant="contained">Вернуться в меню</Button>
+          </NavLink>
+        </Box>
+      </Container>
+    </>
   );
 };

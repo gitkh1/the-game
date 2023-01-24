@@ -7,10 +7,10 @@ import { PATHS } from '../../routes';
 
 export const GameMainMenu: FC = () => {
 
-    return (
-        <div className={classes.container}>
-            <img src={gameMainMenuBG} alt="game-main-menu-background" className={classes.background} />
-            <div className={classes.gameMainMenu}>
+    return(
+        <div className={ classes['container'] }>
+            <img src={gameMainMenuBG} alt="game-main-menu-background" className={ classes['background'] }/>
+            <div className={ classes['main-menu'] }>
                 <NavLink to={PATHS.GAME}>
                     <Button color="primary" variant="contained">Начать игру</Button>
                 </NavLink>
@@ -19,6 +19,9 @@ export const GameMainMenu: FC = () => {
                 </NavLink>
                 <NavLink to={PATHS.SETTINGS}>
                     <Button color="primary" variant="contained">Настройки</Button>
+                </NavLink>
+                <NavLink to={PATHS.PROFILE}>
+                    <Button color = "primary" variant="contained">Профиль</Button>
                 </NavLink>
                 <NavLink to={PATHS.LEADERS}>
                     <Button color="primary" variant="contained">Таблица лидеров</Button>

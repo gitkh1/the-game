@@ -10,7 +10,8 @@ import { LeaderBoard } from '../pages/LeaderBoard';
 import { ProfileChangeData } from '../pages/ProfileChangeData';
 import { ProfileChangePwd } from '../pages/ProfileChangePwd';
 import { Game } from '../game';
-import { MainMenuSettings } from '../pages/MainMenuSettings';
+import MainMenuSettings from '../pages/MainMenuSettings/MainMenuSettings';
+import AboutPage from '../pages/AboutPage/AboutPage';
 
 export const PATHS = {
   MAIN: '/',
@@ -78,6 +79,10 @@ export const routes = [
   {
     path: PATHS.LEADERS,
     element: <LeaderBoard />,
+  },
+  {
+    path: PATHS.ABOUT,
+    element: <AboutPage />,
   },
   {
     path: PATHS.NOT_FOUND_PAGE,
