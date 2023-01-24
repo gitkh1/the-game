@@ -3,13 +3,13 @@ import { FormBuilder, T_FormFieldNames, T_FormStructure, getFormFields } from '.
 import { Box } from '@mui/material';
 import { yup } from '../../modules/formBuilder/constants/validation';
 import classes from './SigninPage.module.scss';
-import { T_SigninData } from '../../global/types';
 import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
 import { PATHS } from '../../routes';
+import { I_SigninData } from '../../global/types';
 
 const FIELDS: T_FormFieldNames = ['login', 'password'];
 
@@ -17,10 +17,12 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Вход',
     fields: getFormFields(FIELDS),
-    links: [{
-      to: PATHS.SIGN_UP,
-      title: 'Нет аккаунта?',
-    }],
+    links: [
+      {
+        to: PATHS.SIGN_UP,
+        title: 'Нет аккаунта?',
+      },
+    ],
     submit: {
       title: 'Авторизоваться',
     },
@@ -43,7 +45,7 @@ export const SigninPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: T_SigninData) => {
+  const onSubmit = async (data: I_SigninData) => {
     try {
       await authApi.signin(data);
       navigate(PATHS.PROFILE);
@@ -61,17 +63,17 @@ export const SigninPage: FC = () => {
 
   return (
     <Box className={classes['root']}>
-      <img src={leaderBoardBG} alt="leader-board-background" className={ classes['background'] }/>
-      <Box 
-        className={classes['root__formWrapper']} 
+      <img src={leaderBoardBG} alt="leader-board-background" className={classes['background']} />
+      <Box
+        className={classes['root__formWrapper']}
         sx={{
           padding: '25px',
           borderRadius: '10px',
           background: 'rgba(0,0,0,.5)',
-          color:'white'
+          color: 'white',
         }}
       >
-        <FormBuilder<T_SigninData, T_Schema>
+        <FormBuilder<I_SigninData, T_Schema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationSchema}

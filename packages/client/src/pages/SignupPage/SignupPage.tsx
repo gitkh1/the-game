@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { FormBuilder, T_FormStructure, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
 import { Box } from '@mui/material';
 import classes from './Signup.module.scss';
-import { T_SignupData, validationSignUpSchema } from '../../global/types';
+import { I_SignupData, validationSignUpSchema } from '../../global/types';
 import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
@@ -16,10 +16,12 @@ const getFormStructure = (): T_FormStructure => {
   return {
     title: 'Регистрация',
     fields: getFormFields(FIELDS),
-    links: [{
-      to: PATHS.SIGN_IN,
-      title: 'Войти',
-    }],
+    links: [
+      {
+        to: PATHS.SIGN_IN,
+        title: 'Войти',
+      },
+    ],
     submit: {
       title: 'Зарегистрироваться',
     },
@@ -35,7 +37,7 @@ export const SignupPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: T_SignupData) => {
+  const onSubmit = async (data: I_SignupData) => {
     try {
       await authApi.signup(data);
       navigate(PATHS.MAIN);
@@ -60,10 +62,10 @@ export const SignupPage: FC = () => {
           padding: '25px',
           borderRadius: '10px',
           background: 'rgba(0,0,0,.5)',
-          color: 'white'
+          color: 'white',
         }}
       >
-        <FormBuilder<T_SignupData>
+        <FormBuilder<I_SignupData>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationSignUpSchema}

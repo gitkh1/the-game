@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from '../../modules/formBuilder';
-import { T_ProfileSchema, T_UserInfoData, T_UserPwdData, validationProfileSchema } from '../../global/types';
+import { T_ProfileSchema, I_UserInfoData, I_UserPwdData, validationProfileSchema } from '../../global/types';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
@@ -34,7 +34,7 @@ export const ProfileChangePwd: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: T_UserPwdData) => {
+  const onSubmit = async (data: I_UserPwdData) => {
     try {
       await userApi.changePwd(data);
       navigate(PATHS.PROFILE);
@@ -46,12 +46,14 @@ export const ProfileChangePwd: FC = () => {
     }
   };
 
-  const [userInfo, setUserInfo] = useState<T_UserInfoData | undefined>(undefined);
+  const [userInfo, setUserInfo] = useState<I_UserInfoData | undefined>(undefined);
   useEffect(() => {
-    authApi.getInfo<T_UserInfoData>()
+    authApi
+      .getInfo<I_UserInfoData>()
       .then((response) => {
         setUserInfo(response);
-      }).catch((e) => console.log(e));
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   const getFormApi = (api: UseFormReturn) => {
@@ -60,17 +62,19 @@ export const ProfileChangePwd: FC = () => {
 
   return (
     <Box className={classes.root}>
-      <img src={profileBG} alt="profile-background" className={ classes['background'] }/>
+      <img src={profileBG} alt="profile-background" className={classes['background']} />
       <Box className={classes.root__formWrapper}>
-        <FormBuilder<T_UserInfoData, T_ProfileSchema>
+        <FormBuilder<I_UserInfoData, T_ProfileSchema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationProfileSchema}
           getFormApi={getFormApi}
           values={userInfo}
         />
-        <NavLink to={ PATHS.PROFILE } className={classes['profile__button']}>
-          <Button color = "primary" variant="contained">Назад</Button>
+        <NavLink to={PATHS.PROFILE} className={classes['profile__button']}>
+          <Button color="primary" variant="contained">
+            Назад
+          </Button>
         </NavLink>
       </Box>
     </Box>
