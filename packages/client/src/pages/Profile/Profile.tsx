@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Box from '@mui/material/Box';
-import classes from './Profile.module.scss';
+import classes from '../../global/styles/ProfilePages.module.scss';
 import { T_ProfileSchema, I_UserInfo } from '../../global/types';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';

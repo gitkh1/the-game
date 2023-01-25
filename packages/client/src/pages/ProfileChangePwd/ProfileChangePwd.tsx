@@ -7,7 +7,7 @@ import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import { PATHS } from '../../routes';
 import { userApi } from '../../api/User';
-import classes from './ProfileChangePwd.module.scss';
+import classes from '../../global/styles/ProfilePages.module.scss';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification, useUserInfo } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import { PATHS } from '../../routes';
-import classes from './ProfileChangeData.module.scss';
+import classes from '../../global/styles/ProfilePages.module.scss';
 import { userApi } from '../../api/User';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
