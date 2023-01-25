@@ -1,11 +1,11 @@
 import { yup } from '../../modules/formBuilder';
 
-export interface I_SigninData {
+export interface I_Signin {
   login: string;
   password: string;
 }
 
-export interface I_SignupData {
+export interface I_Signup {
   mail: string;
   login: string;
   name: string;
@@ -15,7 +15,7 @@ export interface I_SignupData {
   confirmPassword: string;
 }
 
-export interface I_UserInfoData {
+export interface I_UserInfo {
   id: number;
   first_name: string;
   second_name: string;
@@ -26,7 +26,7 @@ export interface I_UserInfoData {
   avatar: string;
 }
 
-export interface I_UserUpdateData {
+export interface I_UserUpdate {
   id: number;
   first_name: string;
   second_name: string;
@@ -37,7 +37,7 @@ export interface I_UserUpdateData {
   avatar: string | null;
 }
 
-export interface I_UserPwdData {
+export interface I_UserPwd {
   avatar: string | null;
 }
 

@@ -9,7 +9,7 @@ import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
 import { PATHS } from '../../routes';
-import { I_SigninData } from '../../global/types';
+import { I_Signin } from '../../global/types';
 
 const FIELDS: T_FormFieldNames = ['login', 'password'];
 
@@ -45,7 +45,7 @@ export const SigninPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: I_SigninData) => {
+  const onSubmit = async (data: I_Signin) => {
     try {
       await authApi.signin(data);
       navigate(PATHS.PROFILE);
@@ -73,7 +73,7 @@ export const SigninPage: FC = () => {
           color: 'white',
         }}
       >
-        <FormBuilder<I_SigninData, T_Schema>
+        <FormBuilder<I_Signin, T_Schema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationSchema}

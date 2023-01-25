@@ -1,27 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from '../../../api';
-
-export interface I_User {
-  id?: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string | null;
-}
+import { I_UserInfo } from '../../types';
 
 interface T_State {
-  user: I_User | null;
+  data: I_UserInfo | null;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string | null;
 }
 
 const initialState: T_State = {
-  user: null,
+  data: null,
   isLoading: false,
   isError: false,
   errorMessage: null,
@@ -29,9 +19,8 @@ const initialState: T_State = {
 
 const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithValue }) => {
   try {
-    const response = await authApi.getUser();
-    const fromJson = await response.json();
-    return fromJson;
+    const data = await authApi.getUser<I_UserInfo>();
+    return data;
   } catch (e) {
     return rejectWithValue(e);
   }
@@ -43,8 +32,8 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getUser.fulfilled, (state, action: PayloadAction<I_User>) => {
-        state.user = { ...action.payload };
+      .addCase(getUser.fulfilled, (state, action: PayloadAction<I_UserInfo>) => {
+        state.data = { ...action.payload };
         state.isLoading = false;
       })
       .addCase(getUser.rejected, (state, action: PayloadAction<unknown>) => {

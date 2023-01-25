@@ -1,11 +1,10 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from '../../modules/formBuilder';
-import { T_ProfileSchema, I_UserInfoData, validationProfileSchema } from '../../global/types';
+import { T_ProfileSchema, I_UserInfo, validationProfileSchema } from '../../global/types';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../global/hooks';
+import { useNotification, useUserInfo } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
-import { authApi } from '../../api';
 import { PATHS } from '../../routes';
 import classes from './ProfileChangeData.module.scss';
 import { userApi } from '../../api/User';
@@ -34,18 +33,8 @@ export const ProfileChangeData: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const [userInfo, setUserInfo] = useState<I_UserInfoData | undefined>(undefined);
-  useEffect(() => {
-    authApi
-      .getInfo<I_UserInfoData>()
-      .then((response) => {
-        setUserInfo(response);
-      })
-      .catch((e) => console.log(e));
-  }, []);
-
   const formRef = useRef<HTMLFormElement | null>(null);
-  const onSubmit = async (data: I_UserInfoData) => {
+  const onSubmit = async (data: I_UserInfo) => {
     try {
       await userApi.changeProfile({ ...data, avatar: null });
       if (formRef && formRef.current) {
@@ -65,11 +54,13 @@ export const ProfileChangeData: FC = () => {
     if (!formApi) setFormApi(api);
   };
 
+  const userInfo = useUserInfo();
+
   return (
     <Box className={classes['root']}>
       <img src={profileBG} alt="profile-background" className={classes['background']} />
       <Box className={classes['root__formWrapper']}>
-        <FormBuilder<I_UserInfoData, T_ProfileSchema>
+        <FormBuilder<I_UserInfo, T_ProfileSchema>
           onSubmit={onSubmit}
           structure={getFormStructure()}
           validationSchema={validationProfileSchema}
