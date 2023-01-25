@@ -5,7 +5,7 @@ import classes from './game.module.scss';
 
 type Score = { kills: number; level: number };
 
-const Game: FC = () => {
+export const Game: FC = () => {
   const canvasRef = useRef(null);
   const navigate = useNavigate();
 
@@ -21,5 +21,3 @@ const Game: FC = () => {
 
   return <canvas className={classes['game-canvas']} ref={canvasRef} width={1200} height={700}></canvas>;
 };
-
-export default Game;
