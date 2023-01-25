@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import mainPageBG from '../../assets/images/game-main-menu-bg.jpg';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { PATHS } from '../../routes';
+import { PATHS } from '../../global/paths';
 
 type T_WindowMode = 'Оконный' | 'Полноэкранный';
 

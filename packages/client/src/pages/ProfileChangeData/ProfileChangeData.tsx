@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import { authApi } from '../../api';
-import { PATHS } from '../../routes';
 import classes from './ProfileChangeData.module.scss';
 import { userApi } from '../../api/User';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { PATHS } from '../../global/paths';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'display_name', 'phone'];
 

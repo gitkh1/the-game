@@ -1,0 +1,16 @@
+export const PATHS = {
+  MAIN: '/',
+  SIGN_IN: '/signin',
+  SIGN_UP: '/signup',
+  MAIN_MENU: '/main-menu',
+  GAME: '/game',
+  TUTORIAL: '/tutorial',
+  GAMEOVER: '/game-over',
+  SETTINGS: '/settings',
+  PROFILE: '/profile',
+  PROFILE_CHANGE_DATA: '/profilechangedata',
+  PROFILE_CHANGE_PWD: '/profilechangepwd',
+  LEADERS: '/leaders',
+  ABOUT: '/about',
+  NOT_FOUND_PAGE: '*',
+};

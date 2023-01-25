@@ -5,7 +5,7 @@ import gameMainMenuBG from '../../assets/images/game-main-menu-bg.jpg';
 import tutorialImageOne from '../../assets/images/tutorial/tutorial-1.jpg';
 import tutorialImageTwo from '../../assets/images/tutorial/tutorial-2.jpg';
 import { NavLink } from 'react-router-dom';
-import { PATHS } from '../../routes';
+import { PATHS } from '../../global/paths';
 
 export const TutorialPage: FC = () => {
     return(

@@ -3,7 +3,7 @@ import classes from './GameMainMenu.module.scss';
 import Button from '@mui/material/Button';
 import gameMainMenuBG from '../../assets/images/game-main-menu-bg.jpg';
 import { NavLink } from 'react-router-dom';
-import { PATHS } from '../../routes';
+import { PATHS } from '../../global/paths';
 
 export const GameMainMenu: FC = () => {
 

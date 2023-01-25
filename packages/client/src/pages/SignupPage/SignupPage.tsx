@@ -7,8 +7,8 @@ import { authApi } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
-import { PATHS } from '../../routes';
 import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
+import { PATHS } from '../../global/paths';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'phone', 'password', 'confirmPassword'];
 

@@ -3,7 +3,7 @@ import classes from './GameOverPage.module.scss';
 import Button from '@mui/material/Button';
 import gameOverBG from '../../assets/images/game-over-bg.jpg';
 import { NavLink } from 'react-router-dom';
-import { PATHS } from '../../routes';
+import { PATHS } from '../../global/paths';
 
 type T_GameOverPageProps = {
     score?: number,

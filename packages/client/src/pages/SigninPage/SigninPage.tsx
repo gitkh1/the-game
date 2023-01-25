@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
-import { PATHS } from '../../routes';
 import { I_SigninData } from '../../global/types';
+import { PATHS } from '../../global/paths';
 
 const FIELDS: T_FormFieldNames = ['login', 'password'];
 

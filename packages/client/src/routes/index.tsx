@@ -12,24 +12,7 @@ import { ProfileChangePwd } from '../pages/ProfileChangePwd';
 import { Game } from '../game';
 import { MainMenuSettings } from '../pages/MainMenuSettings';
 import { AboutPage } from '../pages/AboutPage';
-
-export const PATHS = {
-  MAIN: '/',
-  SIGN_IN: '/signin',
-  SIGN_UP: '/signup',
-  MAIN_MENU: '/main-menu',
-  GAME: '/game',
-  TUTORIAL: '/tutorial',
-  GAMEOVER: '/game-over',
-  SETTINGS: '/settings',
-  PROFILE: '/profile',
-  PROFILE_CHANGE_DATA: '/profilechangedata',
-  PROFILE_CHANGE_PWD: '/profilechangepwd',
-  LEADERS: '/leaders',
-  ABOUT: '/about',
-  NOT_FOUND_PAGE: '*',
-};
-
+import { PATHS } from '../global/paths';
 
 export const routes = [
   {
