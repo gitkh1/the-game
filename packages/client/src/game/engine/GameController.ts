@@ -151,10 +151,10 @@ export class GameController extends BaseController {
         enemyConfig.jumpedEnemyChance += 3;
         break;
       case 'jumpHeight':
-        enemyConfig.jumpHeight += 8;
+        enemyConfig.jumpHeight += 15;
         break;
       case 'jumpLength':
-        enemyConfig.jumpLength += 8;
+        enemyConfig.jumpLength += 15;
         break;
       case 'walkSpeed':
         enemyConfig.speed += 12;

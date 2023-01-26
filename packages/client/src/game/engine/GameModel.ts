@@ -60,8 +60,8 @@ export const configureDefaultGameModel: ConfigureFn = (canvas) => {
       speed: 80,
       spawnDelay: [500, 2000],
       currentSpawnDelay: 0,
-      jumpHeight: 20,
-      jumpLength: 20,
+      jumpHeight: 50,
+      jumpLength: 50,
       jumpedEnemyChance: 10,
       scale(scale: number) {
         this.width *= scale;

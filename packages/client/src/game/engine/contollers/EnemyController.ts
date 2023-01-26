@@ -84,7 +84,7 @@ export class EnemyController {
     const enemyY = worldHeight - floorHeight - height;
     const speed = this.model.enemyConfig.speed;
 
-    const isNearPlayerOnGround = enemy.targetDistance < jumpLength * 5 && enemy.y > enemyY - 2;
+    const isNearPlayerOnGround = enemy.targetDistance < jumpLength && enemy.y > enemyY - 2;
     if (enemy.isJumpingType && isNearPlayerOnGround) {
       enemy.isJumpingType = false;
     }
@@ -92,10 +92,16 @@ export class EnemyController {
     enemy.y = enemyY;
 
     if (enemy.isJumpingType) {
-      const cos = Math.cos(enemy.animationFrame / 15);
+      const time = (dt * 1000) / 15 / 15;
+      const left = enemy.animationFrame * time;
+      const right = (enemy.animationFrame - 1) * time;
+      const deltaX = Math.sin(left) - Math.sin(right);
+      const deltaSin = Math.min(deltaX, 0) / 2;
+      enemy.x += deltaSin * jumpLength;
+
+      const cos = Math.min(0, Math.cos(enemy.animationFrame * time));
       const delta = Math.min(cos, 0);
-      enemy.x += (delta * jumpLength) / 5;
-      enemy.y += delta * jumpHeight * 3;
+      enemy.y += delta * jumpHeight;
     } else {
       enemy.x -= speed * dt;
     }
