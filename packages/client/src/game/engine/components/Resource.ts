@@ -1,7 +1,11 @@
 import { ReadonlyDeep } from '../types/utils';
 import { Sprite, T_SpriteProps } from './Sprite';
 
-export abstract class Resource<SchemeValue, ResourceClass, Scheme extends Record<string, SchemeValue>> {
+export abstract class Resource<
+  SchemeValue = unknown,
+  ResourceClass = unknown,
+  Scheme extends Record<string, SchemeValue> = Record<string, SchemeValue>
+> {
   constructor(protected scheme: Scheme) {
     this.length = Object.keys(scheme).length;
   }

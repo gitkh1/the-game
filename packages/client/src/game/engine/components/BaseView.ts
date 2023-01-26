@@ -26,6 +26,7 @@ export abstract class BaseView {
   protected text(color: string, str: string, font: string, x: number, y: number) {
     this.ctx.font = font;
     this.ctx.fillStyle = color;
+    this.ctx.textBaseline = 'top';
     this.ctx.fillText(str, x, y);
   }
 

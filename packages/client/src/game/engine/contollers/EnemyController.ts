@@ -79,7 +79,7 @@ export class EnemyController {
   }
 
   doEnemyWalk(enemy: Enemy) {
-    const { height: worldHeight, floorHeight, deltaTimeMS: dt } = this.model.world;
+    const { height: worldHeight, floorHeight, deltaTime: dt } = this.model.world;
     const { jumpHeight, jumpLength, height } = this.model.enemyConfig;
     const enemyY = worldHeight - floorHeight - height;
     const speed = this.model.enemyConfig.speed;
@@ -117,7 +117,7 @@ export class EnemyController {
   }
 
   spawnNewEnemyIfNeed() {
-    const { deltaTimeMS: dt } = this.model.world;
+    const { deltaTime: dt } = this.model.world;
     let { currentSpawnDelay } = this.model.enemyConfig;
     const {
       spawnDelay: [min, max],

@@ -46,32 +46,35 @@ export class GameController extends BaseController {
 
   destroy() {
     this.input?.unregister();
-    this.model.events.offAll();
   }
 
   menu = new SimpleMenuController(this.model);
 
   onTickUpdate() {
-    this.model.world.levelAnimationFrames += 1;
+    this.calculateWorldTime();
 
     switch (this.model.world.state) {
+      case T_GameState.LOADING:
+        this.model.world.setState(T_GameState.PLAY);
+        break;
       case T_GameState.PLAY:
         this.processPlayState();
         break;
       case T_GameState.LEVELING:
         this.processLevelingState();
         break;
-      case T_GameState.END:
-        this.emitEndEventIfNeed();
-        break;
+      case T_GameState.PRE_END:
+        this.processPreEndState();
     }
   }
-  emitEndEventIfNeed() {
-    const { levelAnimationFrames } = this.model.world;
 
-    if (levelAnimationFrames === 20) {
-      const { kills, level } = this.model.player;
-      this.model.events.emit('the-end', { kills, level });
+  calculateWorldTime() {
+    this.model.world.levelAnimationFrames += 1;
+  }
+
+  processPreEndState() {
+    if (this.model.world.levelAnimationFrames === 20) {
+      this.model.world.setState(T_GameState.END);
     }
   }
 

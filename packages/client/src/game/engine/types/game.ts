@@ -15,7 +15,7 @@ export type T_GameModel = {
     readonly width: number;
     readonly height: number;
     floorHeight: number;
-    deltaTimeMS: number;
+    deltaTime: number;
     killsForLevel: number;
     state: T_GameState;
     levelAnimationFrames: number;
@@ -35,6 +35,7 @@ export type T_GameModel = {
     jumpHeight: number;
     jumpLength: number;
     jumpedEnemyChance: number;
+    scale(scale: number): void;
   };
   enemies: Enemy[];
   projectileConfig: {
@@ -44,6 +45,7 @@ export type T_GameModel = {
     radius: number;
     velocity: number;
     spreading: number;
+    scale(scale: number): void;
   };
   projectiles: Projectile[];
   projectileTrailConfig: {
@@ -58,11 +60,16 @@ export type T_GameModel = {
   isOutOfScreen(entityX: number, enitiyY: number, size: number): boolean;
   assets: typeof assets;
 };
+
+export type T_Score = { kills: number; level: number };
+
 export type T_GameModelReadOnly = ReadonlyDeep<T_GameModel>;
 
 export enum T_GameState {
+  LOADING,
   PLAY,
   LEVELING,
+  PRE_END,
   END,
 }
 
@@ -86,6 +93,7 @@ export type T_Player = {
   level: number;
   state: T_PlayerState;
   animationFrame: number;
+  scale(scale: number): void;
   setState(state: T_PlayerState): void;
 };
 

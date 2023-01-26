@@ -13,7 +13,7 @@ export class GameView extends BaseView {
   }
 
   destroy() {
-    this.model.events.offAll();
+    return;
   }
 
   onFrameUpdate() {
@@ -32,17 +32,6 @@ export class GameView extends BaseView {
   renderBackround() {
     const { width, height } = this.model.world;
     this.ctx.drawImage(this.model.assets.images.get('background'), 0, 0, width, height);
-  }
-
-  renderLoader() {
-    const { width, height } = this.model.world;
-
-    this.rect('black', 0, 0, width, height);
-    this.ctx.textAlign = 'center';
-    this.ctx.textBaseline = 'middle';
-    this.text('white', 'Loading...', '32px Sans-Serif', width / 2, height / 2);
-    this.ctx.textAlign = 'left';
-    this.ctx.textBaseline = 'top';
   }
 
   renderPlayer() {

@@ -6,6 +6,9 @@ export default function rafLoop(callback: (now: number) => unknown) {
     timer = requestAnimationFrame(rerafLoop);
   }
   return {
+    get isRunning() {
+      return running;
+    },
     start() {
       if (running) return false;
       running = true;

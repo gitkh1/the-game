@@ -2,14 +2,14 @@ import { EventBus } from './components/EventBus';
 import { assets } from './assets';
 import { T_GameModel, T_GameState, T_PlayerState } from './types/game';
 
-type ConfigureFn = (canvas: HTMLCanvasElement) => T_GameModel;
-export const configureDefaultGameModel: ConfigureFn = (canvas) => {
+export const configureDefaultGameModel = (canvas: HTMLCanvasElement): T_GameModel => {
+  canvas.tabIndex = 1;
   const width = Number(canvas.width);
   const height = Number(canvas.height);
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
   context.imageSmoothingEnabled = false;
 
-  return {
+  const model: T_GameModel = {
     canvas,
     context,
     events: new EventBus(),
@@ -18,13 +18,14 @@ export const configureDefaultGameModel: ConfigureFn = (canvas) => {
       width,
       height,
       floorHeight: 65,
-      deltaTimeMS: 15 / 1000,
+      deltaTime: 15 / 1000,
       killsForLevel: 5,
-      state: T_GameState.PLAY,
+      state: T_GameState.LOADING,
       levelAnimationFrames: 0,
       setState(state: T_GameState) {
         this.state = state;
         this.levelAnimationFrames = 0;
+        model.events.emit('world:state', state);
       },
     },
     mouse: {
@@ -76,7 +77,6 @@ export const configureDefaultGameModel: ConfigureFn = (canvas) => {
       radius: 3,
       velocity: 700,
       spreading: 20,
-      rotateSpeed: 2,
       scale(scale: number) {
         this.radius *= scale;
       },
@@ -158,4 +158,5 @@ export const configureDefaultGameModel: ConfigureFn = (canvas) => {
     },
     assets,
   };
+  return model;
 };

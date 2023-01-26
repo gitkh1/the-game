@@ -67,7 +67,7 @@ export class PlayerController {
   }
 
   increaseMana() {
-    const { deltaTimeMS: dt } = this.model.world;
+    const { deltaTime: dt } = this.model.world;
     const { mana, maxMana, manaPerSecond } = this.model.player;
 
     this.model.player.mana = Math.min(maxMana, mana + manaPerSecond * dt);

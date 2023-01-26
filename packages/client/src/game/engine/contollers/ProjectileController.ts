@@ -34,7 +34,7 @@ export class ProjectileController {
   }
 
   processMove(projectile: Projectile) {
-    const { deltaTimeMS: dt } = this.model.world;
+    const { deltaTime: dt } = this.model.world;
     const { gravity } = this.model.projectileConfig;
 
     projectile.x += projectile.dx * dt;
