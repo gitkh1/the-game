@@ -1,12 +1,13 @@
 import { T_SpriteProps } from '../components/Sprite';
+import { T_AssetScheme } from '../types/assetScheme';
 import { T_PrimitiveEnemyType } from '../types/game';
-import { satisfiesAssetScheme } from './satisfiesAssetScheme';
+import { satisfies } from '../utils/satisfies';
 
 type T_AnimationType = 'Walk' | 'Attack' | 'Dead' | 'Jump';
 
 const pathes = import.meta.glob('./sprites/**/*.png', { as: 'url', eager: true });
 
-export const spriteScheme = satisfiesAssetScheme({
+export const spriteScheme = satisfies<T_AssetScheme>()({
   playerIdle: {
     url: pathes['./sprites/player-idle.png'],
     frames: 8,
