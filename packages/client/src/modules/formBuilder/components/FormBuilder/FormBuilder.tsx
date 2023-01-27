@@ -16,7 +16,7 @@ type T_Props<T_Data, T_Schema> = {
   validationSchema?: T_Schema;
   onSubmit?: (data: T_Data) => void;
   getFormApi?: (api: UseFormReturn) => void;
-  values?: T_Data;
+  values?: T_Data | null;
   isEditableAvatar?: boolean;
   displayAvatar?: boolean;
   formRef?: MutableRefObject<HTMLFormElement | null>;
