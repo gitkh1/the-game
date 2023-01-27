@@ -11,7 +11,7 @@ import { userApi } from '../../api/User';
 import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { PATHS } from '../../global/paths';
+import { PATHS } from '../../routes';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'display_name', 'phone'];
 

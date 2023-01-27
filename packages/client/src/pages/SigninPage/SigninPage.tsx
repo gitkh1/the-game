@@ -9,7 +9,7 @@ import { useNotification } from '../../global/hooks';
 import { UseFormReturn } from 'react-hook-form';
 import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
 import { I_SigninData } from '../../global/types';
-import { PATHS } from '../../global/paths';
+import { PATHS } from '../../routes';
 
 const FIELDS: T_FormFieldNames = ['login', 'password'];
 

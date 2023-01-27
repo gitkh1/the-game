@@ -1,6 +1,5 @@
 import { FC, useEffect, useReducer, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { PATHS } from '../global/paths';
 import { GameRunner } from './engine';
 import { T_GameState } from './engine';
 import gameBackground from '../assets/images/game-page-bg.jpg';
@@ -9,6 +8,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { PATHS } from '../routes';
 
 const WIDTH = 1200;
 const HEIGHT = 700;

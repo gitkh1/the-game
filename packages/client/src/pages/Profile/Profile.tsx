@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { authApi } from '../../api';
 import { E_FormMode, FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from '../../modules/formBuilder';
-import { PATHS } from '../../global/paths';
+import { PATHS } from '../../routes';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'display_name', 'phone'];
 
