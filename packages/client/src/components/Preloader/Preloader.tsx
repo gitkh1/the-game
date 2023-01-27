@@ -2,18 +2,18 @@ import { Box, Fade } from '@mui/material';
 import { FC, ReactElement } from 'react';
 import classes from './Preloader.module.scss';
 
-type Props = {
-  loaded: boolean;
+type T_Props = {
+  showLoading: boolean;
   children: ReactElement;
 };
 
-export const Preloader: FC<Props> = ({ loaded, children }) => {
+export const Preloader: FC<T_Props> = ({ showLoading, children }) => {
   return (
     <Box className={classes.preloader} sx={{ display: 'flex' }}>
-      <Fade in={loaded}>
+      <Fade in={!showLoading}>
         <div>{children}</div>
       </Fade>
-      <Fade className={classes.preloader__placeholder} in={!loaded}>
+      <Fade className={classes.preloader__placeholder} in={showLoading}>
         <div>Loading...</div>
       </Fade>
     </Box>

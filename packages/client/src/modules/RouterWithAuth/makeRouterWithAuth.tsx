@@ -1,25 +1,39 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Preloader } from '../../components/Preloader';
-import { useAuthed } from './authed';
+import { useUserInfo, useUserIsLoading } from '../../global/hooks';
 
-type Props = {
-  invalidRedirectTo: string;
+type T_FactoryMode = {
+  allowGuests?: boolean;
+  allowSignIn?: boolean;
 };
 
-export const makeRouterWithAuth: (isGuestMode: boolean) => FC<Props> =
-  (isGuestMode: boolean) =>
-  ({ invalidRedirectTo }) => {
+type T_FactoryFC = (mode: T_FactoryMode) => FC<T_Props>;
+
+type T_Props = {
+  redirectInvalidTo: string;
+};
+
+export const makeRouterWithAuth: T_FactoryFC =
+  (mode) =>
+  ({ redirectInvalidTo }) => {
+    const userInfo = useUserInfo();
+    const userIsLoaded = useUserIsLoading();
     const navigate = useNavigate();
-    const [loaded, authed] = useAuthed();
+    const [isFirstTime, setIsFirstTime] = useState(true);
 
     useEffect(() => {
-      if (loaded && authed === isGuestMode) {
-        navigate(invalidRedirectTo);
+      if (!userIsLoaded) return;
+      setIsFirstTime(false);
+
+      const redirectGuests = !mode.allowGuests && !userInfo;
+      const redirectSignIn = !mode.allowSignIn && userInfo;
+
+      if (redirectGuests || redirectSignIn) {
+        navigate(redirectInvalidTo);
       }
-    }, [loaded]);
+    }, [userIsLoaded, userInfo, navigate]);
 
     const child = useMemo(() => <Outlet />, []);
-
-    return <Preloader loaded={loaded}>{child}</Preloader>;
+    return <Preloader showLoading={isFirstTime && !userIsLoaded}>{child}</Preloader>;
   };

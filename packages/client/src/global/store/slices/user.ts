@@ -41,6 +41,8 @@ export const userSlice = createSlice({
         if (action.payload instanceof Error) {
           state.isError = true;
           state.errorMessage = action.payload.message;
+          state.data = null;
+          state.isLoading = false;
         }
       })
       .addCase(getUser.pending, (state) => {
