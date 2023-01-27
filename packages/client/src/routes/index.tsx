@@ -1,65 +1,91 @@
 import { SigninPage } from '../pages/SigninPage';
 import { SignupPage } from '../pages/SignupPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
-import MainPage from '../pages/MainPage/MainPage';
-import GameMainMenu from '../pages/GameMainMenu/GameMainMenu';
-import Game from '../game/Game';
-import TutorialPage from '../pages/TutorialPage/TutorialPage';
-import GameOverPage from '../pages/GameOverPage/GameOverPage';
-import Profile from '../pages/Profile/Profile';
-import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
-import { RouteObject } from 'react-router-dom';
-import { GuestOnlyRouter, SignedInOnlyRouter } from '../modules/RouterWithAuth';
+import { MainPage } from '../pages/MainPage';
+import { GameMainMenu } from '../pages/GameMainMenu';
+import { TutorialPage } from '../pages/TutorialPage';
+import { GameOverPage } from '../pages/GameOverPage';
+import { Profile } from '../pages/Profile';
+import { LeaderBoard } from '../pages/LeaderBoard';
+import { ProfileChangeData } from '../pages/ProfileChangeData';
+import { ProfileChangePwd } from '../pages/ProfileChangePwd';
+import { Game } from '../game';
+import { MainMenuSettings } from '../pages/MainMenuSettings';
+import { AboutPage } from '../pages/AboutPage';
+
+export const PATHS = {
+  MAIN: '/',
+  SIGN_IN: '/signin',
+  SIGN_UP: '/signup',
+  MAIN_MENU: '/main-menu',
+  GAME: '/game',
+  TUTORIAL: '/tutorial',
+  GAMEOVER: '/game-over',
+  SETTINGS: '/settings',
+  PROFILE: '/profile',
+  PROFILE_CHANGE_DATA: '/profilechangedata',
+  PROFILE_CHANGE_PWD: '/profilechangepwd',
+  LEADERS: '/leaders',
+  ABOUT: '/about',
+  NOT_FOUND_PAGE: '*',
+};
+
 
 export const routes: RouteObject[] = [
   {
-    element: <GuestOnlyRouter invalidRedirectTo="/main-menu" />,
-    children: [
-      {
-        path: '/',
-        element: <MainPage />,
-      },
-      {
-        path: '/signin',
-        element: <SigninPage />,
-      },
-      {
-        path: '/signup',
-        element: <SignupPage />,
-      },
-    ],
+    path: PATHS.MAIN,
+    element: <MainPage />,
   },
   {
-    element: <SignedInOnlyRouter invalidRedirectTo="/" />,
-    children: [
-      {
-        path: '/main-menu',
-        element: <GameMainMenu />,
-      },
-      {
-        path: '/game',
-        element: <Game />,
-      },
-      {
-        path: '/tutorial',
-        element: <TutorialPage />,
-      },
-      {
-        path: '/game-over',
-        element: <GameOverPage />,
-      },
-      {
-        path: '/profile',
-        element: <Profile />,
-      },
-      {
-        path: '/leaders',
-        element: <LeaderBoard />,
-      },
-    ],
+    path: PATHS.SIGN_IN,
+    element: <SigninPage />,
   },
   {
-    path: '*',
+    path: PATHS.SIGN_UP,
+    element: <SignupPage />,
+  },
+  {
+    path: PATHS.MAIN_MENU,
+    element: <GameMainMenu />,
+  },
+  {
+    path: PATHS.GAME,
+    element: <Game />,
+  },
+  {
+    path: PATHS.TUTORIAL,
+    element: <TutorialPage />,
+  },
+  {
+    path: PATHS.SETTINGS,
+    element: <MainMenuSettings />,
+  },
+  {
+    path: PATHS.GAMEOVER,
+    element: <GameOverPage />,
+  },
+  {
+    path: PATHS.PROFILE,
+    element: <Profile />,
+  },
+  {
+    path: PATHS.PROFILE_CHANGE_DATA,
+    element: <ProfileChangeData />,
+  },
+  {
+    path: PATHS.PROFILE_CHANGE_PWD,
+    element: <ProfileChangePwd />,
+  },
+  {
+    path: PATHS.LEADERS,
+    element: <LeaderBoard />,
+  },
+  {
+    path: PATHS.ABOUT,
+    element: <AboutPage />,
+  },
+  {
+    path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
   },
 ];
