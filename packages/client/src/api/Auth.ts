@@ -14,7 +14,7 @@ export const authApi = {
   },
   signup: async <T>(data: I_Signup): Promise<T | unknown> => {
     try {
-      const response = await api.post('signup', data);
+      const response = await api.post('/signup', data);
       return await response.json();
     } catch (err) {
       console.log(ERROR_MESSAGE, err);
