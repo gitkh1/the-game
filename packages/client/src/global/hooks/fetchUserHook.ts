@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { dispatch, selectUserInfo } from '../store';
-import { userActions } from '../store/actions';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
+import { dispatch, selectUserInfo } from "../store";
+import { userActions } from "../store/actions";
 
 export const useUserInfo = () => {
   useEffect(() => {

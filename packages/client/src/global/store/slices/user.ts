@@ -1,25 +1,25 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { authApi } from '../../../api';
-import { I_UserInfo } from '../../types';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface T_State {
+import { authApi } from "../../../api";
+import { I_UserInfo } from "../../types";
+
+interface I_State {
   data: I_UserInfo | null;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string | null;
 }
 
-const initialState: T_State = {
+const initialState: I_State = {
   data: null,
   isLoading: false,
   isError: false,
   errorMessage: null,
 };
 
-const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithValue }) => {
+const getUser = createAsyncThunk("user/getUser", async (_, { rejectWithValue }) => {
   try {
-    const data = await authApi.getUser<I_UserInfo>();
+    const data = await authApi.getUser();
     return data;
   } catch (e) {
     return rejectWithValue(e);
@@ -27,7 +27,7 @@ const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithValue }) 
 });
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {},
   extraReducers(builder) {

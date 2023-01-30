@@ -1,11 +1,12 @@
-import makeDisposedEvent from './utils/disposedEvent';
-import rafLoop from './utils/rafLoop';
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+import makeDisposedEvent from "./utils/disposedEvent";
+import rafLoop from "./utils/rafLoop";
 
-type Props = {
+type T_Props = {
   canvas: HTMLCanvasElement;
 };
 
-const runGame = ({ canvas }: Props) => {
+const runGame = ({ canvas }: T_Props) => {
   const WIDTH = 800;
   const HEIGHT = 500;
   const FLOOR = 400;
@@ -14,7 +15,7 @@ const runGame = ({ canvas }: Props) => {
 
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
   // random(max) <==> random(0, max)
   const random = (min = 1, max = 0) => Math.random() * (max - min) + min;
@@ -49,25 +50,25 @@ const runGame = ({ canvas }: Props) => {
   let scoreKills = 0,
     scoreFails = 0;
   function drawScore() {
-    text('black', `Убито: ${scoreKills}`, 'bold 18px Verdana', 20, 35);
-    text('darkred', `Пропущено: ${scoreFails}`, 'bold 18px Verdana', 20, 55);
-    text('lightblue', `Врагов: ${enemies.length}`, 'bold 18px Verdana', 20, 75);
-    text('lightblue', `Снарядов: ${projectiles.length}`, 'bold 18px Verdana', 20, 95);
-    text('lightblue', `Следов попадания: ${projectileStubs.length}`, 'bold 18px Verdana', 20, 115);
+    text("black", `Убито: ${scoreKills}`, "bold 18px Verdana", 20, 35);
+    text("darkred", `Пропущено: ${scoreFails}`, "bold 18px Verdana", 20, 55);
+    text("lightblue", `Врагов: ${enemies.length}`, "bold 18px Verdana", 20, 75);
+    text("lightblue", `Снарядов: ${projectiles.length}`, "bold 18px Verdana", 20, 95);
+    text("lightblue", `Следов попадания: ${projectileStubs.length}`, "bold 18px Verdana", 20, 115);
 
-    text('darkorange', `Курсор: (${[mousePos.x, mousePos.y].join(', ')})`, 'bold 18px Verdana', 20, 135);
+    text("darkorange", `Курсор: (${[mousePos.x, mousePos.y].join(", ")})`, "bold 18px Verdana", 20, 135);
   }
 
   let mousePos = { x: 0, y: 0 };
-  let mousePressed = false;
+  let isMousePressed = false;
 
-  disposedEvent(canvas, 'click', () => {
+  disposedEvent(canvas, "click", () => {
     fireProjectile();
   });
-  disposedEvent(canvas, 'mousedown', () => {
-    mousePressed = true;
+  disposedEvent(canvas, "mousedown", () => {
+    isMousePressed = true;
   });
-  disposedEvent(window, 'mousemove', (event) => {
+  disposedEvent(window, "mousemove", (event) => {
     let { offsetX: x, offsetY: y } = event;
     if (event.target !== canvas) {
       const rect = canvas.getBoundingClientRect();
@@ -76,11 +77,11 @@ const runGame = ({ canvas }: Props) => {
     }
     mousePos = { x, y };
   });
-  disposedEvent(window, 'mouseup', () => {
-    mousePressed = false;
+  disposedEvent(window, "mouseup", () => {
+    isMousePressed = false;
   });
 
-  type Projectile = {
+  type T_Projectile = {
     x: number;
     y: number;
     dx: number;
@@ -91,7 +92,7 @@ const runGame = ({ canvas }: Props) => {
     falled: boolean;
   };
 
-  let projectiles: Projectile[] = [];
+  let projectiles: T_Projectile[] = [];
   const GRAVITY = 9.8;
   const SPAWN_X = 50;
   const SPAWN_Y = FLOOR - 30;
@@ -99,6 +100,7 @@ const runGame = ({ canvas }: Props) => {
   const PROJECTILE_SIZE = PROJECTILE_RADIUS * 2;
   const PROJECTILE_VELOCITY = 700;
   const PROJECTILE_ROTATE = 2;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const PROJECTILE_BOUNCING_FLOOR = true;
   const PROJECTILE_SHOT_TIMEOUT_MS = 500;
 
@@ -128,7 +130,7 @@ const runGame = ({ canvas }: Props) => {
     });
   }
   function updateProjectiles(dt: number) {
-    if (mousePressed) {
+    if (isMousePressed) {
       fireProjectile();
     }
 
@@ -169,7 +171,7 @@ const runGame = ({ canvas }: Props) => {
     }
   }
 
-  function isCollidesWithProjectiles(enemy: Enemy) {
+  function isCollidesWithProjectiles(enemy: T_Enemy) {
     const gap = PROJECTILE_RADIUS;
     const left = enemy.x - gap;
     const right = left + ENEMY_WIDTH + gap;
@@ -186,7 +188,7 @@ const runGame = ({ canvas }: Props) => {
     return !!p;
   }
 
-  type ProjectileStubs = {
+  type T_ProjectileStubs = {
     x: number;
     y: number;
     angle: number;
@@ -194,11 +196,11 @@ const runGame = ({ canvas }: Props) => {
     offsetFrame: number;
   };
 
-  let projectileStubs: ProjectileStubs[] = [];
+  let projectileStubs: T_ProjectileStubs[] = [];
   const PROJECTILE_STUBS_MAXSIZE = 35;
   const PROJECTILE_STUBS_TTL_MS = 0.7;
 
-  function createProjectile(projectile: Projectile, enemy: Enemy) {
+  function createProjectile(projectile: T_Projectile, enemy: T_Enemy) {
     projectileStubs.push({
       x: projectile.x,
       y: projectile.y,
@@ -232,12 +234,12 @@ const runGame = ({ canvas }: Props) => {
     });
   }
 
-  type Enemy = {
+  type T_Enemy = {
     x: number;
     offsetFrame: number;
   };
 
-  let enemies: Enemy[] = [];
+  let enemies: T_Enemy[] = [];
   const ENEMY_WIDTH = 20;
   const ENEMY_HEIGHT = 50;
   const ENEMY_SPEED = 80;
@@ -277,7 +279,7 @@ const runGame = ({ canvas }: Props) => {
   }
 
   function drawFloor() {
-    rect('black', 0, FLOOR, WIDTH, HEIGHT - FLOOR);
+    rect("black", 0, FLOOR, WIDTH, HEIGHT - FLOOR);
   }
 
   let shakeX = 0;
@@ -362,7 +364,7 @@ const runGame = ({ canvas }: Props) => {
   const raf = rafLoop(gameLoop);
   raf.start();
 
-  disposedEvent(document, 'visibilitychange', () => {
+  disposedEvent(document, "visibilitychange", () => {
     if (document.hidden) {
       raf.stop();
     } else {

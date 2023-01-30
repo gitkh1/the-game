@@ -1,3 +1,5 @@
+@import "../../../../global/styles/colors";
+
 .label {
   border-radius: 50%;
   object-fit: cover;
@@ -5,7 +7,7 @@
   height: 130px;
   overflow: hidden;
   margin: 0 auto;
-  background-color: grey;
+  background-color: $dimgray;
 
   &__img {
     width: 100%;

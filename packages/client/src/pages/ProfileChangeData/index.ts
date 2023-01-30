@@ -1,1 +1,1 @@
-export * from './ProfileChangeData';
+export * from "./ProfileChangeData";

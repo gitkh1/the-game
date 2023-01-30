@@ -1,7 +1,9 @@
-import React, { FC, ReactNode, useState } from 'react';
-import { Box, Alert } from '@mui/material';
-import { NotificationContext } from '../../global/context';
-import classes from './Notification.module.scss';
+import React, { FC, ReactNode, useState } from "react";
+import { Alert, Box } from "@mui/material";
+
+import { NotificationContext } from "../../global/context";
+
+import classes from "./Notification.module.scss";
 
 type T_Props = {
   children: ReactNode;
@@ -9,7 +11,7 @@ type T_Props = {
 
 export const Notification: FC<T_Props> = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [message, setMessage] = useState<string>('');
+  const [message, setMessage] = useState<string>("");
 
   const showAlert = (message: string, delay = 2000) => {
     setMessage(message);
@@ -17,7 +19,7 @@ export const Notification: FC<T_Props> = ({ children }) => {
 
     setTimeout(() => {
       setIsVisible(false);
-      setMessage('');
+      setMessage("");
     }, delay);
   };
 

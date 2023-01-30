@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint .",
+    "lint": "eslint ./public ./src && stylelint ./src/**/*.scss",
     "format": "prettier --write .",
     "test": "jest ./"
   },
@@ -30,6 +30,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
+    "@namics/stylelint-bem": "^8.0.0",
     "@testing-library/react": "13.3.0",
     "@types/jest": "28.1.8",
     "@types/react": "18.0.17",
@@ -37,13 +38,20 @@
     "@typescript-eslint/eslint-plugin": "5.35.1",
     "@typescript-eslint/parser": "5.35.1",
     "@vitejs/plugin-react": "2.0.1",
+    "autoprefixer": "^10.4.13",
     "eslint": "8.23.0",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-simple-import-sort": "10.0.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "28",
     "jest-environment-jsdom": "29.0.1",
     "lefthook": "1.1.1",
+    "postcss-nested": "^6.0.0",
     "prettier": "2.7.1",
     "sass": "1.57.1",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-standard-scss": "^6.1.0",
     "ts-jest": "28.0.8",
     "typescript": "4.8.2",
     "vite": "3.0.7"

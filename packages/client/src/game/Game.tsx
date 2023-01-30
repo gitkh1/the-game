@@ -1,5 +1,6 @@
-import { FC, useEffect, useRef } from 'react';
-import runGame from './runGame';
+import { FC, useEffect, useRef } from "react";
+
+import runGame from "./runGame";
 
 export const Game: FC = () => {
   const canvasRef = useRef(null);
@@ -8,11 +9,9 @@ export const Game: FC = () => {
     if (!canvasRef.current) return;
 
     runGame({
-      canvas: canvasRef.current,
+      canvas: canvasRef.current as HTMLCanvasElement,
     });
   }, [canvasRef.current]);
 
-  return (
-    <canvas ref={canvasRef}></canvas>
-  );
+  return <canvas ref={canvasRef}></canvas>;
 };

@@ -1,12 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './main.scss';
-import { ErrorBoundary } from './modules/ErrorBoundary/ErrorBoundary';
-import { store } from './global/store';
-import { Provider } from 'react-redux';
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+import { store } from "./global/store";
+import { ErrorBoundary } from "./modules/ErrorBoundary/ErrorBoundary";
+import App from "./App";
+
+import "./main.scss";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={store}>

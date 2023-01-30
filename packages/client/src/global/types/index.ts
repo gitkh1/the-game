@@ -1,1 +1,1 @@
-export * from './authDataInterfaces';
+export * from "./authDataInterfaces";

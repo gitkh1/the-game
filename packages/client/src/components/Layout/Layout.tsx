@@ -1,7 +1,8 @@
-import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { FC, ReactNode } from 'react';
-import { Notification } from '../Notification';
+import { FC, ReactNode } from "react";
+import { CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import { Notification } from "../Notification";
 
 type T_Props = {
   children: ReactNode;
@@ -9,7 +10,7 @@ type T_Props = {
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
   },
 });
 

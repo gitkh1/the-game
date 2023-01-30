@@ -1,1 +1,1 @@
-export * from './GameMainMenu';
+export * from "./GameMainMenu";
