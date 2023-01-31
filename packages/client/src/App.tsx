@@ -12,7 +12,7 @@ function App() {
       console.log(data);
     };
 
-    window.addEventListener('load', async e => {
+    window.addEventListener('load', async (e) => {
       if ('serviceWorker' in navigator) {
         try {
           await navigator.serviceWorker.register('serviceWorker.js');
@@ -23,8 +23,6 @@ function App() {
       }
       await fetchServerData();
     });
-
-    
   }, []);
 
   return (
