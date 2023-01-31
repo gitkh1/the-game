@@ -1,6 +1,6 @@
 import { FC, useEffect, useReducer, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { PATHS } from '../global/paths';
+import { PATHS } from '../routes';
 import { GameRunner } from './engine';
 import { T_GameState } from './engine';
 import gameBackground from '../assets/images/game-page-bg.jpg';
