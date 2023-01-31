@@ -1,40 +1,35 @@
-import React, { FC, useState } from 'react';
-import { FormBuilder, T_FormStructure, yup, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
-import { Box } from '@mui/material';
-import classes from './Signup.module.scss';
-import { T_SignupData } from '../../global/types';
-import { authApi } from '../../api';
-import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../global/hooks';
-import { UseFormReturn } from 'react-hook-form';
+import { FC, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
-const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'phone', 'password', 'confirmPassword'];
+import { authApi } from "../../api";
+import signBG from "../../assets/images/signup-signin-bg.jpg";
+import { Background } from "../../components/Background";
+import { useNotification } from "../../global/hooks";
+import { I_Signup, validationSignUpSchema } from "../../global/types";
+import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
+import { PATHS } from "../../routes";
+
+import global from "../../global/styles/Global.module.scss";
+
+const FIELDS: T_FormFieldNames = ["email", "login", "first_name", "second_name", "phone", "password", "confirmPassword"];
 
 const getFormStructure = (): T_FormStructure => {
   return {
-    title: 'Регистрация',
+    title: "Регистрация",
     fields: getFormFields(FIELDS),
-    link: {
-      to: '/signin',
-      title: 'Войти',
-    },
+    links: [
+      {
+        to: PATHS.SIGN_IN,
+        title: "Войти",
+      },
+    ],
     submit: {
-      title: 'Зарегистрироваться',
+      title: "Зарегистрироваться",
     },
   };
 };
-
-const validationSchema = yup.object().shape({
-  email: yup.string().mail(),
-  login: yup.string().login(),
-  first_name: yup.string().name(),
-  second_name: yup.string().name(),
-  phone: yup.string().phone(),
-  password: yup.string().password(),
-  confirmPassword: yup.string().confirmPassword(),
-});
-
-type T_Schema = typeof validationSchema;
 
 export const SignupPage: FC = () => {
   const navigate = useNavigate();
@@ -45,10 +40,10 @@ export const SignupPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: T_SignupData) => {
+  const onSubmit = async (data: I_Signup) => {
     try {
       await authApi.signup(data);
-      navigate('/');
+      navigate(PATHS.MAIN);
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);
@@ -62,15 +57,16 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.root__formWrapper}>
-        <FormBuilder<T_SignupData, T_Schema>
-          onSubmit={onSubmit}
+    <Background src={signBG}>
+      <Box className={global["form-wrapper"]}>
+        <FormBuilder<I_Signup>
+          onSubmit={(data) => void onSubmit(data)}
           structure={getFormStructure()}
-          validationSchema={validationSchema}
+          validationSchema={validationSignUpSchema}
           getFormApi={getFormApi}
+          displayAvatar={false}
         />
       </Box>
-    </Box>
+    </Background>
   );
 };

@@ -1,26 +1,33 @@
-import React, { FC, useState } from 'react';
-import { FormBuilder, T_FormFieldNames, T_FormStructure, getFormFields } from '../../modules/formBuilder';
-import { Box } from '@mui/material';
-import { yup } from '../../modules/formBuilder/constants/validation';
-import classes from './SigninPage.module.scss';
-import { T_SigninData } from '../../global/types';
-import { authApi } from '../../api';
-import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../global/hooks';
-import { UseFormReturn } from 'react-hook-form';
+import { FC, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
-const FIELDS: T_FormFieldNames = ['login', 'password'];
+import { authApi } from "../../api";
+import signBG from "../../assets/images/signup-signin-bg.jpg";
+import { Background } from "../../components/Background";
+import { useNotification } from "../../global/hooks";
+import { I_Signin } from "../../global/types";
+import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
+import { yup } from "../../modules/formBuilder/constants/validation";
+import { PATHS } from "../../routes";
+
+import global from "../../global/styles/Global.module.scss";
+
+const FIELDS: T_FormFieldNames = ["login", "password"];
 
 const getFormStructure = (): T_FormStructure => {
   return {
-    title: 'Вход',
+    title: "Вход",
     fields: getFormFields(FIELDS),
-    link: {
-      to: '/signup',
-      title: 'Нет аккаунта?',
-    },
+    links: [
+      {
+        to: PATHS.SIGN_UP,
+        title: "Нет аккаунта?",
+      },
+    ],
     submit: {
-      title: 'Авторизоваться',
+      title: "Авторизоваться",
     },
   };
 };
@@ -41,10 +48,10 @@ export const SigninPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: T_SigninData) => {
+  const onSubmit = async (data: I_Signin) => {
     try {
       await authApi.signin(data);
-      navigate('/');
+      navigate(PATHS.PROFILE);
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);
@@ -58,15 +65,16 @@ export const SigninPage: FC = () => {
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.root__formWrapper}>
-        <FormBuilder<T_SigninData, T_Schema>
-          onSubmit={onSubmit}
+    <Background src={signBG}>
+      <Box className={global["form-wrapper"]}>
+        <FormBuilder<I_Signin, T_Schema>
+          onSubmit={(data) => void onSubmit(data)}
           structure={getFormStructure()}
           validationSchema={validationSchema}
           getFormApi={getFormApi}
+          displayAvatar={false}
         />
       </Box>
-    </Box>
+    </Background>
   );
 };
