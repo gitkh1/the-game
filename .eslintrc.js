@@ -30,9 +30,18 @@ module.exports = {
     'no-var': 2,
     'no-multi-str': 2,
     'arrow-parens': 2,
-    'indent': ["error", 2],
+    "indent": ["error", 2, {"SwitchCase": 1}],
     'semi': 2,
     'eqeqeq': 2,
+    "no-tabs": ["error", {"allowIndentationTabs": true}],
+    'max-len': [
+      "error",
+      {
+        "code": 150,
+        "tabWidth": 2,
+        "ignoreUrls": true
+      }
+    ],
     "simple-import-sort/imports": ["error", {
       groups: [
         [

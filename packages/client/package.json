@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "lint": "eslint ./public ./src && stylelint ./src/**/*.scss",
     "format": "prettier --write .",
-    "test": "jest ./"
+    "test": "jest ."
   },
   "typings": "lib",
   "dependencies": {
