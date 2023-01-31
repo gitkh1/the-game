@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import classes from './CustomLink.module.scss';
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+
+import classes from "./CustomLink.module.scss";
 
 type T_Props = {
   to: string;

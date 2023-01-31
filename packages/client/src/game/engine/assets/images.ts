@@ -1,9 +1,10 @@
-import { T_AssetScheme } from '../types/assetScheme';
-import { satisfies } from '../utils/satisfies';
+import { T_AssetScheme } from "../types/assetScheme";
+import { satisfies } from "../utils/satisfies";
 
-const pathes = import.meta.glob('./images/*.png', { as: 'url', eager: true });
+import background from "./images/background.png";
+import floor from "./images/floor.png";
 
 export const imageScheme = satisfies<T_AssetScheme>()({
-  background: pathes['./images/background.png'],
-  floor: pathes['./images/floor.png'],
+  background: background,
+  floor: floor,
 });

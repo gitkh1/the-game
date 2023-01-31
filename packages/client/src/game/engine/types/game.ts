@@ -1,10 +1,11 @@
-import { EventBus } from '../components/EventBus';
-import { assets } from '../assets';
-import { ReadonlyDeep } from './utils';
-import { T_SimpleMenu } from './gui';
-import { Projectile } from '../model/Projectile';
-import { ProjectileTrail } from '../model/ProjectileTrail';
-import { Enemy } from '../model/Enemy';
+import { assets } from "../assets";
+import { EventBus } from "../components/EventBus";
+import { Enemy } from "../model/Enemy";
+import { Projectile } from "../model/Projectile";
+import { ProjectileTrail } from "../model/ProjectileTrail";
+
+import { T_SimpleMenu } from "./gui";
+import { T_ReadonlyDeep } from "./utils";
 
 export type T_GameModel = {
   canvas: HTMLCanvasElement;
@@ -63,7 +64,7 @@ export type T_GameModel = {
 
 export type T_Score = { kills: number; level: number };
 
-export type T_GameModelReadOnly = ReadonlyDeep<T_GameModel>;
+export type T_GameModelReadOnly = T_ReadonlyDeep<T_GameModel>;
 
 export enum T_GameState {
   LOADING,
@@ -103,7 +104,7 @@ export enum E_EnemyState {
   DEAD,
 }
 
-export type T_PrimitiveEnemyType = 'SteamMan' | 'Woodcutter' | 'GraveRobber';
+export type T_PrimitiveEnemyType = "SteamMan" | "Woodcutter" | "GraveRobber";
 
 export type T_EffectPoints = {
   max: number;

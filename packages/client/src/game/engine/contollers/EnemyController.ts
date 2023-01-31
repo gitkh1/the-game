@@ -1,6 +1,6 @@
-import { Enemy } from '../model/Enemy';
-import { E_EnemyState, T_GameModel } from '../types/game';
-import { randInt } from '../utils/random';
+import { Enemy } from "../model/Enemy";
+import { E_EnemyState, T_GameModel } from "../types/game";
+import { randInt } from "../utils/random";
 
 export class EnemyController {
   constructor(readonly model: T_GameModel) {}
@@ -112,7 +112,7 @@ export class EnemyController {
     const canAttack = enemy.animationFrame % 30 === 0;
     if (canAttack) {
       this.model.player.hp = Math.max(0, hp - 1);
-      this.model.assets.audio.play('bite');
+      this.model.assets.audio.play("bite");
     }
   }
 

@@ -1,29 +1,32 @@
-import { FC, useState } from 'react';
-import { FormBuilder, T_FormStructure, getFormFields, T_FormFieldNames } from '../../modules/formBuilder';
-import { Box } from '@mui/material';
-import classes from './Signup.module.scss';
-import { I_Signup, validationSignUpSchema } from '../../global/types';
-import { authApi } from '../../api';
-import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../global/hooks';
-import { UseFormReturn } from 'react-hook-form';
-import { PATHS } from '../../routes';
-import leaderBoardBG from '../../assets/images/signup-signin-bg.jpg';
+import { FC, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
-const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'phone', 'password', 'confirmPassword'];
+import { authApi } from "../../api";
+import signBG from "../../assets/images/signup-signin-bg.jpg";
+import { Background } from "../../components/Background";
+import { useNotification } from "../../global/hooks";
+import { I_Signup, validationSignUpSchema } from "../../global/types";
+import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
+import { PATHS } from "../../routes";
+
+import global from "../../global/styles/Global.module.scss";
+
+const FIELDS: T_FormFieldNames = ["email", "login", "first_name", "second_name", "phone", "password", "confirmPassword"];
 
 const getFormStructure = (): T_FormStructure => {
   return {
-    title: 'Регистрация',
+    title: "Регистрация",
     fields: getFormFields(FIELDS),
     links: [
       {
         to: PATHS.SIGN_IN,
-        title: 'Войти',
+        title: "Войти",
       },
     ],
     submit: {
-      title: 'Зарегистрироваться',
+      title: "Зарегистрироваться",
     },
   };
 };
@@ -54,25 +57,16 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <Box className={classes['root']}>
-      <img src={leaderBoardBG} alt="leader-board-background" className={classes['background']} />
-      <Box
-        className={classes['root__formWrapper']}
-        sx={{
-          padding: '25px',
-          borderRadius: '10px',
-          background: 'rgba(0,0,0,.5)',
-          color: 'white',
-        }}
-      >
+    <Background src={signBG}>
+      <Box className={global["form-wrapper"]}>
         <FormBuilder<I_Signup>
-          onSubmit={onSubmit}
+          onSubmit={(data) => void onSubmit(data)}
           structure={getFormStructure()}
           validationSchema={validationSignUpSchema}
           getFormApi={getFormApi}
           displayAvatar={false}
         />
       </Box>
-    </Box>
+    </Background>
   );
 };

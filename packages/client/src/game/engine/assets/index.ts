@@ -1,9 +1,10 @@
-import { spriteScheme } from './sprites';
-import { imageScheme } from './images';
-import { audioScheme } from './sounds';
-import { AudioResource, ImageResource, SpriteResource } from '../components/Resource';
+import { AudioResource, ImageResource, SpriteResource } from "../components/Resource";
 
-export { spriteScheme, imageScheme, audioScheme };
+import { imageScheme } from "./images";
+import { audioScheme } from "./sounds";
+import { spriteScheme } from "./sprites";
+
+export { audioScheme, imageScheme, spriteScheme };
 
 export const assets = {
   sprites: new SpriteResource(spriteScheme),

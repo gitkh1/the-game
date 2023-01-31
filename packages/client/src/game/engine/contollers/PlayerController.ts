@@ -1,4 +1,4 @@
-import { T_GameModel, T_GameState, T_PlayerState } from '../types/game';
+import { T_GameModel, T_GameState, T_PlayerState } from "../types/game";
 
 export class PlayerController {
   constructor(readonly model: T_GameModel) {}
@@ -40,7 +40,7 @@ export class PlayerController {
     const { animationFrame } = this.model.player;
     switch (animationFrame) {
       case 1:
-        this.model.assets.audio.play('encounter');
+        this.model.assets.audio.play("encounter");
         break;
       case 45:
         this.model.world.setState(T_GameState.END);
@@ -58,7 +58,7 @@ export class PlayerController {
 
   setIdleAfterAttack() {
     const { animationFrame } = this.model.player;
-    const { frames, frameDelay = 1 } = this.model.assets.sprites.getScheme('playerAttack');
+    const { frames, frameDelay = 1 } = this.model.assets.sprites.getScheme("playerAttack");
 
     const animationLength = frames * frameDelay;
     if (animationFrame >= animationLength) {

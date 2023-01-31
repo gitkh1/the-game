@@ -1,4 +1,4 @@
-import { T_GameState } from './types/game';
+import { T_GameState } from "./types/game";
 
 export { T_GameState };
-export * from './GameRunner';
+export * from "./GameRunner";

@@ -1,4 +1,4 @@
-import { T_GameModelReadOnly } from '../types/game';
+import { T_GameModelReadOnly } from "../types/game";
 
 export abstract class BaseView {
   protected ctx: CanvasRenderingContext2D;
@@ -26,7 +26,7 @@ export abstract class BaseView {
   protected text(color: string, str: string, font: string, x: number, y: number) {
     this.ctx.font = font;
     this.ctx.fillStyle = color;
-    this.ctx.textBaseline = 'top';
+    this.ctx.textBaseline = "top";
     this.ctx.fillText(str, x, y);
   }
 
@@ -46,7 +46,7 @@ export abstract class BaseView {
     reverRotate();
   }
 
-  protected setCursor(type: 'pointer' | '') {
+  protected setCursor(type: "pointer" | "") {
     this.model.canvas.style.cursor = type;
   }
 }

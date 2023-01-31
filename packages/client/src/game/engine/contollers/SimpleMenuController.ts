@@ -1,5 +1,5 @@
-import { T_GameModel } from '../types/game';
-import { T_SimpleMenu } from '../types/gui';
+import { T_GameModel } from "../types/game";
+import { T_SimpleMenu } from "../types/gui";
 
 export class SimpleMenuController {
   constructor(readonly model: T_GameModel) {}

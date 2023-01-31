@@ -1,15 +1,31 @@
-import { T_SpriteProps } from '../components/Sprite';
-import { T_AssetScheme } from '../types/assetScheme';
-import { T_PrimitiveEnemyType } from '../types/game';
-import { satisfies } from '../utils/satisfies';
+import { T_SpriteProps } from "../components/Sprite";
+import { T_AssetScheme } from "../types/assetScheme";
+import { T_PrimitiveEnemyType } from "../types/game";
+import { satisfies } from "../utils/satisfies";
 
-type T_AnimationType = 'Walk' | 'Attack' | 'Dead' | 'Jump';
+type T_AnimationType = "Walk" | "Attack" | "Dead" | "Jump";
 
-const pathes = import.meta.glob('./sprites/**/*.png', { as: 'url', eager: true });
+import graveRobberAttack from "./sprites/enemies/GraveRobber/attack.png";
+import graveRobberDeath from "./sprites/enemies/GraveRobber/death.png";
+import graveRobberIdle from "./sprites/enemies/GraveRobber/idle.png";
+import graveRobberRun from "./sprites/enemies/GraveRobber/run.png";
+import steamManAttack from "./sprites/enemies/SteamMan/attack.png";
+import steamManDeath from "./sprites/enemies/SteamMan/death.png";
+import steamManIdle from "./sprites/enemies/SteamMan/idle.png";
+import steamManRun from "./sprites/enemies/SteamMan/run.png";
+import woodcutterAttack from "./sprites/enemies/Woodcutter/attack.png";
+import woodcutterDeath from "./sprites/enemies/Woodcutter/death.png";
+import woodcutterIdle from "./sprites/enemies/Woodcutter/idle.png";
+import woodcutterRun from "./sprites/enemies/Woodcutter/run.png";
+import hpDots from "./sprites/hp-dots.png";
+import manaDots from "./sprites/mana-dots.png";
+import playerAttack from "./sprites/player-attack.png";
+import playerDead from "./sprites/player-dead.png";
+import playerIdle from "./sprites/player-idle.png";
 
 export const spriteScheme = satisfies<T_AssetScheme>()({
   playerIdle: {
-    url: pathes['./sprites/player-idle.png'],
+    url: playerIdle,
     frames: 8,
     frameDelay: 10,
     hitboxX: 48,
@@ -18,7 +34,7 @@ export const spriteScheme = satisfies<T_AssetScheme>()({
     hitboxH: 64,
   },
   playerAttack: {
-    url: pathes['./sprites/player-attack.png'],
+    url: playerAttack,
     frames: 7,
     frameDelay: 4,
     hitboxX: 35,
@@ -27,7 +43,7 @@ export const spriteScheme = satisfies<T_AssetScheme>()({
     hitboxH: 64,
   },
   playerDead: {
-    url: pathes['./sprites/player-dead.png'],
+    url: playerDead,
     frames: 4,
     frameDelay: 4,
     hitboxX: 35,
@@ -37,24 +53,24 @@ export const spriteScheme = satisfies<T_AssetScheme>()({
     looped: false,
   },
 
-  ...generateEnemyScheme('SteamMan'),
-  ...generateEnemyScheme('GraveRobber'),
-  ...generateEnemyScheme('Woodcutter'),
+  ...generateEnemyScheme("SteamMan", steamManRun, steamManAttack, steamManDeath, steamManIdle),
+  ...generateEnemyScheme("GraveRobber", graveRobberRun, graveRobberAttack, graveRobberDeath, graveRobberIdle),
+  ...generateEnemyScheme("Woodcutter", woodcutterRun, woodcutterAttack, woodcutterDeath, woodcutterIdle),
 
   hp: {
-    url: pathes['./sprites/hp-dots.png'],
+    url: hpDots,
     frames: 2,
   },
   mana: {
-    url: pathes['./sprites/mana-dots.png'],
+    url: manaDots,
     frames: 2,
   },
 });
 
-function generateEnemyScheme<T extends T_PrimitiveEnemyType>(name: T) {
+function generateEnemyScheme<T extends T_PrimitiveEnemyType>(name: T, walk: string, attack: string, dead: string, jump: string) {
   return {
-    [name + 'Walk']: {
-      url: pathes[`./sprites/enemies/${name}/run.png`],
+    [name + "Walk"]: {
+      url: walk,
       frames: 6,
       frameDelay: 6,
       hitboxX: 10,
@@ -62,8 +78,8 @@ function generateEnemyScheme<T extends T_PrimitiveEnemyType>(name: T) {
       hitboxW: 17,
       hitboxH: 34,
     },
-    [name + 'Attack']: {
-      url: pathes[`./sprites/enemies/${name}/attack.png`],
+    [name + "Attack"]: {
+      url: attack,
       frames: 6,
       frameDelay: 6,
       hitboxX: 10,
@@ -71,8 +87,8 @@ function generateEnemyScheme<T extends T_PrimitiveEnemyType>(name: T) {
       hitboxW: 17,
       hitboxH: 34,
     },
-    [name + 'Dead']: {
-      url: pathes[`./sprites/enemies/${name}/death.png`],
+    [name + "Dead"]: {
+      url: dead,
       frames: 6,
       frameDelay: 6,
       hitboxX: 10,
@@ -81,8 +97,8 @@ function generateEnemyScheme<T extends T_PrimitiveEnemyType>(name: T) {
       hitboxH: 34,
       looped: false,
     },
-    [name + 'Jump']: {
-      url: pathes[`./sprites/enemies/${name}/idle.png`],
+    [name + "Jump"]: {
+      url: jump,
       frames: 4,
       frameDelay: 6,
       hitboxX: 10,

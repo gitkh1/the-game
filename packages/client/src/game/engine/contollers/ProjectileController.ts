@@ -1,5 +1,5 @@
-import { Projectile } from '../model/Projectile';
-import { T_GameModel } from '../types/game';
+import { Projectile } from "../model/Projectile";
+import { T_GameModel } from "../types/game";
 
 export class ProjectileController {
   constructor(readonly model: T_GameModel) {}

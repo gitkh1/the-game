@@ -1,6 +1,6 @@
-import { Projectile } from '../model/Projectile';
-import { T_GameModel, T_PlayerState } from '../types/game';
-import { randFloat } from '../utils/random';
+import { Projectile } from "../model/Projectile";
+import { T_GameModel, T_PlayerState } from "../types/game";
+import { randFloat } from "../utils/random";
 
 export class PlayerAttackController {
   constructor(readonly model: T_GameModel) {}
@@ -30,7 +30,7 @@ export class PlayerAttackController {
 
   processAttack() {
     this.model.player.setState(T_PlayerState.ATTACK);
-    this.model.assets.audio.play('attack');
+    this.model.assets.audio.play("attack");
 
     const { x, y } = this.model.mouse;
     this.fireProjectileToPoint(x, y);

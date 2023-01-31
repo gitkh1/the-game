@@ -1,13 +1,18 @@
-import { T_AssetScheme } from '../types/assetScheme';
-import { satisfies } from '../utils/satisfies';
+import { T_AssetScheme } from "../types/assetScheme";
+import { satisfies } from "../utils/satisfies";
 
-const pathes = import.meta.glob('./sounds/*.mp3', { as: 'url', eager: true });
+import attack from "./sounds/attack.mp3";
+import bite from "./sounds/bite.mp3";
+import encounter from "./sounds/encounter.mp3";
+import hit from "./sounds/hit.mp3";
+import levelUp from "./sounds/level_up.mp3";
+import uiConfirm from "./sounds/ui_confirm.mp3";
 
 export const audioScheme = satisfies<T_AssetScheme>()({
-  attack: pathes['./sounds/attack.mp3'],
-  hit: pathes['./sounds/hit.mp3'],
-  uiConfirm: pathes['./sounds/ui_confirm.mp3'],
-  bite: pathes['./sounds/bite.mp3'],
-  levelUp: pathes['./sounds/level_up.mp3'],
-  encounter: pathes['./sounds/encounter.mp3'],
+  attack: attack,
+  hit: hit,
+  uiConfirm: uiConfirm,
+  bite: bite,
+  levelUp: levelUp,
+  encounter: encounter,
 });

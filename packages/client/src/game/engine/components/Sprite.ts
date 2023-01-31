@@ -6,16 +6,16 @@ export type T_SpriteProps = {
   hitboxY?: number;
   hitboxW?: number;
   hitboxH?: number;
-  vertical?: boolean;
-  looped?: boolean;
+  isVertical?: boolean;
+  isLooped?: boolean;
 };
 
-type SpriteConfig = Omit<Required<T_SpriteProps>, 'url'> & {
+type T_SpriteConfig = Omit<Required<T_SpriteProps>, "url"> & {
   image: HTMLImageElement;
 };
 
-type FrameConfig = Partial<{
-  flipped: boolean;
+type T_FrameConfig = Partial<{
+  isFlipped: boolean;
   cropTop: number;
   cropLeft: number;
   cropRight: number;
@@ -25,7 +25,7 @@ type FrameConfig = Partial<{
 export class Sprite {
   isLoaded = false;
   loader: Promise<unknown>;
-  private config: SpriteConfig;
+  private config: T_SpriteConfig;
 
   constructor(props: T_SpriteProps) {
     const image = new Image();
@@ -44,8 +44,8 @@ export class Sprite {
       hitboxW: 0,
       hitboxH: 0,
       frameDelay: 1,
-      vertical: false,
-      looped: true,
+      isVertical: false,
+      isLooped: true,
       ...props,
       image,
     };
@@ -55,33 +55,33 @@ export class Sprite {
     const cfg = this.config;
     if (!cfg.hitboxW) {
       cfg.hitboxW = cfg.image.width - cfg.hitboxX;
-      if (!cfg.vertical) cfg.hitboxW /= cfg.frames;
+      if (!cfg.isVertical) cfg.hitboxW /= cfg.frames;
     }
     if (!cfg.hitboxH) {
       cfg.hitboxH = cfg.image.height - cfg.hitboxY;
-      if (cfg.vertical) cfg.hitboxH /= cfg.frames;
+      if (cfg.isVertical) cfg.hitboxH /= cfg.frames;
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D, framesElapsed: number, x: number, y: number, width: number, height: number, frameConfig: FrameConfig = {}) {
+  draw(ctx: CanvasRenderingContext2D, framesElapsed: number, x: number, y: number, width: number, height: number, frameConfig: T_FrameConfig = {}) {
     if (!this.isLoaded) return;
-    if (frameConfig.flipped) {
-      frameConfig.flipped = false;
+    if (frameConfig.isFlipped) {
+      frameConfig.isFlipped = false;
       ctx.scale(-1, 1);
       this.draw(ctx, framesElapsed, -x - width, y, width, height, frameConfig);
       ctx.scale(-1, 1);
       return;
     }
 
-    const { frameDelay: delay, frames, image, vertical, hitboxX, hitboxY, hitboxW, hitboxH, looped } = this.config;
+    const { frameDelay: delay, frames, image, isVertical, hitboxX, hitboxY, hitboxW, hitboxH, isLooped } = this.config;
     let frameIndex = Math.floor(framesElapsed / delay);
-    frameIndex = looped ? frameIndex % frames : Math.min(frameIndex, frames - 1);
+    frameIndex = isLooped ? frameIndex % frames : Math.min(frameIndex, frames - 1);
 
     // Определяем нужное положение кадра анимации
-    let frameWidth = vertical ? image.width : image.width / frames;
-    let frameHeight = !vertical ? image.height : image.height / frames;
-    let frameX = vertical ? 0 : frameIndex * frameWidth;
-    let frameY = !vertical ? 0 : frameIndex * frameHeight;
+    let frameWidth = isVertical ? image.width : image.width / frames;
+    let frameHeight = !isVertical ? image.height : image.height / frames;
+    let frameX = isVertical ? 0 : frameIndex * frameWidth;
+    let frameY = !isVertical ? 0 : frameIndex * frameHeight;
 
     // Обрезаем лишнее со стороны
     const { cropBottom = 0, cropLeft = 0, cropRight = 0, cropTop = 0 } = frameConfig;
@@ -102,9 +102,9 @@ export class Sprite {
 
     window.model.debug &&
       queueMicrotask(() => {
-        ctx.strokeStyle = 'cyan';
+        ctx.strokeStyle = "cyan";
         ctx.strokeRect(Math.max(SpriteX, -SpriteX - SpriteWidth), SpriteY, SpriteWidth, SpriteHeight);
-        ctx.strokeStyle = 'red';
+        ctx.strokeStyle = "red";
         ctx.strokeRect(Math.max(x, -x - width), y, width, height);
       });
   }

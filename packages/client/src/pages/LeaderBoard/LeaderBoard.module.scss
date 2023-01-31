@@ -1,12 +1,6 @@
-.back__button{
+.back {
+  &__button {
     text-decoration: none;
     margin-top: 10px;
-}
-
-.background{
-    position: absolute;
-    z-index: -1;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
+  }
 }

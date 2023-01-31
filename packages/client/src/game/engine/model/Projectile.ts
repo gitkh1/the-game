@@ -1,6 +1,6 @@
-import { ProjectileTrail } from './ProjectileTrail';
+import { ProjectileTrail } from "./ProjectileTrail";
 
-type Props = {
+type T_Props = {
   x: number;
   y: number;
   dx: number;
@@ -16,7 +16,7 @@ export class Projectile {
   onGround = false;
   lastTrail?: ProjectileTrail;
 
-  constructor({ x, y, dx, dy }: Props) {
+  constructor({ x, y, dx, dy }: T_Props) {
     this.x = x;
     this.y = y;
     this.dx = dx;

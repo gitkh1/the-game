@@ -1,1 +1,1 @@
-export * from './ProfileChangePwd';
+export * from "./ProfileChangePwd";

@@ -1,22 +1,23 @@
-import { FC, useEffect, useRef } from 'react';
-import { T_FormField } from '../../types';
-import TextField from '@mui/material/TextField';
-import { useFormContext } from 'react-hook-form';
-import { InputAdornment } from '@mui/material';
-import styled from '@emotion/styled';
+import { FC, useEffect, useRef } from "react";
+import { useFormContext } from "react-hook-form";
+import styled from "@emotion/styled";
+import { InputAdornment } from "@mui/material";
+import TextField from "@mui/material/TextField";
+
+import { T_FormField } from "../../types";
 
 const CssTextField = styled(TextField)({
-  '& .MuiInputBase-root': {
+  "& .MuiInputBase-root": {
     borderRadius: 10,
-    backgroundColor: '#fff',
-    padding: '3px 10px'
+    backgroundColor: "white",
+    padding: "3px 10px",
   },
-  '& .MuiInputBase-input': {
-    textAlign: 'right',
-  }
+  "& .MuiInputBase-input": {
+    textAlign: "right",
+  },
 });
 
-export const FieldBuilder: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = '' }) => {
+export const FieldBuilder: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = "" }) => {
   const {
     control,
     formState: { errors },

@@ -18,6 +18,7 @@ export class EventBus {
   }
 
   emit(event: string, ...data: unknown[]) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     this.listeners[event]?.forEach((listener) => listener(...data));
   }
 }

@@ -1,15 +1,20 @@
-import { FC } from 'react';
-import { Box, Typography } from '@mui/material';
-import classes from './ErrorPage.module.scss';
+import { FC } from "react";
+import { Typography } from "@mui/material";
+
+import { Background } from "../../components/Background";
 
 export const ErrorPage: FC = () => {
   return (
-    <Box className={classes['root']}>
-      <Typography variant="h1" className={classes['root__title']}>
+    <Background isWhiteBg={true}>
+      <Typography variant="h1" fontWeight="400">
         Ошибка
       </Typography>
-      <Typography className={classes['root__subtitle']}>Что-то пошло не так</Typography>
-      <Typography className={classes['root__subtitle']}>Попробуйте перезагрузить страницу</Typography>
-    </Box>
+      <Typography variant="h5" fontWeight="400">
+        Что-то пошло не так
+      </Typography>
+      <Typography variant="h5" fontWeight="400">
+        Попробуйте перезагрузить страницу
+      </Typography>
+    </Background>
   );
 };

@@ -1,14 +1,16 @@
-import { useMemo, useEffect, MutableRefObject } from 'react';
-import { E_FormMode, T_FormStructure } from '../../types';
-import { FieldBuilder } from '../FieldBuilder';
-import { CustomLink } from '../../../../components/CustomLink';
-import { Box, Typography, Button } from '@mui/material';
-import { useForm, SubmitHandler, FormProvider, UseFormReturn } from 'react-hook-form';
-import { FieldValues } from 'react-hook-form/dist/types';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { AnyObjectSchema } from 'yup';
-import classes from './FormBuilder.module.scss';
-import { LabledFiledInput } from '../LabledFiledInput';
+import { MutableRefObject, useEffect, useMemo } from "react";
+import { FormProvider, SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
+import { FieldValues } from "react-hook-form/dist/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, Typography } from "@mui/material";
+import { AnyObjectSchema } from "yup";
+
+import { CustomLink } from "../../../../components/CustomLink";
+import { E_FormMode, T_FormStructure } from "../../types";
+import { FieldBuilder } from "../FieldBuilder";
+import { LabledFiledInput } from "../LabledFiledInput";
+
+import classes from "./FormBuilder.module.scss";
 
 type T_Props<T_Data, T_Schema> = {
   mode?: E_FormMode;
@@ -47,33 +49,40 @@ export const FormBuilder = <T_Data extends FieldValues = FieldValues, T_Schema e
 
   return (
     <FormProvider {...formApi}>
-      <Box component="form" onSubmit={formApi.handleSubmit(onFormSubmit)} className={classes.root} ref={formRef}>
+      <Box component="form" onSubmit={(data) => void formApi.handleSubmit(onFormSubmit)(data)} className={classes.root} ref={formRef}>
         <Box className={classes.root__fields}>
-          {displayAvatar ?
-            <LabledFiledInput
-              isActive={isEditableAvatar}
-              value={values?.avatar} />
-            : null}
+          {displayAvatar && typeof values?.avatar === "string" ? <LabledFiledInput isActive={isEditableAvatar} value={values?.avatar} /> : null}
         </Box>
         <Typography variant="h4" className={classes.root__title}>
           {structure.title}
         </Typography>
         <Box className={classes.root__fields}>
-          {structure.fields.map((item) => (
-            <FieldBuilder key={item.id} {...{ ...item, defaultValue: values?.[item.name], disabled: !isEdit }} />
-          ))}
+          {structure.fields.map((item) => {
+            let defaultValue = "";
+            if (typeof values?.[item.name] === "string") {
+              defaultValue += values[item.name];
+            }
+            return (
+              <FieldBuilder
+                key={item.id}
+                {...{
+                  ...item,
+                  defaultValue,
+                  disabled: !isEdit,
+                }}
+              />
+            );
+          })}
         </Box>
         <Box className={classes.root__footer}>
-          {structure?.submit?.title ?
+          {structure?.submit?.title ? (
             <Button type="submit" variant="contained">
               {structure.submit.title}
             </Button>
-            : null}
-          {structure.links ?
-            structure.links.map(link => <CustomLink key={link.to} to={link.to} title={link.title} />)
-            : null}
+          ) : null}
+          {structure.links ? structure.links.map((link) => <CustomLink key={link.to} to={link.to} title={link.title} />) : null}
         </Box>
       </Box>
-    </FormProvider >
+    </FormProvider>
   );
 };

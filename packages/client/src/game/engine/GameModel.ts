@@ -1,12 +1,16 @@
-import { EventBus } from './components/EventBus';
-import { assets } from './assets';
-import { T_GameModel, T_GameState, T_PlayerState } from './types/game';
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+import { EventBus } from "./components/EventBus";
+import { T_GameModel, T_GameState, T_PlayerState } from "./types/game";
+import { assets } from "./assets";
 
 export const configureDefaultGameModel = (canvas: HTMLCanvasElement): T_GameModel => {
   canvas.tabIndex = 1;
   const width = Number(canvas.width);
   const height = Number(canvas.height);
-  const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+  const context = canvas.getContext("2d") as CanvasRenderingContext2D;
   context.imageSmoothingEnabled = false;
 
   const model: T_GameModel = {
@@ -25,7 +29,7 @@ export const configureDefaultGameModel = (canvas: HTMLCanvasElement): T_GameMode
       setState(state: T_GameState) {
         this.state = state;
         this.levelAnimationFrames = 0;
-        model.events.emit('world:state', state);
+        model.events.emit("world:state", state);
       },
     },
     mouse: {
@@ -71,7 +75,7 @@ export const configureDefaultGameModel = (canvas: HTMLCanvasElement): T_GameMode
     },
     enemies: [],
     projectileConfig: {
-      color: 'hsl(130 80% 60%)',
+      color: "hsl(130 80% 60%)",
       cost: 10,
       gravity: 500,
       radius: 3,
@@ -109,43 +113,43 @@ export const configureDefaultGameModel = (canvas: HTMLCanvasElement): T_GameMode
         offsetTop: 150,
         fontSize: 32,
         gap: 5,
-        header: 'У вас одно очко улучшения',
-        clickEvent: 'gui:leveling',
+        header: "У вас одно очко улучшения",
+        clickEvent: "gui:leveling",
         items: [
           {
             enabled: true,
             isHover: false,
-            textLeft: 'Запас здоровья',
-            textRight: '0',
-            tag: 'hp',
+            textLeft: "Запас здоровья",
+            textRight: "0",
+            tag: "hp",
           },
           {
             enabled: true,
             isHover: false,
-            textLeft: 'Запас маны',
-            textRight: '0',
-            tag: 'mana',
+            textLeft: "Запас маны",
+            textRight: "0",
+            tag: "mana",
           },
           {
             enabled: true,
             isHover: false,
-            textLeft: 'Восстановление маны',
-            textRight: '0',
-            tag: 'manaRegen',
+            textLeft: "Восстановление маны",
+            textRight: "0",
+            tag: "manaRegen",
           },
           {
             enabled: true,
             isHover: false,
-            textLeft: 'Точность',
-            textRight: '0',
-            tag: 'accuracy',
+            textLeft: "Точность",
+            textRight: "0",
+            tag: "accuracy",
           },
           {
             enabled: true,
             isHover: false,
-            textLeft: 'Размер снаряда',
-            textRight: '0',
-            tag: 'projectileSize',
+            textLeft: "Размер снаряда",
+            textRight: "0",
+            tag: "projectileSize",
           },
         ],
       },

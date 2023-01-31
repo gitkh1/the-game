@@ -1,1 +1,1 @@
-export * from './LabledFiledInput';
+export * from "./LabledFiledInput";

@@ -1,4 +1,4 @@
-import { DEFAULT_HEADERS, ERROR_MESSAGE, METHODS, T_CRUD_METHODS } from './constants';
+import { DEFAULT_HEADERS, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
 
 const DEFAULT_TIMEOUT = 500;
 export class Api {
@@ -6,18 +6,18 @@ export class Api {
 
   private async parseResponse(response: Response) {
     if (!response.ok) {
-      const error = await response.json();
-      const message = 'reason' in error ? error.reason : ERROR_MESSAGE;
+      const error = (await response.json()) as Record<string, unknown>;
+      const message = ("reason" in error ? error.reason : ERROR_MESSAGE) as string;
       throw new Error(message);
     }
     return response;
   }
 
-  private async fetchMethod(url: string, method: T_CRUD_METHODS, data?: unknown) {
+  private async fetchMethod(url: string, method: T_CrudMethods, data?: unknown) {
     try {
       let requestInit: RequestInit = {
         method: method,
-        credentials: 'include',
+        credentials: "include",
         headers: DEFAULT_HEADERS,
       };
       if (data) {

@@ -1,7 +1,7 @@
-import { E_EnemyState, T_PrimitiveEnemyType } from '../types/game';
-import { randChoice, randFloat, randInt } from '../utils/random';
+import { E_EnemyState, T_PrimitiveEnemyType } from "../types/game";
+import { randChoice, randFloat, randInt } from "../utils/random";
 
-type Props = {
+type T_Props = {
   x: number;
   y: number;
   jumpedEnemyChance: number;
@@ -11,12 +11,12 @@ export class Enemy {
   x: number;
   y: number;
   isJumpingType: boolean;
-  type: T_PrimitiveEnemyType = randChoice(['SteamMan', 'Woodcutter', 'GraveRobber']);
+  type: T_PrimitiveEnemyType = randChoice(["SteamMan", "Woodcutter", "GraveRobber"]);
   targetDistance = Infinity;
   state = E_EnemyState.WALK;
   animationFrame = randInt(1000);
 
-  constructor({ x, y, jumpedEnemyChance }: Props) {
+  constructor({ x, y, jumpedEnemyChance }: T_Props) {
     this.x = x;
     this.y = y;
     this.isJumpingType = randFloat(100) < jumpedEnemyChance;

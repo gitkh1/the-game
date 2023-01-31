@@ -1,4 +1,5 @@
-import { yup } from '../../modules/formBuilder';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { yup } from "../../modules/formBuilder";
 
 export interface I_Signin {
   login: string;

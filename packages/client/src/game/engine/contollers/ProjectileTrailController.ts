@@ -1,8 +1,8 @@
-import { Projectile } from '../model/Projectile';
-import { ProjectileTrail } from '../model/ProjectileTrail';
-import { T_GameModel } from '../types/game';
-import { distanceBetweenPoints } from '../utils/points';
-import { randInt } from '../utils/random';
+import { Projectile } from "../model/Projectile";
+import { ProjectileTrail } from "../model/ProjectileTrail";
+import { T_GameModel } from "../types/game";
+import { distanceBetweenPoints } from "../utils/points";
+import { randInt } from "../utils/random";
 
 export class ProjectileTrailController {
   constructor(readonly model: T_GameModel) {}

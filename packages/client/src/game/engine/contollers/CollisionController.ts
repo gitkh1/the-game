@@ -1,9 +1,9 @@
-import { Enemy } from '../model/Enemy';
-import { Projectile } from '../model/Projectile';
-import { E_EnemyState, T_GameModel } from '../types/game';
-import { isPointInsideRect } from '../utils/points';
+import { Enemy } from "../model/Enemy";
+import { Projectile } from "../model/Projectile";
+import { E_EnemyState, T_GameModel } from "../types/game";
+import { isPointInsideRect } from "../utils/points";
 
-type T_Callback<Q, E> = (left: Q, right: E) => unknown;
+type T_Callback<T_Q, T_E> = (lT_eft: T_Q, right: T_E) => unknown;
 
 export class CollisionController {
   constructor(readonly model: T_GameModel) {}

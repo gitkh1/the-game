@@ -1,15 +1,19 @@
-import { spriteScheme } from './assets';
-import { BaseView } from './components/BaseView';
-import { Enemy } from './model/Enemy';
-import { E_EnemyState, T_GameState, T_PlayerState } from './types/game';
-import { SimpleMenuView } from './view/SimpleMenuView';
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { BaseView } from "./components/BaseView";
+import { Enemy } from "./model/Enemy";
+import { E_EnemyState, T_GameState, T_PlayerState } from "./types/game";
+import { SimpleMenuView } from "./view/SimpleMenuView";
+import { spriteScheme } from "./assets";
 
 export class GameView extends BaseView {
   menu = new SimpleMenuView(this.model);
 
   init() {
     this.onFrameUpdate = this.onFrameUpdate.bind(this);
-    this.model.events.on('render', this.onFrameUpdate);
+    this.model.events.on("render", this.onFrameUpdate);
   }
 
   destroy() {
@@ -31,7 +35,7 @@ export class GameView extends BaseView {
 
   renderBackround() {
     const { width, height } = this.model.world;
-    this.ctx.drawImage(this.model.assets.images.get('background'), 0, 0, width, height);
+    this.ctx.drawImage(this.model.assets.images.get("background"), 0, 0, width, height);
   }
 
   renderPlayer() {
@@ -40,27 +44,27 @@ export class GameView extends BaseView {
     const { sprites } = this.model.assets;
 
     const y = worldHeight - floorHeight - height;
-    const flipped = this.model.mouse.x < x + width / 2;
+    const isFlipped = this.model.mouse.x < x + width / 2;
 
     let sprite;
     switch (state) {
       case T_PlayerState.IDLE:
-        sprite = sprites.get('playerIdle');
+        sprite = sprites.get("playerIdle");
         break;
 
       case T_PlayerState.ATTACK:
-        sprite = sprites.get('playerAttack');
+        sprite = sprites.get("playerAttack");
         break;
 
       case T_PlayerState.DEAD:
-        sprite = sprites.get('playerDead');
+        sprite = sprites.get("playerDead");
         break;
 
       default:
         return;
     }
 
-    sprite.draw(this.ctx, animationFrame, x, y, width, height, { flipped });
+    sprite.draw(this.ctx, animationFrame, x, y, width, height, { isFlipped });
   }
 
   renderProjectiles() {
@@ -88,7 +92,7 @@ export class GameView extends BaseView {
     this.model.enemies.forEach((enemy) => {
       const { x, y, animationFrame } = enemy;
       const sprite = this.model.assets.sprites.get(this.getEnemySpriteByState(enemy));
-      sprite.draw(this.ctx, animationFrame, x, y, width, height, { flipped: true });
+      sprite.draw(this.ctx, animationFrame, x, y, width, height, { isFlipped: true });
     });
   }
 
@@ -103,12 +107,12 @@ export class GameView extends BaseView {
       case E_EnemyState.DEAD:
         return `${enemy.type}Dead`;
     }
-    throw new Error('Not found animation for enemy state');
+    throw new Error("Not found animation for enemy state");
   }
 
   renderFloor() {
     const { height, floorHeight } = this.model.world;
-    this.ctx.drawImage(this.model.assets.images.get('floor'), 0, height - floorHeight);
+    this.ctx.drawImage(this.model.assets.images.get("floor"), 0, height - floorHeight);
   }
 
   renderHpManaDots(x: number, y: number, name: keyof typeof spriteScheme, value: number, maxValue: number, base: number) {
@@ -153,7 +157,7 @@ export class GameView extends BaseView {
     }
   }
 
-  setCursor(type: 'pointer' | '') {
+  setCursor(type: "pointer" | "") {
     this.model.canvas.style.cursor = type;
   }
 
@@ -165,18 +169,18 @@ export class GameView extends BaseView {
     const isAtStart = kills === 0 && state === T_GameState.PLAY;
     const alpha = isAtStart ? Math.min(levelAnimationFrames / 5 - 30, 100) : 100;
 
-    this.ctx.textAlign = 'right';
-    this.text(`hsl(0 100% 100% / ${alpha}%)`, template, '24px Impact', width - 30, 30);
+    this.ctx.textAlign = "right";
+    this.text(`hsl(0 100% 100% / ${alpha}%)`, template, "24px Impact", width - 30, 30);
   }
 
   renderGui() {
     const { hp, mana, maxHp, maxMana } = this.model.player;
 
-    this.renderHpManaDots(30, 20, 'hp', hp, maxHp, 1);
-    this.renderHpManaDots(30, 50, 'mana', mana, maxMana, 10);
+    this.renderHpManaDots(30, 20, "hp", hp, maxHp, 1);
+    this.renderHpManaDots(30, 50, "mana", mana, maxMana, 10);
     this.renderPlayerScore();
 
-    this.setCursor('');
+    this.setCursor("");
     if (this.model.world.state === T_GameState.LEVELING) {
       this.menu.renderMenu(this.model.gui.leveling);
     }

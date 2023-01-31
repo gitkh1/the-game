@@ -1,10 +1,14 @@
-import { ReadonlyDeep } from '../types/utils';
-import { Sprite, T_SpriteProps } from './Sprite';
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { T_ReadonlyDeep } from "../types/utils";
+
+import { Sprite, T_SpriteProps } from "./Sprite";
 
 export abstract class Resource<
   SchemeValue = unknown,
   ResourceClass = unknown,
-  Scheme extends Record<string, SchemeValue> = Record<string, SchemeValue>
+  Scheme extends Record<string, SchemeValue> = Record<string, SchemeValue>,
 > {
   constructor(protected scheme: Scheme) {
     this.length = Object.keys(scheme).length;
@@ -16,12 +20,12 @@ export abstract class Resource<
   protected data = {} as Record<keyof Scheme, ResourceClass>;
 
   get(key: keyof Scheme): ResourceClass {
-    if (!this.isLoaded) throw new Error('trying get not loaded resource');
+    if (!this.isLoaded) throw new Error("trying get not loaded resource");
     return this.data[key];
   }
 
   getScheme(key: keyof Scheme) {
-    return this.scheme[key] as ReadonlyDeep<SchemeValue>;
+    return this.scheme[key] as T_ReadonlyDeep<SchemeValue>;
   }
 
   protected promises: Promise<unknown>[] = [];
@@ -52,7 +56,7 @@ export class AudioResource<Scheme extends Record<string, string>> extends Resour
     if (!audio.paused) {
       audio = audio.cloneNode() as HTMLAudioElement;
     }
-    audio.play();
+    void audio.play();
   }
 
   protected downloadOne(name: string, value: string): HTMLAudioElement {
@@ -62,7 +66,7 @@ export class AudioResource<Scheme extends Record<string, string>> extends Resour
       new Promise<void>((resolve, reject) => {
         audio.oncanplaythrough = () => resolve();
         audio.onerror = () => reject(new Error(`Can't load sound resource '${name}' from '${value}'`));
-      })
+      }),
     );
     return audio;
   }
@@ -77,7 +81,7 @@ export class ImageResource<Scheme extends Record<string, string>> extends Resour
       new Promise<void>((resolve, reject) => {
         image.onload = () => resolve();
         image.onerror = () => reject(new Error(`Can't load image resource '${name}' from '${value}'`));
-      })
+      }),
     );
     return image;
   }
@@ -90,7 +94,7 @@ export class SpriteResource<Scheme extends Record<string, T_SpriteProps>> extend
     this.promises.push(
       sprite.loader.catch((error) => {
         throw new Error(`Can't load sprite resource '${name}' from '${value.url}'`, { cause: error });
-      })
+      }),
     );
     return sprite;
   }

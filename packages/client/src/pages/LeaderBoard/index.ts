@@ -1,1 +1,1 @@
-export * from './LeaderBoard';
+export * from "./LeaderBoard";

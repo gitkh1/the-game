@@ -1,17 +1,19 @@
-import { CollisionController } from './contollers/CollisionController';
-import { EnemyController } from './contollers/EnemyController';
-import { InputController } from './contollers/InputController';
-import { PlayerAttackController } from './contollers/PlayerAttackController';
-import { PlayerController } from './contollers/PlayerController';
-import { ProjectileController } from './contollers/ProjectileController';
-import { ProjectileTrailController } from './contollers/ProjectileTrailController';
-import { SimpleMenuController } from './contollers/SimpleMenuController';
-import { BaseController } from './components/BaseController';
-import { T_EffectPoints, E_EnemyState, T_GameState } from './types/game';
-import { T_SimpleMenuItem } from './types/gui';
-import { randChoice } from './utils/random';
-import { Enemy } from './model/Enemy';
-import { Projectile } from './model/Projectile';
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { BaseController } from "./components/BaseController";
+import { CollisionController } from "./contollers/CollisionController";
+import { EnemyController } from "./contollers/EnemyController";
+import { InputController } from "./contollers/InputController";
+import { PlayerAttackController } from "./contollers/PlayerAttackController";
+import { PlayerController } from "./contollers/PlayerController";
+import { ProjectileController } from "./contollers/ProjectileController";
+import { ProjectileTrailController } from "./contollers/ProjectileTrailController";
+import { SimpleMenuController } from "./contollers/SimpleMenuController";
+import { Enemy } from "./model/Enemy";
+import { Projectile } from "./model/Projectile";
+import { E_EnemyState, T_EffectPoints, T_GameState } from "./types/game";
+import { T_SimpleMenuItem } from "./types/gui";
+import { randChoice } from "./utils/random";
 
 export class GameController extends BaseController {
   attack = new PlayerAttackController(this.model);
@@ -24,22 +26,22 @@ export class GameController extends BaseController {
 
   init() {
     this.onTickUpdate = this.onTickUpdate.bind(this);
-    this.model.events.on('update', this.onTickUpdate);
+    this.model.events.on("update", this.onTickUpdate);
 
     this.onEnemyCollidesWithProjectile = this.onEnemyCollidesWithProjectile.bind(this);
 
     this.input = new InputController(this.model);
     this.input.register();
 
-    this.model.events.on('click:leveling', () => {
+    this.model.events.on("click:leveling", () => {
       this.menu.tryHandleClickOnSimpleMenu(this.model.gui.leveling);
     });
 
-    this.model.events.on('click:play', () => {
+    this.model.events.on("click:play", () => {
       this.attack.tryDoAttack();
     });
 
-    this.model.events.on('gui:leveling', (menuItem?: T_SimpleMenuItem) => {
+    this.model.events.on("gui:leveling", (menuItem?: T_SimpleMenuItem) => {
       this.handleClickInLevelingMenu(menuItem);
     });
   }
@@ -96,7 +98,7 @@ export class GameController extends BaseController {
     projectile.x = -1e9;
     enemy.setState(E_EnemyState.DEAD);
 
-    this.model.assets.audio.play('hit');
+    this.model.assets.audio.play("hit");
 
     this.model.player.kills += 1;
     this.tryLevelUp();
@@ -125,7 +127,7 @@ export class GameController extends BaseController {
 
     const maxLevel = Object.keys(positiveEffects).length * maxPoints;
     if (level < maxLevel) {
-      this.model.assets.audio.play('levelUp');
+      this.model.assets.audio.play("levelUp");
       this.model.world.setState(T_GameState.LEVELING);
     }
   }
@@ -139,7 +141,7 @@ export class GameController extends BaseController {
     if (posibleEffects.length === 0) return;
 
     if (negativeEffects.jumpChance === 0) {
-      posibleEffects = posibleEffects.filter(([name]) => !name.includes('jump') || name === 'jumpChance');
+      posibleEffects = posibleEffects.filter(([name]) => !name.includes("jump") || name === "jumpChance");
     }
 
     const [effectName] = randChoice(posibleEffects) as [keyof typeof negativeEffects, number];
@@ -147,22 +149,22 @@ export class GameController extends BaseController {
     this.applyNegativeEffect(effectName);
   }
 
-  applyNegativeEffect(name: keyof T_EffectPoints['negative']) {
+  applyNegativeEffect(name: keyof T_EffectPoints["negative"]) {
     const enemyConfig = this.model.enemyConfig;
     switch (name) {
-      case 'jumpChance':
+      case "jumpChance":
         enemyConfig.jumpedEnemyChance += 3;
         break;
-      case 'jumpHeight':
+      case "jumpHeight":
         enemyConfig.jumpHeight += 15;
         break;
-      case 'jumpLength':
+      case "jumpLength":
         enemyConfig.jumpLength += 15;
         break;
-      case 'walkSpeed':
+      case "walkSpeed":
         enemyConfig.speed += 12;
         break;
-      case 'spawnDelay':
+      case "spawnDelay":
         enemyConfig.spawnDelay[0] -= 40;
         enemyConfig.spawnDelay[1] -= 150;
         break;
@@ -177,26 +179,26 @@ export class GameController extends BaseController {
     effects[effectName] += 1;
     this.applyPositiveEffect(effectName);
     this.model.world.setState(T_GameState.PLAY);
-    this.model.assets.audio.play('uiConfirm');
+    this.model.assets.audio.play("uiConfirm");
   }
 
-  applyPositiveEffect(name: keyof T_EffectPoints['positive']) {
+  applyPositiveEffect(name: keyof T_EffectPoints["positive"]) {
     const player = this.model.player;
     switch (name) {
-      case 'accuracy':
+      case "accuracy":
         this.model.projectileConfig.spreading -= 2;
         break;
-      case 'hp':
+      case "hp":
         player.maxHp += 1;
         player.hp += 1;
         break;
-      case 'mana':
+      case "mana":
         player.maxMana += 10;
         break;
-      case 'manaRegen':
+      case "manaRegen":
         player.manaPerSecond += 1;
         break;
-      case 'projectileSize':
+      case "projectileSize":
         this.model.projectileConfig.radius += 0.5;
         break;
     }

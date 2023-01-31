@@ -1,35 +1,37 @@
-import { SigninPage } from '../pages/SigninPage';
-import { SignupPage } from '../pages/SignupPage';
-import { NotFoundPage } from '../pages/NotFoundPage';
-import { MainPage } from '../pages/MainPage';
-import { GameMainMenu } from '../pages/GameMainMenu';
-import { TutorialPage } from '../pages/TutorialPage';
-import { GameOverPage } from '../pages/GameOverPage';
-import { Profile } from '../pages/Profile';
-import { LeaderBoard } from '../pages/LeaderBoard';
-import { ProfileChangeData } from '../pages/ProfileChangeData';
-import { ProfileChangePwd } from '../pages/ProfileChangePwd';
-import { Game } from '../game';
-import { MainMenuSettings } from '../pages/MainMenuSettings';
-import { AboutPage } from '../pages/AboutPage';
-import { RouteObject } from 'react-router-dom';
-import { GuestOnlyRouter, SignedInOnlyRouter } from '../modules/RouterWithAuth';
+import { RouteObject } from "react-router-dom";
+
+import { Game } from "../game";
+import { GuestOnlyRouter, SignedInOnlyRouter } from "../modules/RouterWithAuth";
+import { AboutPage } from "../pages/AboutPage";
+import { ErrorPage } from "../pages/ErrorPage";
+import { GameMainMenu } from "../pages/GameMainMenu";
+import { GameOverPage } from "../pages/GameOverPage";
+import { LeaderBoard } from "../pages/LeaderBoard";
+import { MainMenuSettings } from "../pages/MainMenuSettings";
+import { MainPage } from "../pages/MainPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
+import { Profile } from "../pages/Profile";
+import { ProfileChangeData } from "../pages/ProfileChangeData";
+import { ProfileChangePwd } from "../pages/ProfileChangePwd";
+import { SigninPage } from "../pages/SigninPage";
+import { SignupPage } from "../pages/SignupPage";
+import { TutorialPage } from "../pages/TutorialPage";
 
 export const PATHS = {
-  MAIN: '/',
-  SIGN_IN: '/signin',
-  SIGN_UP: '/signup',
-  MAIN_MENU: '/main-menu',
-  GAME: '/game',
-  TUTORIAL: '/tutorial',
-  GAMEOVER: '/game-over',
-  SETTINGS: '/settings',
-  PROFILE: '/profile',
-  PROFILE_CHANGE_DATA: '/profilechangedata',
-  PROFILE_CHANGE_PWD: '/profilechangepwd',
-  LEADERS: '/leaders',
-  ABOUT: '/about',
-  NOT_FOUND_PAGE: '*',
+  MAIN: "/",
+  SIGN_IN: "/signin",
+  SIGN_UP: "/signup",
+  MAIN_MENU: "/main-menu",
+  GAME: "/game",
+  TUTORIAL: "/tutorial",
+  GAMEOVER: "/game-over",
+  SETTINGS: "/settings",
+  PROFILE: "/profile",
+  PROFILE_CHANGE_DATA: "/profilechangedata",
+  PROFILE_CHANGE_PWD: "/profilechangepwd",
+  LEADERS: "/leaders",
+  ABOUT: "/about",
+  NOT_FOUND_PAGE: "*",
 };
 
 export const routes: RouteObject[] = [
@@ -48,7 +50,12 @@ export const routes: RouteObject[] = [
         path: PATHS.SIGN_UP,
         element: <SignupPage />,
       },
-    ],
+    ].map((child) => {
+      return {
+        ...child,
+        errorElement: <ErrorPage />,
+      };
+    }),
   },
   {
     element: <SignedInOnlyRouter redirectInvalidTo={PATHS.MAIN} />,
@@ -93,10 +100,16 @@ export const routes: RouteObject[] = [
         path: PATHS.ABOUT,
         element: <AboutPage />,
       },
-    ],
+    ].map((child) => {
+      return {
+        ...child,
+        errorElement: <ErrorPage />,
+      };
+    }),
   },
   {
     path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
+    errorElement: <ErrorPage />,
   },
 ];

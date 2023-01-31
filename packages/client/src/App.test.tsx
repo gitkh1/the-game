@@ -1,12 +1,14 @@
-import App from './App';
-import { render, screen } from '@testing-library/react';
+import { render, screen } from "@testing-library/react";
 
-const appContent = '404';
+import App from "./App";
 
+const appContent = "404";
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve('hey') }));
+global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve("hey") }));
 
-test('Example test', async () => {
+test("Example test", () => {
   render(<App />);
   expect(screen.findAllByText(appContent)).toBeDefined();
 });

@@ -1,4 +1,4 @@
-type Props = { x: number; y: number; color: string };
+type T_Props = { x: number; y: number; color: string };
 
 export class ProjectileTrail {
   x: number;
@@ -6,7 +6,7 @@ export class ProjectileTrail {
   age = 0;
   color: string;
 
-  constructor({ x, y, color }: Props) {
+  constructor({ x, y, color }: T_Props) {
     this.x = x;
     this.y = y;
     this.color = color;
