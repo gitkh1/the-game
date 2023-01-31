@@ -16,7 +16,7 @@ export const TutorialPage: FC = () => {
                 <div className={ classes['tutorial__item'] }>
                     <div className={ classes['tutorial__description'] }>
                         Нажимайте ЛЕВУЮ КНОПКУ МЫШИ, чтобы метать снаряды во врагов.
-        </div>
+                    </div>
                     <img src={tutorialImageOne} alt="tutorial-1" className={ classes['tutorial__image'] }/>
                 </div>
                 <div className={ classes['tutorial__item'] }>
@@ -24,12 +24,12 @@ export const TutorialPage: FC = () => {
                         Нажимайте ПРОБЕЛ, чтобы оживлять врагов в виде скелетов.
                     </div>
                     <img src={tutorialImageTwo} alt="tutorial-2" className={ classes['tutorial__image'] }/>
-        </div>
+                </div>
 
-        <NavLink to={PATHS.MAIN_MENU}>
+                <NavLink to={PATHS.MAIN_MENU}>
                     <Button color="primary" variant="contained">Вернуться в меню</Button>
-        </NavLink>
-      </div>
-    </div>
-  );
+                </NavLink>
+            </div>
+        </div>
+    );
 };

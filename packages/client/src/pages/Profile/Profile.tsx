@@ -6,8 +6,8 @@ import profileBG from '../../assets/images/game-main-menu-bg.jpg';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { authApi } from '../../api';
-import { E_FormMode, FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from '../../modules/formBuilder';
 import { PATHS } from '../../routes';
+import { E_FormMode, FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from '../../modules/formBuilder';
 
 const FIELDS: T_FormFieldNames = ['email', 'login', 'first_name', 'second_name', 'display_name', 'phone'];
 

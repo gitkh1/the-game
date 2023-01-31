@@ -30,6 +30,7 @@ export const PATHS = {
   NOT_FOUND_PAGE: '*',
 };
 
+
 export const routes = [
   {
     path: PATHS.MAIN,

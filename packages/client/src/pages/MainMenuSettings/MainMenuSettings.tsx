@@ -8,56 +8,56 @@ import { PATHS } from '../../routes';
 type T_WindowMode = 'Оконный' | 'Полноэкранный';
 
 export const MainMenuSettings = () => {
-  const [windowMode, setWindowMode] = useState<T_WindowMode>('Оконный');
+    const [windowMode, setWindowMode] = useState<T_WindowMode>('Оконный');
 
-  function toggleWindowMode() {
-    if (document.fullscreenElement) {
-      setWindowMode('Полноэкранный');
-    } else {
-      setWindowMode('Оконный');
+    function toggleWindowMode() {
+        if (document.fullscreenElement) {
+            setWindowMode('Полноэкранный');
+        } else {
+            setWindowMode('Оконный');
+        }
     }
-  }
 
-  useEffect(() => {
-    toggleWindowMode();
+    useEffect(() => {
+        toggleWindowMode();
 
-    document.addEventListener('fullscreenchange', toggleWindowMode);
+        document.addEventListener('fullscreenchange', toggleWindowMode);
 
-    return () => {
-      document.removeEventListener('fullscreenchange', toggleWindowMode);
-    };
-  }, []);
+        return () => {
+            document.removeEventListener('fullscreenchange', toggleWindowMode);
+        };
+    }, []);
 
-  function toggleFullscreen() {
-    const elem = document.documentElement;
-    if (!document.fullscreenElement) {
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      }
-      setWindowMode('Полноэкранный');
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-      setWindowMode('Оконный');
+    function toggleFullscreen() {
+        const elem = document.documentElement;
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            }
+            setWindowMode('Полноэкранный');
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            setWindowMode('Оконный');
+        }
     }
-  }
 
-  return (
-    <div className={classes['container']}>
-      <img src={mainPageBG} alt="game-main-menu-background" className={classes['background']} />
-      <div className={classes['settings']}>
-        <h2 className={classes['settings__header']}>Настройки</h2>
-        <div className={classes['settings__item']}>
+    return (
+        <div className={classes['container']}>
+            <img src={mainPageBG} alt="game-main-menu-background" className={classes['background']} />
+            <div className={classes['settings']}>
+                <h2 className={classes['settings__header']}>Настройки</h2>
+                <div className={classes['settings__item']}>
                     <div className={classes['settings__description']}>
                         Режим экрана:
                     </div>
                     <Button color="primary" variant="contained" onClick={toggleFullscreen}>{windowMode}</Button>
-        </div>
-        <NavLink to={PATHS.MAIN_MENU}>
+                </div>
+                <NavLink to={PATHS.MAIN_MENU}>
                     <Button color="primary" variant="contained">Вернуться в меню</Button>
-        </NavLink>
-      </div>
-    </div>
-  );
+                </NavLink>
+            </div>
+        </div>
+    );
 };
