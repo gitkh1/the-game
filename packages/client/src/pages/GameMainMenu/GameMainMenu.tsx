@@ -2,16 +2,14 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import gameMainMenuBG from "../../assets/images/game-main-menu-bg.jpg";
+import { Background } from "../../components/Background";
 import { PATHS } from "../../routes";
 
-import global from "../../global/styles/Global.module.scss";
 import classes from "./GameMainMenu.module.scss";
 
 export const GameMainMenu: FC = () => {
   return (
-    <div className={global["container"]}>
-      <img src={gameMainMenuBG} alt="game-main-menu-background" className={global["background"]} />
+    <Background>
       <div className={classes["main-menu"]}>
         <NavLink to={PATHS.GAME}>
           <Button color="primary" variant="contained">
@@ -44,6 +42,6 @@ export const GameMainMenu: FC = () => {
           </Button>
         </NavLink>
       </div>
-    </div>
+    </Background>
   );
 };

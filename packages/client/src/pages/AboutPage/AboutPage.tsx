@@ -2,9 +2,8 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import aboutBG from "../../assets/images/game-main-menu-bg.jpg";
+import { Background } from "../../components/Background";
 
-import global from "../../global/styles/Global.module.scss";
 import classes from "./AboutPage.module.scss";
 
 const developers = [
@@ -17,8 +16,7 @@ const developers = [
 
 export const AboutPage: FC = () => {
   return (
-    <div className={global["container"]}>
-      <img src={aboutBG} alt="game-main-menu-background" className={global["background"]} />
+    <Background>
       <div className={classes["about-page"]}>
         <h2 className={classes["about-page__header"]}>Об авторах</h2>
 
@@ -37,6 +35,6 @@ export const AboutPage: FC = () => {
           </Button>
         </NavLink>
       </div>
-    </div>
+    </Background>
   );
 };

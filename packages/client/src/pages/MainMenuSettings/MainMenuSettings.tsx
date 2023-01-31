@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import mainPageBG from "../../assets/images/game-main-menu-bg.jpg";
+import { Background } from "../../components/Background";
 import { PATHS } from "../../routes";
 
-import global from "../../global/styles/Global.module.scss";
 import classes from "./MainMenuSettings.module.scss";
 
 type T_WindowMode = "Оконный" | "Полноэкранный";
@@ -47,8 +46,7 @@ export const MainMenuSettings = () => {
   }
 
   return (
-    <div className={global["container"]}>
-      <img src={mainPageBG} alt="game-main-menu-background" className={global["background"]} />
+    <Background>
       <div className={classes["settings"]}>
         <h2 className={classes["settings__header"]}>Настройки</h2>
         <div className={classes["settings__item"]}>
@@ -63,6 +61,6 @@ export const MainMenuSettings = () => {
           </Button>
         </NavLink>
       </div>
-    </div>
+    </Background>
   );
 };

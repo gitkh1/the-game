@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import { userApi } from "../../api/User";
-import profileBG from "../../assets/images/game-main-menu-bg.jpg";
+import { Background } from "../../components/Background";
 import { useNotification, useUserInfo } from "../../global/hooks";
 import { I_UserInfo, T_ProfileSchema, validationProfileSchema } from "../../global/types";
 import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
@@ -58,8 +58,7 @@ export const ProfileChangeData: FC = () => {
   const userInfo = useUserInfo();
 
   return (
-    <Box className={global["container"]}>
-      <img src={profileBG} alt="profile-background" className={global["background"]} />
+    <Background>
       <Box className={global["form-wrapper"]}>
         <FormBuilder<I_UserInfo, T_ProfileSchema>
           onSubmit={(data) => void onSubmit(data)}
@@ -76,6 +75,6 @@ export const ProfileChangeData: FC = () => {
           </Button>
         </NavLink>
       </Box>
-    </Box>
+    </Background>
   );
 };

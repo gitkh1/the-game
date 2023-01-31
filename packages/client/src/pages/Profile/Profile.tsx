@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 
-import profileBG from "../../assets/images/game-main-menu-bg.jpg";
+import { Background } from "../../components/Background";
 import { useUserInfo } from "../../global/hooks";
 import { I_UserInfo, T_ProfileSchema } from "../../global/types";
 import { E_FormMode, FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
@@ -24,8 +24,7 @@ export const Profile: FC = () => {
   const userInfo = useUserInfo();
 
   return (
-    <Box className={global["container"]}>
-      <img src={profileBG} alt="profile-background" className={global["background"]} />
+    <Background>
       <Box className={global["form-wrapper"]}>
         <FormBuilder<I_UserInfo, T_ProfileSchema> structure={getFormStructure()} mode={E_FormMode.View} values={userInfo} />
         <div className={global["buttons__container"]}>
@@ -41,7 +40,6 @@ export const Profile: FC = () => {
           </NavLink>
         </div>
       </Box>
-
       <div className={global["buttons__container"]}>
         <NavLink to={PATHS.MAIN_MENU} className={global["profile__button"]}>
           <Button color="primary" variant="contained">
@@ -54,6 +52,6 @@ export const Profile: FC = () => {
           </Button>
         </NavLink>
       </div>
-    </Box>
+    </Background>
   );
 };

@@ -1,12 +1,8 @@
-import { FC, ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { Notification } from "../Notification";
-
-type T_Props = {
-  children: ReactNode;
-};
 
 const theme = createTheme({
   palette: {
@@ -14,7 +10,7 @@ const theme = createTheme({
   },
 });
 
-export const Layout: FC<T_Props> = ({ children }) => {
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <Notification>

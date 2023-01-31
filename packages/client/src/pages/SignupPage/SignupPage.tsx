@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 
 import { authApi } from "../../api";
-import leaderBoardBG from "../../assets/images/signup-signin-bg.jpg";
+import signBG from "../../assets/images/signup-signin-bg.jpg";
+import { Background } from "../../components/Background";
 import { useNotification } from "../../global/hooks";
 import { I_Signup, validationSignUpSchema } from "../../global/types";
 import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
@@ -56,8 +57,7 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <Box className={global["container"]}>
-      <img src={leaderBoardBG} alt="leader-board-background" className={global["background"]} />
+    <Background src={signBG}>
       <Box className={global["form-wrapper"]}>
         <FormBuilder<I_Signup>
           onSubmit={(data) => void onSubmit(data)}
@@ -67,6 +67,6 @@ export const SignupPage: FC = () => {
           displayAvatar={false}
         />
       </Box>
-    </Box>
+    </Background>
   );
 };

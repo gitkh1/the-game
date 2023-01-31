@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
-import leaderBoardBG from "../../assets/images/game-main-menu-bg.jpg";
+import { Background } from "../../components/Background";
 
 import classes from "./LeaderBoard.module.scss";
 
@@ -24,8 +24,7 @@ const rows = [
 
 export const LeaderBoard: FC = () => {
   return (
-    <>
-      <img src={leaderBoardBG} alt="leader-board-background" className={classes["background"]} />
+    <Background>
       <Container component="main" maxWidth="sm">
         <Box
           sx={{
@@ -88,6 +87,6 @@ export const LeaderBoard: FC = () => {
           </NavLink>
         </Box>
       </Container>
-    </>
+    </Background>
   );
 };
