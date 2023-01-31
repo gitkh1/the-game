@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { dispatch, selectUserInfo } from '../store';
+import { dispatch, selectUserInfo, selectUserIsLoaded } from '../store';
 import { userActions } from '../store/actions';
 
 export const useUserInfo = () => {
@@ -9,4 +9,8 @@ export const useUserInfo = () => {
   }, []);
   const userInfo = useSelector(selectUserInfo);
   return userInfo;
+};
+
+export const useUserIsLoaded = () => {
+  return useSelector(selectUserIsLoaded);
 };

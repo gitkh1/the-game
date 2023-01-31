@@ -5,14 +5,14 @@ import { I_UserInfo } from '../../types';
 
 interface T_State {
   data: I_UserInfo | null;
-  isLoading: boolean;
+  isLoaded: boolean;
   isError: boolean;
   errorMessage: string | null;
 }
 
 const initialState: T_State = {
   data: null,
-  isLoading: false,
+  isLoaded: false,
   isError: false,
   errorMessage: null,
 };
@@ -34,17 +34,18 @@ export const userSlice = createSlice({
     builder
       .addCase(getUser.fulfilled, (state, action: PayloadAction<I_UserInfo>) => {
         state.data = { ...action.payload };
-        state.isLoading = false;
+        state.isLoaded = true;
       })
       .addCase(getUser.rejected, (state, action: PayloadAction<unknown>) => {
         console.log(action);
         if (action.payload instanceof Error) {
           state.isError = true;
           state.errorMessage = action.payload.message;
+          state.data = null;
+          state.isLoaded = true;
         }
       })
       .addCase(getUser.pending, (state) => {
-        state.isLoading = true;
         state.isError = false;
         state.errorMessage = null;
       });
