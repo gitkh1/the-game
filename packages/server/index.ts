@@ -11,7 +11,7 @@ import path from "path";
 
 import cors from "cors";
 import dotenv from "dotenv";
-import type { ViteDevServer } from 'vite';
+import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
 dotenv.config();
 
@@ -34,7 +34,7 @@ const startServer = async () => {
   if (isDev()) {
     vite = await createViteServer({
       server: { middlewareMode: true },
-      root:srcPath,
+      root: srcPath,
       appType: "custom",
     });
 
@@ -63,7 +63,7 @@ const startServer = async () => {
         template = await vite!.transformIndexHtml(url, template);
       }
 
-      let render: (path:string) => Promise<string>;
+      let render: (path: string) => Promise<string>;
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;

@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Layout } from "./components/Layout";
-import { routes } from "./routes";
+import { routesWithoutAuth } from "./routes";
 
 const App = () => {
   useEffect(() => {
     const fetchServerData = async () => {
       try {
-        const url = `http://localhost:${__SERVER_PORT__}`;
+        const url = `http://localhost:${__SERVER_PORT__}/api`;
         const response = await fetch(url);
         const data = (await response.json()) as unknown;
         console.log(data);
@@ -29,14 +28,12 @@ const App = () => {
       await fetchServerData();
     };
 
-    window.addEventListener("load", () => void loadFunc());
+    // window.addEventListener("load", () => void loadFunc());
+    // Отключили service Worker на время разработки ssr
+    window.addEventListener("load", () => void fetchServerData());
   }, []);
 
-  return (
-    <Layout>
-      <RouterProvider router={createBrowserRouter(routes)} />
-    </Layout>
-  );
+  return <RouterProvider router={createBrowserRouter(routesWithoutAuth)} />;
 };
 
 export default App;
