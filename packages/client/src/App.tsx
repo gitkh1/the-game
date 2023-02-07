@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { routesWithoutAuth } from "./routes";
@@ -33,7 +33,9 @@ const App = () => {
     window.addEventListener("load", () => void fetchServerData());
   }, []);
 
-  return <RouterProvider router={createBrowserRouter(routesWithoutAuth)} />;
+  return (
+    <RouterProvider router={createBrowserRouter(routesWithoutAuth)} />
+  );
 };
 
 export default App;
