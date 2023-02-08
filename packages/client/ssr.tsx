@@ -6,18 +6,16 @@ import React, { StrictMode } from "react";
 import { renderToString } from "react-dom/server";
 import { Provider } from "react-redux";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { CacheProvider } from '@emotion/react';
-import createEmotionServer from '@emotion/server/create-instance';
+import { CacheProvider } from "@emotion/react";
+import createEmotionServer from "@emotion/server/create-instance";
 import { ThemeProvider } from "@mui/material";
 
 import { Layout } from "./src/components/Layout";
-import createEmotionCache from './src/global/mui/createEmotionCache';
+import createEmotionCache from "./src/global/mui/createEmotionCache";
 import { store } from "./src/global/store";
 import theme from "./src/global/theme/index";
 import { ErrorBoundary } from "./src/modules/ErrorBoundary/ErrorBoundary";
 import { routesWithoutAuth } from "./src/routes";
-
-
 
 export function render(path: string): string[] {
   const cache = createEmotionCache();
@@ -36,7 +34,7 @@ export function render(path: string): string[] {
           </ThemeProvider>
         </CacheProvider>
       </ErrorBoundary>
-    </StrictMode>
+    </StrictMode>,
   );
 
   const emotionChunks = extractCriticalToChunks(html);

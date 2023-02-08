@@ -4,13 +4,13 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { CacheProvider } from '@emotion/react';
-import { ThemeProvider } from '@mui/material/styles';
+import { CacheProvider } from "@emotion/react";
+import { ThemeProvider } from "@mui/material/styles";
 
 import { Layout } from "./components/Layout";
-import createEmotionCache from './global/mui/createEmotionCache';
+import createEmotionCache from "./global/mui/createEmotionCache";
 import { store } from "./global/store";
-import theme from './global/theme/index';
+import theme from "./global/theme/index";
 import { ErrorBoundary } from "./modules/ErrorBoundary/ErrorBoundary";
 import App from "./App";
 
@@ -58,5 +58,5 @@ ReactDOM.hydrateRoot(
         </ThemeProvider>
       </CacheProvider>
     </ErrorBoundary>
-  </StrictMode>
+  </StrictMode>,
 );
