@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { StrictMode } from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { CacheProvider } from '@emotion/react';
@@ -18,17 +18,45 @@ import "./main.scss";
 
 const cache = createEmotionCache();
 
+const fetchServerData = async () => {
+  try {
+    const url = `http://localhost:${__SERVER_PORT__}/api`;
+    const response = await fetch(url);
+    const data = (await response.json()) as unknown;
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const loadWorker = async () => {
+  if ("serviceWorker" in navigator) {
+    try {
+      await navigator.serviceWorker.register("serviceWorker.js");
+      console.log("SW registered");
+    } catch (error) {
+      console.log("SW failed");
+    }
+  }
+};
+
+// window.addEventListener("load", () => void loadFunc());
+// Отключили service Worker на время разработки ssr
+window.addEventListener("load", () => void fetchServerData());
+
 ReactDOM.hydrateRoot(
   document.getElementById("root") as HTMLElement,
-  <ErrorBoundary>
-    <CacheProvider value={cache}>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <Layout>
-            <App />
-          </Layout>
-        </Provider>
-      </ThemeProvider>
-    </CacheProvider>
-  </ErrorBoundary>
+  <StrictMode>
+    <ErrorBoundary>
+      <CacheProvider value={cache}>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <Layout>
+              <App />
+            </Layout>
+          </Provider>
+        </ThemeProvider>
+      </CacheProvider>
+    </ErrorBoundary>
+  </StrictMode>
 );

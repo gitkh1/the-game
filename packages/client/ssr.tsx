@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { StrictMode } from "react";
@@ -22,22 +24,20 @@ export function render(path: string): string[] {
   const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache);
 
   const html = renderToString(
-    <ErrorBoundary>
-      <CacheProvider value={cache}>
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <Layout>
-              <RouterProvider router={createMemoryRouter(routesWithoutAuth, { initialEntries: [path] })} />
-            </Layout>
-          </Provider>
-        </ThemeProvider>
-      </CacheProvider>
-    </ErrorBoundary>
+    <StrictMode>
+      <ErrorBoundary>
+        <CacheProvider value={cache}>
+          <ThemeProvider theme={theme}>
+            <Provider store={store}>
+              <Layout>
+                <RouterProvider router={createMemoryRouter(routesWithoutAuth, { initialEntries: [path] })} />
+              </Layout>
+            </Provider>
+          </ThemeProvider>
+        </CacheProvider>
+      </ErrorBoundary>
+    </StrictMode>
   );
-
-  // const html = renderToString(
-  //   <div>Hi!!</div>
-  // );
 
   const emotionChunks = extractCriticalToChunks(html);
   const emotionCss = constructStyleTagsFromChunks(emotionChunks) as string;

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --config ssr.config.ts && tsc && vite build --config vite.config.ts",
+    "build": "vite build --config ssr.vite.config.ts && vite build --config vite.config.ts",
     "preview": "vite preview",
     "lint": "eslint ./public ./src && stylelint ./src/**/*.scss",
     "format": "prettier --write .",
