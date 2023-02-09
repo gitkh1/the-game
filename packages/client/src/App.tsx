@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
