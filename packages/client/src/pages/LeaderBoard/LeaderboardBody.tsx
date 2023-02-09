@@ -20,22 +20,20 @@ export const LeaderboardBody: FC<T_ListProps> = ({ rows }) => {
 
   return (
     <>
-      {rows
-        .sort((a, b) => b.score - a.score)
-        .map((row, id) => (
-          <TableRow key={row.username}>
-            <TableCell align="center" sx={{ color: "white" }}>
-              {id + 1}
-            </TableCell>
-            <TableCell component="th" scope="row" sx={{ display: "flex", columnGap: "10px", alignItems: "center", color: "white" }}>
-              <Avatar src={row.avatar || ""}></Avatar>
-              {row.username}
-            </TableCell>
-            <TableCell align="right" sx={{ color: "white" }}>
-              {row.score}
-            </TableCell>
-          </TableRow>
-        ))}
+      {rows.map((row, id) => (
+        <TableRow key={row.username}>
+          <TableCell align="center" sx={{ color: "white" }}>
+            {id + 1}
+          </TableCell>
+          <TableCell component="th" scope="row" sx={{ display: "flex", columnGap: "10px", alignItems: "center", color: "white" }}>
+            <Avatar src={row.avatar || ""}></Avatar>
+            {row.username}
+          </TableCell>
+          <TableCell align="right" sx={{ color: "white" }}>
+            {row.score}
+          </TableCell>
+        </TableRow>
+      ))}
     </>
   );
 };

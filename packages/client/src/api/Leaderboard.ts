@@ -32,9 +32,9 @@ export const leaderboardApi = {
       throw err;
     }
   },
-  sendResult: async <T>(payload: T_LeaderboardPayload): Promise<T | unknown> => {
+  sendResult: async (payload: T_LeaderboardPayload): Promise<void> => {
     try {
-      return api.post("", getDataForPayload(payload));
+      await api.post("", getDataForPayload(payload));
     } catch (err) {
       console.log(ERROR_MESSAGE, err);
     }

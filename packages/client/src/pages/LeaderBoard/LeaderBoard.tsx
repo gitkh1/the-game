@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { FC, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";

@@ -31,8 +31,7 @@ const getResults = createAsyncThunk("leaderboard/getResults", async (page: numbe
 
 const sendResult = createAsyncThunk("leaderboard/sendResult", async (payload: T_LeaderboardPayload, { rejectWithValue }) => {
   try {
-    const data = await leaderboardApi.sendResult(payload);
-    return data;
+    await leaderboardApi.sendResult(payload);
   } catch (e) {
     return rejectWithValue(e);
   }
@@ -51,7 +50,6 @@ export const leaderboardSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getResults.rejected, (state, action: PayloadAction<unknown>) => {
-        console.log(action);
         if (action.payload instanceof Error) {
           state.isError = true;
           state.errorMessage = action.payload.message;
