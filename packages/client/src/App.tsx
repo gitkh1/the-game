@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Layout } from "./components/Layout";
+import { getCity } from "./global/utils";
 import { routes } from "./routes";
 
 const App = () => {
@@ -29,7 +32,8 @@ const App = () => {
       await fetchServerData();
     };
 
-    window.addEventListener("load", () => void loadFunc());
+    window.addEventListener("load", () => void fetchServerData());
+    window.addEventListener("load", () => void getCity());
   }, []);
 
   return (

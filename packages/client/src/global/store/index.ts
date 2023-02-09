@@ -16,3 +16,4 @@ export type T_AppDispatch = typeof store.dispatch;
 const selectUser = (state: T_RootState) => state.user;
 export const selectUserInfo = createSelector(selectUser, (user) => user.data);
 export const selectUserIsLoaded = createSelector(selectUser, (user) => user.isLoaded);
+export const selectUserCity = createSelector(selectUser, (user) => user.city);
