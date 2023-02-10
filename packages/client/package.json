@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --config ssr.vite.config.ts && vite build --config vite.config.ts",
+    "build": "vite build --ssr && vite build",
     "preview": "vite preview",
     "lint": "eslint ./public ./src && stylelint ./src/**/*.scss",
     "format": "prettier --write .",
@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.7",
     "@reduxjs/toolkit": "1.9.1",
+    "axios": "^1.3.2",
     "classnames": "2.3.2",
     "dotenv": "16.0.2",
     "eslint-config-prettier": "8.5.0",

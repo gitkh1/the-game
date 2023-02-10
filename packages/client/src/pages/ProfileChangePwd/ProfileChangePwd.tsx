@@ -1,65 +1,65 @@
-import { FC, useState } from "react";
-import { UseFormReturn } from "react-hook-form";
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { FC } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 
-import { userApi } from "../../api/User";
 import { Background } from "../../components/Background";
-import { useNotification } from "../../global/hooks";
-import { I_UserInfo, I_UserPwd, T_ProfileSchema, validationProfileSchema } from "../../global/types";
-import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
+import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
+import { useAppDispatch, useNotification } from "../../global/hooks";
+import { I_PasswordPayload, updatePassword } from "../../global/store/user";
+import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
 
 import global from "../../global/styles/Global.module.scss";
 
-const FIELDS: T_FormFieldNames = ["oldPassword", "newPassword", "confirmPassword"];
+const FIELDS = [FORM_FIELDS.OLD_PASSWORD, FORM_FIELDS.NEW_PASSWORD, FORM_FIELDS.CONFIRM_PASSWORD];
 
-const getFormStructure = (): T_FormStructure => {
+const getFormStructure = () => {
   return {
     title: "Пользователь",
-    fields: getFormFields(FIELDS),
+    fields: FIELDS.map((field) => FORM_FIELDS_META[field]),
     submit: {
       title: "Сохранить",
     },
   };
 };
 
+export const validationSchema = yup.object().shape({
+  oldPassword: yup.string().password(),
+  newPassword: yup.string().password(),
+  confirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref("newPassword")]),
+});
+
+type T_ValidationSchema = typeof validationSchema;
+
 export const ProfileChangePwd: FC = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { showAlert } = useNotification();
-  const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
 
-  const setFieldErrors = () => {
-    FIELDS.forEach((name) => formApi?.setError(name, {}));
-  };
-
-  const onSubmit = async (data: I_UserPwd) => {
+  const onSubmit = (data: I_PasswordPayload): void => {
+    console.log(data);
     try {
-      await userApi.changePwd(data);
-      navigate(PATHS.PROFILE);
+      void dispatch(updatePassword(data));
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);
-        setFieldErrors();
       }
     }
-  };
-
-  const getFormApi = (api: UseFormReturn) => {
-    if (!formApi) setFormApi(api);
   };
 
   return (
     <Background>
       <Box className={global["form-wrapper"]}>
-        <FormBuilder<I_UserInfo, T_ProfileSchema>
-          onSubmit={(data) => void onSubmit(data)}
+        <Form<I_PasswordPayload, T_ValidationSchema>
+          onSubmit={(data) => onSubmit(data)}
           structure={getFormStructure()}
-          validationSchema={validationProfileSchema}
-          getFormApi={getFormApi}
-          values={null}
-          displayAvatar={false}
+          validationSchema={validationSchema}
         />
         <NavLink to={PATHS.PROFILE} className={global["profile__button"]}>
           <Button color="primary" variant="contained">

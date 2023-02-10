@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
-import { dispatch, selectUserInfo, selectUserIsLoaded } from "../store";
-import { userActions } from "../store/actions";
+import { getUser, userSelector } from "../store/user";
+
+import { useAppDispatch, useAppSelector } from "./storeHooks";
 
 export const useUserInfo = () => {
-  useEffect(() => {
-    dispatch(userActions.getUser);
-  }, []);
-  const userInfo = useSelector(selectUserInfo);
-  return userInfo;
-};
+  const dispatch = useAppDispatch();
 
-export const useUserIsLoaded = () => {
-  return useSelector(selectUserIsLoaded);
+  useEffect(() => {
+    void dispatch(getUser());
+  }, []);
+
+  return useAppSelector(userSelector);
 };

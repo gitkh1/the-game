@@ -1,11 +1,11 @@
 import { RouteObject } from "react-router-dom";
 
-import { Game } from "../game";
 import { GuestOnlyRouter, SignedInOnlyRouter } from "../modules/RouterWithAuth";
 import { AboutPage } from "../pages/AboutPage";
 import { ErrorPage } from "../pages/ErrorPage";
 import { GameMainMenu } from "../pages/GameMainMenu";
 import { GameOverPage } from "../pages/GameOverPage";
+import { GamePage } from "../pages/GamePage";
 import { LeaderBoard } from "../pages/LeaderBoard";
 import { MainMenuSettings } from "../pages/MainMenuSettings";
 import { MainPage } from "../pages/MainPage";
@@ -66,7 +66,7 @@ export const routes: RouteObject[] = [
       },
       {
         path: PATHS.GAME,
-        element: <Game />,
+        element: <GamePage />,
       },
       {
         path: PATHS.TUTORIAL,
@@ -135,7 +135,7 @@ export const routesWithoutAuth: RouteObject[] = [
   },
   {
     path: PATHS.GAME,
-    element: <Game />,
+    element: <GamePage />,
   },
   {
     path: PATHS.TUTORIAL,

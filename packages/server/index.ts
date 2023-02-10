@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
@@ -11,13 +12,12 @@ import path from "path";
 
 import cors from "cors";
 import dotenv from "dotenv";
-import type { ViteDevServer } from "vite";
-import { createServer as createViteServer } from "vite";
-dotenv.config();
-
 import express from "express";
+import { createServer as createViteServer, ViteDevServer } from "vite";
 
 import { createClientAndConnect } from "./db";
+
+dotenv.config();
 
 const isDev = () => process.env.NODE_ENV === "development";
 
@@ -27,14 +27,26 @@ const startServer = async () => {
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   let vite: ViteDevServer | undefined;
-  const distPath = path.dirname(require.resolve("client/dist/index.html"));
-  const srcPath = path.dirname(require.resolve("client"));
-  const ssrClientPath = require.resolve("client/dist-ssr/ssr.cjs");
+
+  const clientPath = path.dirname(require.resolve("client"));
+  const csrPath = path.dirname(require.resolve("client/dist/client/index.html"));
+  const ssrPath = require.resolve("client/dist/server/ssr.cjs");
+
+  // setUser({
+  //   id: 300017,
+  //   first_name: "Admin",
+  //   second_name: "Admin",
+  //   display_name: null,
+  //   login: "admin2",
+  //   avatar: "",
+  //   email: "admin@mail.ru",
+  //   phone: "79041129003",
+  // });
 
   if (isDev()) {
     vite = await createViteServer({
       server: { middlewareMode: true },
-      root: srcPath,
+      root: clientPath,
       appType: "custom",
     });
     app.use(vite.middlewares);
@@ -47,7 +59,7 @@ const startServer = async () => {
   });
 
   if (!isDev()) {
-    app.get("*/assets/*", express.static(distPath));
+    app.get("*/assets/*", express.static(csrPath));
   }
 
   app.use("*", async (req, res, next) => {
@@ -56,23 +68,29 @@ const startServer = async () => {
       let template: string;
 
       if (isDev()) {
-        template = fs.readFileSync(path.resolve(srcPath, "index.html"), "utf-8");
+        template = fs.readFileSync(path.resolve(clientPath, "index.html"), "utf-8");
         template = await vite!.transformIndexHtml(url, template);
       } else {
-        template = fs.readFileSync(path.resolve(distPath, "index.html"), "utf-8");
+        template = fs.readFileSync(path.resolve(csrPath, "index.html"), "utf-8");
       }
 
       let render: (path: string) => Promise<string[]>;
 
       if (isDev()) {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx") as string)).render;
+        render = (await vite!.ssrLoadModule(path.resolve(clientPath, "src/main-server.tsx") as string)).render;
       } else {
-        render = (await import(ssrClientPath)).render;
+        render = (await import(ssrPath)).render;
       }
 
       const [appHtml, css] = await render(url);
+
+      // userActions.getUser();
+
       let html = template.toString().replace(`<!--ssr-outlet-->`, appHtml);
       html = html.replace(`<!--css-outlet-->`, css);
+      // html = html.replace(`<!--store-outlet-->`, getScriptString());
+
+      console.log(html);
 
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {

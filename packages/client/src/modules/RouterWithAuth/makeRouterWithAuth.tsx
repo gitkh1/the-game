@@ -5,7 +5,7 @@ import { FC, useEffect, useMemo } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import { Preloader } from "../../components/Preloader";
-import { useUserInfo, useUserIsLoaded } from "../../global/hooks";
+import { useUserInfo } from "../../global/hooks";
 
 type T_FactoryMode = {
   allowGuests?: boolean;
@@ -21,20 +21,19 @@ type T_Props = {
 export const makeRouterWithAuth: T_FactoryFC = (mode) =>
   function ({ redirectInvalidTo }) {
     const userInfo = useUserInfo();
-    const userIsLoaded = useUserIsLoaded();
     const navigate = useNavigate();
 
     useEffect(() => {
-      if (!userIsLoaded) return;
+      if (userInfo.isLoading) return;
 
-      const redirectGuests = !mode.allowGuests && !userInfo;
-      const redirectSignIn = !mode.allowSignIn && userInfo;
+      const redirectGuests = !mode.allowGuests && !userInfo.data;
+      const redirectSignIn = !mode.allowSignIn && !!userInfo.data;
 
       if (redirectGuests || redirectSignIn) {
         navigate(redirectInvalidTo);
       }
-    }, [userIsLoaded, userInfo, navigate]);
+    }, [userInfo.isLoading, userInfo.data, navigate]);
 
     const child = useMemo(() => <Outlet />, []);
-    return <Preloader showLoading={!userIsLoaded}>{child}</Preloader>;
+    return <Preloader showLoading={userInfo.isLoading}>{child}</Preloader>;
   };
