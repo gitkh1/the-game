@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosError, AxiosHeaders, RawAxiosRequestHeaders } from "axios";
+import axios, { Axios, AxiosError, RawAxiosRequestHeaders } from "axios";
 
 export const ERROR_MESSAGE = "Что-то пошло не так...";
 export const BASE_URL = "https://ya-praktikum.tech/api/v2";

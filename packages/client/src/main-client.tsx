@@ -8,11 +8,11 @@ import { Provider } from "react-redux";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import createEmotionCache from "./global/mui/createEmotionCache";
 import { store } from "./global/store";
 import theme from "./global/theme/index";
-import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import App from "./App";
 
 import "./main.scss";

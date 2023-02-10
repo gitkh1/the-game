@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { InputAdornment } from "@mui/material";
 import MaterialTextField from "@mui/material/TextField";
 
-import { T_FormField } from "../../types";
+import { T_FormField } from "../../constants";
 
 const CssTextField = styled(MaterialTextField)({
   "& .MuiInputBase-root": {
