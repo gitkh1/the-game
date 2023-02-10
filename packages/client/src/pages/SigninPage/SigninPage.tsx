@@ -64,10 +64,11 @@ export const SigninPage: FC = () => {
 
   const oAuthSignin = async () => {
     const redirectUri = `http://localhost:3000`;
+
     try {
       const response = await fetch("https://ya-praktikum.tech/api/v2/oauth/yandex/service-id");
       if (response.ok) {
-        const { service_id: serviceId }: string = await response.json();
+        const { service_id: serviceId } = (await response.json()) as { service_id: string };
 
         window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${redirectUri}`);
       }
