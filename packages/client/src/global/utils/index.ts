@@ -6,4 +6,4 @@ export function bindWithDispatch<T extends ActionCreatorsMapObject>(actions: T) 
   return bindActionCreators(actions, dispatch);
 }
 
-export * from "./getCity";
+export * from "./setCityFromGeolocation";
