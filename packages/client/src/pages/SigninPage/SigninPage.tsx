@@ -2,17 +2,15 @@ import { FC, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
-
 import { authApi } from "../../api";
-import yandexIcon from "../../assets/icons/yandex-icon.svg";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
+import yandexIcon from "../../assets/icons/yandex-icon.svg";
 import { Background } from "../../components/Background";
 import { useNotification } from "../../global/hooks";
 import { I_Signin } from "../../global/types";
 import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
 import { yup } from "../../modules/formBuilder/constants/validation";
 import { PATHS } from "../../routes";
-
 import global from "../../global/styles/Global.module.scss";
 import classes from "./SigninPage.module.scss";
 
