@@ -23,3 +23,5 @@ const selectLeaderboard = (state: T_RootState) => state.leaderboard;
 export const selectLeaderboardInfo = createSelector(selectLeaderboard, (leaderboard) => leaderboard.data);
 export const selectLeaderboardHasNext = createSelector(selectLeaderboard, (leaderboard) => leaderboard.hasNext);
 export const selectLeaderboardIsLoading = createSelector(selectLeaderboard, (leaderboard) => leaderboard.isLoading);
+
+export const selectUserCity = createSelector(selectUser, (user) => user.city);

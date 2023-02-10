@@ -1,4 +1,19 @@
-### Как запускать?
+# Necromancer
+![GitHub language count](https://img.shields.io/github/languages/count/gitkh1/the-game) ![GitHub top language](https://img.shields.io/github/languages/top/gitkh1/the-game) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/gitkh1/the-game)
+
+Браузерная игра о борьбе добра со злом
+
+## Технологиии, которые использованы в проекте
+
+- React
+- Redux Toolkit
+- Canvas
+- Material UI
+- SASS modules
+- Service Worker
+- Lerna
+
+## Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
@@ -7,7 +22,7 @@
 4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
 
-### Как добавить зависимости?
+## Как добавить зависимости?
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
 
 Чтобы добавить зависимость для клиента 
@@ -24,21 +39,21 @@
 ```yarn lerna add {your_dep} --dev --scope server```
 
 
-### Тесты
+## Тесты
 
 Для клиента используется [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro/)
 
 ```yarn test```
 
-### Линтинг
+## Линтинг
 
 ```yarn lint```
 
-### Форматирование prettier
+## Форматирование prettier
 
 ```yarn format```
 
-### Production build
+## Production build
 
 ```yarn build```
 
@@ -50,11 +65,7 @@
 
 ## Хуки
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)
-Если очень-очень нужно пропустить проверки, используйте `--no-verify` (но не злоупотребляйте :)
-
-## Ой, ничего не работает :(
-
-Откройте issue, я приду :)
+Если очень-очень нужно пропустить проверки, используйте `--no-verify`
 
 ## Автодеплой статики на vercel
 Зарегистрируйте аккаунт на [vercel](https://vercel.com/)
