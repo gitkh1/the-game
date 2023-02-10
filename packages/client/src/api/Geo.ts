@@ -18,7 +18,7 @@ export async function streamToArrayBuffer(stream: ReadableStream<Uint8Array>): P
   return result;
 }
 
-type T_Coords = {
+export type T_Coords = {
   longitude: string;
   latitude: string;
 };

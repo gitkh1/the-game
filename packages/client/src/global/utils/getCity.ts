@@ -1,11 +1,10 @@
-import { GeoApi } from "../../api/Geo";
+import { GeoApi, T_Coords } from "../../api/Geo";
 import { dispatch } from "../store";
 import { userActions } from "../store/actions";
 
 const geoApi = new GeoApi();
 
 type T_Pos = Record<"coords", T_Coords>;
-type T_Coords = Record<"latitude" | "longitude", string>;
 
 export const getCity = () => {
   const options = {
@@ -13,7 +12,7 @@ export const getCity = () => {
     timeout: 5000,
     maximumAge: 0,
   };
-  const success = async (pos: { coords: T_Coords }) => {
+  const success = async (pos: T_Pos) => {
     if (!("coords" in pos)) {
       return;
     }
