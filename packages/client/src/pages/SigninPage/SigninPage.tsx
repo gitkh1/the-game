@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import classes from "./SigninPage.module.scss";
 
 import { authApi } from "../../api";
+import { oAuthApi } from "../../api/OAuth";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
 import yandexIcon from "../../assets/icons/yandex-icon.svg";

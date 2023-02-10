@@ -6,11 +6,14 @@ import mainPageBG from "../../assets/images/main-page-bg.jpg";
 import { Background } from "../../components/Background";
 import { useEffect } from "react";
 import { useNotification } from "../../global/hooks";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../routes";
 
 import classes from "./MainPage.module.scss";
 
 export const MainPage: FC = () => {
   const { showAlert } = useNotification();
+  const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   useEffect(() => {
@@ -24,14 +27,21 @@ export const MainPage: FC = () => {
       fetch("https://ya-praktikum.tech/api/v2/oauth/yandex", {
         method: "POST",
         credentials: "include",
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
         body: JSON.stringify(body),
       })
         .then(() => {
-          fetch("https://ya-praktikum.tech/api/v2/auth/user").catch((e) => {
-            if (e instanceof Error && showAlert) {
-              showAlert(e.message);
-            }
-          });
+          fetch("https://ya-praktikum.tech/api/v2/auth/user")
+            .then(() => {
+              navigate(PATHS.MAIN_MENU);
+            })
+            .catch((e) => {
+              if (e instanceof Error && showAlert) {
+                showAlert(e.message);
+              }
+            });
         })
         .catch((e) => {
           if (e instanceof Error && showAlert) {
