@@ -1,12 +1,10 @@
-import { FC } from "react";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
 import mainPageBG from "../../assets/images/main-page-bg.jpg";
 import { Background } from "../../components/Background";
-import { useEffect } from "react";
 import { useNotification } from "../../global/hooks";
-import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
 
 import classes from "./MainPage.module.scss";
@@ -21,14 +19,14 @@ export const MainPage: FC = () => {
     if (code) {
       const body = {
         code,
-        redirect_uri: `http://localhost:3000`,
+        redirectUri: `http://localhost:3000`,
       };
 
       fetch("https://ya-praktikum.tech/api/v2/oauth/yandex", {
         method: "POST",
         credentials: "include",
         headers: {
-          'Content-Type': 'application/json;charset=utf-8'
+          "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(body),
       })
