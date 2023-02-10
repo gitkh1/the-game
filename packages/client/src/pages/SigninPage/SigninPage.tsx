@@ -101,7 +101,7 @@ export const SigninPage: FC = () => {
           variant="contained"
           onClick={() => void oAuthSignin()}
         >
-          <img src={ yandexIcon } alt="yandex-icon" className={classes.icon} />
+          <img src={yandexIcon} alt="yandex-icon" className={classes.icon} />
           Войти с Яндекс ID
         </Button>
       </Box>
