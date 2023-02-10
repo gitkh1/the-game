@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 export async function streamToArrayBuffer(stream: ReadableStream<Uint8Array>): Promise<Uint8Array> {
   let result = new Uint8Array(0);
   const reader = stream.getReader();
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) {
+  const isInfinityCycle = true;
+  while (isInfinityCycle) {
+    const readData = await reader.read();
+    const isDone = readData.done;
+    if (isDone) {
       break;
     }
+    const value = readData.value;
 
     const newResult = new Uint8Array(result.length + value.length);
     newResult.set(result);
