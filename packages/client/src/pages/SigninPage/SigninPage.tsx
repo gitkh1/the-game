@@ -2,10 +2,13 @@ import { FC, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+import { Button } from "@mui/material";
+import classes from "./SigninPage.module.scss";
 
 import { authApi } from "../../api";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
+import yandexIcon from "../../assets/icons/yandex-icon.svg";
 import { useNotification } from "../../global/hooks";
 import { I_Signin } from "../../global/types";
 import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
@@ -60,6 +63,22 @@ export const SigninPage: FC = () => {
     }
   };
 
+  const oAuthSignin = async () => {
+    const redirectUri = `http://localhost:3000`;
+    try {
+      const response = await fetch("https://ya-praktikum.tech/api/v2/oauth/yandex/service-id");
+      if (response.ok) {
+        const { service_id: serviceId }: string = await response.json();
+
+        window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${redirectUri}`);
+      }
+    } catch (e) {
+      if (e instanceof Error && showAlert) {
+        showAlert(e.message);
+      }
+    }
+  };
+
   const getFormApi = (api: UseFormReturn) => {
     if (!formApi) setFormApi(api);
   };
@@ -74,6 +93,17 @@ export const SigninPage: FC = () => {
           getFormApi={getFormApi}
           displayAvatar={false}
         />
+        <Button
+          style={{
+            borderRadius: 20,
+            backgroundColor: "black",
+          }}
+          variant="contained"
+          onClick={() => void oAuthSignin()}
+        >
+          <img src={yandexIcon} alt="yandex-icon" className={classes.icon} />
+          Войти с Яндекс ID
+        </Button>
       </Box>
     </Background>
   );
