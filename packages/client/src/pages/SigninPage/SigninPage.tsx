@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 
 import { authApi } from "../../api";
+import yandexIcon from "../../assets/icons/yandex-icon.jpg";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
 import { useNotification } from "../../global/hooks";
@@ -100,6 +101,7 @@ export const SigninPage: FC = () => {
           variant="contained"
           onClick={() => void oAuthSignin()}
         >
+          <img src={ yandexIcon } alt="yandex-icon" className={classes.icon} />
           Войти с Яндекс ID
         </Button>
       </Box>
