@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Layout } from "./components/Layout";
-import { setCityFromGeolocation } from "./global/utils";
+import { setUserCityFromGeolocation } from "./global/utils";
 import { routes } from "./routes";
 
 const App = () => {
@@ -31,7 +31,7 @@ const App = () => {
     };
 
     window.addEventListener("load", () => void fetchServerData());
-    window.addEventListener("load", () => void setCityFromGeolocation());
+    window.addEventListener("load", () => void setUserCityFromGeolocation());
   }, []);
 
   return (
