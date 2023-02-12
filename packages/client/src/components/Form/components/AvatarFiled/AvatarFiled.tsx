@@ -10,8 +10,6 @@ export const AvatarFiled: FC<T_FormField> = ({ name, disabled = false, defaultVa
   const { control, setValue } = useFormContext();
   const [avatar, setAvatar] = useState<string | null>(defaultValue);
 
-  console.log(defaultValue);
-
   useEffect(() => {
     setAvatar(defaultValue);
   }, [defaultValue]);
