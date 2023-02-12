@@ -11,7 +11,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import createEmotionCache from "./global/mui/createEmotionCache";
-import { store } from "./global/store";
+import { createStore } from "./global/store";
 import theme from "./global/theme/index";
 import App from "./App";
 
@@ -44,6 +44,11 @@ const loadWorker = async () => {
 // window.addEventListener("load", () => void loadFunc());
 // Отключили service Worker на время разработки ssr
 window.addEventListener("load", () => void fetchServerData());
+
+const store = createStore(window.__PRELOADED_STATE__);
+delete window.__PRELOADED_STATE__;
+
+console.log(store);
 
 ReactDOM.hydrateRoot(
   document.getElementById("root") as HTMLElement,

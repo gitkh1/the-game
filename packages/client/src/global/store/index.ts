@@ -1,15 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, PreloadedState } from "@reduxjs/toolkit";
 
 import { userSlice } from "./user";
 
-export type T_Store = typeof store;
-export type T_RootState = ReturnType<typeof store.getState>;
-export type T_AppDispatch = typeof store.dispatch;
+export type T_CreateStore = typeof createStore;
+export type T_Store = ReturnType<T_CreateStore>;
+export type T_RootState = ReturnType<T_Store["getState"]>;
+export type T_AppDispatch = T_Store["dispatch"];
 
-export const store = configureStore({
-  reducer: {
-    user: userSlice.reducer,
-  },
-  devTools: true,
-  preloadedState: {},
-});
+export function createStore(preloadedState?: PreloadedState<typeof userSlice.reducer>) {
+  return configureStore({
+    reducer: {
+      user: userSlice.reducer,
+    },
+    devTools: true,
+    preloadedState,
+  });
+}

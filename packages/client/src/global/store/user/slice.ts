@@ -5,7 +5,7 @@ import { T_RootState } from "..";
 import { I_User } from "./models";
 import { getUser, updatePassword, updateProfile } from "./thunks";
 
-interface I_State {
+export interface I_State {
   data: I_User | null;
   isLoading: boolean;
   errorMessage: string | null;

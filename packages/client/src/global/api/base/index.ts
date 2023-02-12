@@ -53,25 +53,4 @@ export class BaseApi {
   public delete<T>(endPoint: string, data?: unknown, headers?: RawAxiosRequestHeaders): Promise<T> {
     return this.fetchMethod<T>(endPoint, METHODS.DELETE, data, headers);
   }
-
-  // public async putFile(endPoint: string, data?: FormData): Promise<XMLHttpRequest> {
-  //   try {
-  //     return new Promise((resolve, reject) => {
-  //       const xhr = new XMLHttpRequest();
-  //       xhr.open(METHODS.PUT, `${this.baseUrl}${endPoint}`);
-  //       xhr.withCredentials = true;
-  //       xhr.timeout = DEFAULT_TIMEOUT;
-  //       xhr.onload = function () {
-  //         resolve(xhr);
-  //       };
-  //       xhr.onabort = reject;
-  //       xhr.onerror = reject;
-  //       xhr.ontimeout = reject;
-  //       xhr.send(data);
-  //     });
-  //   } catch (err) {
-  //     if (err instanceof Error) throw err;
-  //     throw new Error(ERROR_MESSAGE);
-  //   }
-  // }
 }

@@ -10,6 +10,7 @@
 import fs from "fs";
 import path from "path";
 
+import { T_CreateStore, T_Store } from "client/src/global/store";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -31,17 +32,6 @@ const startServer = async () => {
   const clientPath = path.dirname(require.resolve("client"));
   const csrPath = path.dirname(require.resolve("client/dist/client/index.html"));
   const ssrPath = require.resolve("client/dist/server/ssr.cjs");
-
-  // setUser({
-  //   id: 300017,
-  //   first_name: "Admin",
-  //   second_name: "Admin",
-  //   display_name: null,
-  //   login: "admin2",
-  //   avatar: "",
-  //   email: "admin@mail.ru",
-  //   phone: "79041129003",
-  // });
 
   if (isDev()) {
     vite = await createViteServer({
@@ -74,23 +64,24 @@ const startServer = async () => {
         template = fs.readFileSync(path.resolve(csrPath, "index.html"), "utf-8");
       }
 
-      let render: (path: string) => Promise<string[]>;
+      let render: (path: string, store: T_Store) => Promise<string[]>;
+      let createStore: T_CreateStore;
 
       if (isDev()) {
         render = (await vite!.ssrLoadModule(path.resolve(clientPath, "src/main-server.tsx") as string)).render;
+        createStore = (await vite!.ssrLoadModule(path.resolve(clientPath, "src/main-server.tsx") as string)).createStore;
       } else {
         render = (await import(ssrPath)).render;
+        createStore = (await import(ssrPath)).createStore;
       }
 
-      const [appHtml, css] = await render(url);
+      const store = createStore();
 
-      // userActions.getUser();
+      const [appHtml, css] = await render(url, store);
 
       let html = template.toString().replace(`<!--ssr-outlet-->`, appHtml);
       html = html.replace(`<!--css-outlet-->`, css);
-      // html = html.replace(`<!--store-outlet-->`, getScriptString());
-
-      console.log(html);
+      html = html.replace(`<!--store-outlet-->`, `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState())}</script>`);
 
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {
