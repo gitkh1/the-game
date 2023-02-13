@@ -57,7 +57,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const userSliceActions = {
+export const userActions = {
   ...userSlice.actions,
   getUser,
 };

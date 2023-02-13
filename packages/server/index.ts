@@ -9,6 +9,7 @@
 import fs from "fs";
 import path from "path";
 
+import type { T_CreateStore, T_Store } from "client/src/global/store";
 import cors from "cors";
 import dotenv from "dotenv";
 import type { ViteDevServer } from "vite";
@@ -62,17 +63,23 @@ const startServer = async () => {
         template = fs.readFileSync(path.resolve(distPath, "index.html"), "utf-8");
       }
 
-      let render: (path: string) => Promise<string[]>;
+      let render: (path: string, store: T_Store) => Promise<string[]>;
+      let createStore: T_CreateStore;
 
       if (isDev()) {
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx") as string)).render;
+        createStore = (await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx") as string)).createStore;
       } else {
         render = (await import(ssrClientPath)).render;
+        createStore = (await import(ssrClientPath)).createStore;
       }
 
-      const [appHtml, css] = await render(url);
+      const store = createStore();
+
+      const [appHtml, css] = await render(url, store);
       let html = template.toString().replace(`<!--ssr-outlet-->`, appHtml);
       html = html.replace(`<!--css-outlet-->`, css);
+      html = html.replace(`<!--store-outlet-->`, `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState())}</script>`);
 
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {

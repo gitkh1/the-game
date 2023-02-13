@@ -1,5 +1,5 @@
 import { GeoApi } from "../../api/Geo";
-import { dispatch } from "../store";
+import { useAppDispatch } from "../hooks";
 import { userActions } from "../store/actions";
 
 const geoApi = new GeoApi();
@@ -16,6 +16,7 @@ const getCurrentPosition = (): Promise<GeolocationPosition> => {
 };
 
 export const setUserCityFromGeolocation = async () => {
+  const dispatch = useAppDispatch();
   try {
     const pos = await getCurrentPosition();
     const city = await geoApi.getCity(pos.coords);

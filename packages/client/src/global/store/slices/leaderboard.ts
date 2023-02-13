@@ -67,7 +67,7 @@ export const leaderboardSlice = createSlice({
   },
 });
 
-export const leaderboardSliceActions = {
+export const leaderboardActions = {
   ...leaderboardSlice.actions,
   getResults,
   sendResult,

@@ -2,10 +2,14 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { dispatch, selectUserInfo, selectUserIsLoaded } from "../store";
-import { userActions } from "../store/actions";
+import { selectUserInfo, selectUserIsLoaded } from "../store";
+import { userActions } from "../store/slices/user";
+
+import { useAppDispatch } from "./storeHooks";
 
 export const useUserInfo = () => {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(userActions.getUser);
   }, []);
