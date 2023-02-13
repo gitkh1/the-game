@@ -63,9 +63,9 @@ export const SigninPage: FC = () => {
   };
 
   const oAuthSignin = async () => {
-    try{
+    try {
       await oAuthApi.getServiceId();
-    }catch(e){
+    } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);
       }

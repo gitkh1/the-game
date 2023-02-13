@@ -24,7 +24,8 @@ export const MainPage: FC = () => {
         redirectUri: REDIRECT_URL,
       };
 
-      oAuthApi.signin(body)
+      oAuthApi
+        .signin(body)
         .then(() => {
           navigate(PATHS.MAIN_MENU);
         })
@@ -33,7 +34,7 @@ export const MainPage: FC = () => {
             showAlert(e.message);
           }
         });
-    }  
+    }
   }, [searchParams]);
 
   return (
