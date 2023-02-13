@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "rm -rf dist && tsc --p ./tsconfig.prod.json",
+    "build": "rimraf dist && tsc --p ./tsconfig.prod.json",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "lint": "eslint index.ts db.ts",
@@ -36,6 +36,7 @@
     "nodemon": "2.0.19",
     "postcss-nested": "6.0.0",
     "prettier": "2.7.1",
+    "rimraf": "4.1.2",
     "stylelint": "14.16.1",
     "stylelint-config-prettier-scss": "0.0.1",
     "stylelint-config-standard-scss": "6.1.0",
