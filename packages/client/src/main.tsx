@@ -33,6 +33,7 @@ const fetchServerData = async () => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const loadWorker = async () => {
   if ("serviceWorker" in navigator) {
     try {

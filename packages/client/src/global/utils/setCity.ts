@@ -1,6 +1,6 @@
 import { GeoApi } from "../../api/Geo";
 import { useAppDispatch } from "../hooks";
-import { userActions } from "../store/actions";
+import { userActions } from "../store/slices/user";
 
 const geoApi = new GeoApi();
 
