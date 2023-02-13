@@ -4,7 +4,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import * as yup from "yup";
 
-import { PHONE_CHARS, REG_EX } from "./regEx";
+export const REG_EX = {
+  name: /^[A-ZА-Я]+[a-zA-Zа-яА-Я]+([-]?)+[a-zA-Zа-яА-Я]+/,
+  login: /^(\d?)+(-|_?)+[a-zA-Z]+(-|_?)+[a-zA-Z]+(\d?)+$/,
+  password: /^(?=.*\d)(?=.*[A-Z])\w+/,
+};
+
+export const PHONE_CHARS = /\+|\(|\)|-/g;
 
 yup.addMethod<yup.StringSchema>(yup.string, "mail", function fn() {
   return this.required().trim().email();

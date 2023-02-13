@@ -1,4 +1,4 @@
-import { I_LeaderboardLeaderData, I_LeaderboardResultRequest, I_LeaderboardResultRow, T_LeaderboardPayload } from "../global/types";
+import type { I_LeaderboardLeaderData, I_LeaderboardResultRequest, I_LeaderboardResultRow, T_LeaderboardPayload } from "../global/types";
 
 import { Api } from "./Api";
 import { ERROR_MESSAGE, LEADERBOARD_BASE_URL, LEADERBOARD_ROWS_LIMIT, TEAM_NAME } from "./constants";
@@ -24,19 +24,19 @@ function getDataForPayload(payload: T_LeaderboardPayload): I_LeaderboardLeaderDa
 export const leaderboardApi = {
   getResults: async (page: number, preloadNext = 0): Promise<T_LeaderboardPayload[]> => {
     try {
-      const response = await api.post(`/${TEAM_NAME}`, getRequestFromPage(page, preloadNext));
-      const rows = (await response.json()) as I_LeaderboardResultRow[];
+      const rows = await api.post<I_LeaderboardResultRow[]>(`/${TEAM_NAME}`, getRequestFromPage(page, preloadNext));
       return rows.map((e) => e.data);
     } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-      throw err;
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
     }
   },
-  sendResult: async (payload: T_LeaderboardPayload): Promise<void> => {
+  sendResult: async (payload: T_LeaderboardPayload): Promise<string> => {
     try {
-      await api.post("", getDataForPayload(payload));
+      return await api.post<string>("", getDataForPayload(payload));
     } catch (err) {
-      console.log(ERROR_MESSAGE, err);
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
     }
   },
 };

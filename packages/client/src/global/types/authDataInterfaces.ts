@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { yup } from "../../modules/formBuilder";
 
-export interface I_Signin {
+export interface I_SigninPayload {
   login: string;
   password: string;
 }
 
-export interface I_Signup {
+export interface I_SignupPayload extends I_SigninPayload {
   mail: string;
-  login: string;
   name: string;
   lastName: string;
   phone: string;
-  password: string;
   confirmPassword: string;
 }
 
@@ -27,39 +24,20 @@ export interface I_UserInfo {
   avatar: string;
 }
 
-export interface I_UserUpdate {
-  id: number;
+export interface I_ProfilePayload {
   first_name: string;
   second_name: string;
-  display_name: string | null;
+  display_name: string;
   login: string;
   email: string;
   phone: string;
-  avatar: string | null;
 }
 
-export interface I_UserPwd {
-  avatar: string | null;
+export interface I_PasswordPayload {
+  oldPassword: string;
+  newPassword: string;
 }
 
-export const validationSignUpSchema = yup.object().shape({
-  email: yup.string().mail(),
-  login: yup.string().login(),
-  first_name: yup.string().name(),
-  second_name: yup.string().name(),
-  phone: yup.string().phone(),
-  password: yup.string().password(),
-  confirmPassword: yup.string().confirmPassword(),
-});
-
-export const validationProfileSchema = yup.object().shape({
-  email: yup.string().mail(),
-  login: yup.string().login(),
-  first_name: yup.string().name(),
-  second_name: yup.string().name(),
-  display_name: yup.string().name(),
-  phone: yup.string().phone(),
-});
-
-export type T_SignUpSchema = typeof validationSignUpSchema;
-export type T_ProfileSchema = typeof validationProfileSchema;
+export interface I_AvatarPayload {
+  avatar: File;
+}

@@ -11,7 +11,7 @@ export const useLeaderboardSend = () => {
   const dispatch = useAppDispatch();
   return useMemo(
     () => (payload: T_LeaderboardPayload) => {
-      dispatch(() => leaderboardActions.sendResult(payload));
+      void dispatch(leaderboardActions.sendResult(payload));
     },
     [],
   );
@@ -20,16 +20,16 @@ export const useLeaderboardSend = () => {
 export const useLeaderboardResults = (page: number) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(() => leaderboardActions.getResults(page));
+    void dispatch(leaderboardActions.getResults(page));
   }, [page]);
   const leaderboardResults = useSelector(selectLeaderboardInfo);
   return leaderboardResults;
 };
 
-export const useleaderboardIsLoading = () => {
+export const useLeaderboardIsLoading = () => {
   return useSelector(selectLeaderboardIsLoading);
 };
 
-export const useleaderboardHasNext = () => {
+export const useLeaderboardHasNext = () => {
   return useSelector(selectLeaderboardHasNext);
 };

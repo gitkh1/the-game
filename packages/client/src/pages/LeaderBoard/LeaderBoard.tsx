@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 import { Background } from "../../components/Background";
-import { useleaderboardHasNext, useLeaderboardResults } from "../../global/hooks/leaderboardHooks";
+import { useLeaderboardHasNext, useLeaderboardResults } from "../../global/hooks/leaderboardHooks";
 
 import { LeaderboardBody } from "./LeaderboardBody";
 
@@ -16,7 +16,7 @@ import classes from "./LeaderBoard.module.scss";
 export const LeaderBoard: FC = () => {
   const [page, setPage] = useState(0);
   const rows = useLeaderboardResults(page);
-  const hasNext = useleaderboardHasNext();
+  const hasNext = useLeaderboardHasNext();
 
   const handleBack = () => setPage(page - 1);
   const handleNext = () => setPage(page + 1);

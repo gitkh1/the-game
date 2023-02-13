@@ -1,30 +1,18 @@
-import { I_UserPwd, I_UserUpdate } from "../global/types";
+import type { I_PasswordPayload, I_ProfilePayload } from "../global/types";
 
 import { Api } from "./Api";
-import { ERROR_MESSAGE, USER_BASE_URL } from "./constants";
+import { USER_BASE_URL } from "./constants";
 
 const api = new Api(USER_BASE_URL);
 
 export const userApi = {
-  changeProfile: async <T>(data: I_UserUpdate): Promise<T | unknown> => {
-    try {
-      return api.put("/profile", data);
-    } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-    }
+  changeProfile: async <T = unknown>(data: I_ProfilePayload): Promise<T> => {
+    return api.put<T>("/profile", data);
   },
-  changePwd: async <T>(data: I_UserPwd): Promise<T | unknown> => {
-    try {
-      return api.put("/password", data);
-    } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-    }
+  changePwd: async <T = unknown>(data: I_PasswordPayload): Promise<T> => {
+    return api.put<T>("/password", data);
   },
-  changePhoto: async <T>(data: FormData): Promise<T | unknown> => {
-    try {
-      return api.putFile("/profile/avatar", data);
-    } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-    }
+  changePhoto: async (data: FormData): Promise<void> => {
+    return api.put<void>("/profile/avatar", data);
   },
 };

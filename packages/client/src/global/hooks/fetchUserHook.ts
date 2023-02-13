@@ -11,7 +11,7 @@ export const useUserInfo = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(userActions.getUser);
+    void dispatch(userActions.getUser());
   }, []);
   const userInfo = useSelector(selectUserInfo);
   return userInfo;

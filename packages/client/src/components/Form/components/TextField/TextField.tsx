@@ -1,12 +1,12 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "@emotion/styled";
 import { InputAdornment } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import MaterialTextField from "@mui/material/TextField";
 
-import { T_FormField } from "../../types";
+import { T_FormField } from "../../constants";
 
-const CssTextField = styled(TextField)({
+const CssTextField = styled(MaterialTextField)({
   "& .MuiInputBase-root": {
     borderRadius: 10,
     backgroundColor: "white",
@@ -17,18 +17,15 @@ const CssTextField = styled(TextField)({
   },
 });
 
-export const FieldBuilder: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = "" }) => {
+export const TextField: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = "" }) => {
   const {
     control,
     formState: { errors },
+    setValue,
   } = useFormContext();
 
-  const ref = useRef<HTMLInputElement>();
   useEffect(() => {
-    if (!ref?.current) {
-      return;
-    }
-    ref.current.value = `${defaultValue}`;
+    setValue(name, defaultValue);
   }, [defaultValue]);
 
   const hasError = !!errors?.[name];
@@ -43,7 +40,6 @@ export const FieldBuilder: FC<T_FormField> = ({ label, name, type, disabled = fa
       type={type}
       error={hasError}
       disabled={disabled}
-      inputRef={ref}
       {...control.register(name)}
     />
   );
