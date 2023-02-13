@@ -67,11 +67,13 @@ const startServer = async () => {
       let createStore: T_CreateStore;
 
       if (isDev()) {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx") as string)).render;
-        createStore = (await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx") as string)).createStore;
+        const ssrModule = await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx") as string);
+        render = ssrModule.render;
+        createStore = ssrModule.createStore;
       } else {
-        render = (await import(ssrClientPath)).render;
-        createStore = (await import(ssrClientPath)).createStore;
+        const ssrModule = await import(ssrClientPath);
+        render = ssrModule.render;
+        createStore = ssrModule.createStore;
       }
 
       const store = createStore();
