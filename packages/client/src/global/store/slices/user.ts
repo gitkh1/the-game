@@ -5,6 +5,7 @@ import { I_UserInfo } from "../../types";
 
 interface I_State {
   data: I_UserInfo | null;
+  city: string;
   isLoaded: boolean;
   isError: boolean;
   errorMessage: string | null;
@@ -12,6 +13,7 @@ interface I_State {
 
 const initialState: I_State = {
   data: null,
+  city: "",
   isLoaded: false,
   isError: false,
   errorMessage: null,
@@ -29,7 +31,11 @@ const getUser = createAsyncThunk("user/getUser", async (_, { rejectWithValue }) 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setCity(state, action: PayloadAction<string>) {
+      state.city = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.fulfilled, (state, action: PayloadAction<I_UserInfo>) => {
@@ -37,7 +43,6 @@ export const userSlice = createSlice({
         state.isLoaded = true;
       })
       .addCase(getUser.rejected, (state, action: PayloadAction<unknown>) => {
-        console.log(action);
         if (action.payload instanceof Error) {
           state.isError = true;
           state.errorMessage = action.payload.message;
