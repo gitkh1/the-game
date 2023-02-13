@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
+import { oAuthApi } from "../../api";
+import { REDIRECT_URL } from "../../api/constants";
 import mainPageBG from "../../assets/images/main-page-bg.jpg";
 import { Background } from "../../components/Background";
 import { useNotification } from "../../global/hooks";
@@ -19,34 +21,19 @@ export const MainPage: FC = () => {
     if (code) {
       const body = {
         code,
-        redirectUri: `http://localhost:3000`,
+        redirectUri: REDIRECT_URL,
       };
 
-      fetch("https://ya-praktikum.tech/api/v2/oauth/yandex", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(body),
-      })
+      oAuthApi.signin(body)
         .then(() => {
-          fetch("https://ya-praktikum.tech/api/v2/auth/user")
-            .then(() => {
-              navigate(PATHS.MAIN_MENU);
-            })
-            .catch((e) => {
-              if (e instanceof Error && showAlert) {
-                showAlert(e.message);
-              }
-            });
+          navigate(PATHS.MAIN_MENU);
         })
         .catch((e) => {
           if (e instanceof Error && showAlert) {
             showAlert(e.message);
           }
         });
-    }
+    }  
   }, [searchParams]);
 
   return (

@@ -8,7 +8,7 @@ export interface I_Signin {
 
 export interface I_OAuthSignin {
   code: string;
-  redirect_uri: string;
+  redirectUri: string;
 }
 
 export interface I_Signup {
