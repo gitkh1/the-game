@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable no-duplicate-imports */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
@@ -7,19 +9,29 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import fs from "fs";
+import https from "https";
 import path from "path";
 
 import cors from "cors";
 import dotenv from "dotenv";
+import express from "express";
 import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
-dotenv.config();
 
-import express from "express";
-
+import devHosts from "./hosts/hosts.json";
 import { createClientAndConnect } from "./db";
+import { findIP, makeStartLogsText } from "./utils";
 
+dotenv.config();
 const isDev = () => process.env.NODE_ENV === "development";
+const APP_HOSTS = ["localhost"];
+
+if (isDev()) {
+  const devLocalIP = findIP();
+  if (devLocalIP) {
+    APP_HOSTS.push(devLocalIP);
+  }
+}
 
 const startServer = async () => {
   const app = express();
@@ -83,9 +95,18 @@ const startServer = async () => {
     }
   });
 
-  app.listen(port, () => {
-    console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
-  });
+  if (isDev()) {
+    const certificate = fs.readFileSync(path.resolve("certificate", "certificate.pem"), "utf8");
+    const key = fs.readFileSync(path.resolve("certificate", "key.pem"), "utf8");
+
+    https.createServer({ key: key, cert: certificate }, app).listen(port, "0.0.0.0", () => {
+      console.info(makeStartLogsText(APP_HOSTS.concat(...devHosts.map(({ host }) => host)), "https", port));
+    });
+  } else {
+    app.listen(port, () => {
+      console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
+    });
+  }
 };
 
 startServer();
