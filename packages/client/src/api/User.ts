@@ -12,7 +12,7 @@ export const userApi = {
   changePwd: async <T = unknown>(data: I_PasswordPayload): Promise<T> => {
     return api.put<T>("/password", data);
   },
-  changePhoto: async (data: FormData): Promise<void> => {
-    return api.put<void>("/profile/avatar", data);
+  changePhoto: async (data: FormData): Promise<XMLHttpRequest> => {
+    return api.putFile("/profile/avatar", data);
   },
 };

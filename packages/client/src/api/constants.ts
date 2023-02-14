@@ -2,6 +2,7 @@ export const ERROR_MESSAGE = "Что-то пошло не так...";
 
 export const TEAM_NAME = "Popstar";
 export const LEADERBOARD_ROWS_LIMIT = 20;
+export const DEFAULT_TIMEOUT = 500;
 
 const BASE_URL = "https://ya-praktikum.tech/api/v2";
 export const AUTH_BASE_URL = BASE_URL + "/auth";

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { DEFAULT_HEADERS, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
+import { DEFAULT_HEADERS, DEFAULT_TIMEOUT, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
 
 export class Api {
   constructor(private baseUrl: string) {}
@@ -45,5 +45,26 @@ export class Api {
 
   public async delete<T = unknown>(endPoint: string, data?: unknown): Promise<T> {
     return await this.fetchMethod<T>(`${this.baseUrl}${endPoint}`, METHODS.DELETE, data);
+  }
+
+  public async putFile(endPoint: string, data?: FormData): Promise<XMLHttpRequest> {
+    try {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(METHODS.PUT, `${this.baseUrl}${endPoint}`);
+        xhr.withCredentials = true;
+        xhr.timeout = DEFAULT_TIMEOUT;
+        xhr.onload = function () {
+          resolve(xhr);
+        };
+        xhr.onabort = reject;
+        xhr.onerror = reject;
+        xhr.ontimeout = reject;
+        xhr.send(data);
+      });
+    } catch (err) {
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
+    }
   }
 }
