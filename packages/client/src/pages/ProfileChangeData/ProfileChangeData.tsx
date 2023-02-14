@@ -67,6 +67,7 @@ export const ProfileChangeData: FC = () => {
 
     try {
       await userApi.changeProfile(restData);
+
       if (avatar) {
         const formData = new FormData();
         formData.append("avatar", avatar, avatar.name);

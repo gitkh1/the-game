@@ -6,7 +6,7 @@ import { T_FormField } from "../../constants";
 import classes from "./AvatarFiled.module.scss";
 
 export const AvatarFiled: FC<T_FormField> = ({ name, disabled = false, defaultValue = null }) => {
-  const { control, setValue } = useFormContext();
+  const { setValue } = useFormContext();
   const [avatar, setAvatar] = useState<string | null>(defaultValue);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const AvatarFiled: FC<T_FormField> = ({ name, disabled = false, defaultVa
   return (
     <label className={classes.label} style={!disabled ? { cursor: "pointer" } : { cursor: "default" }}>
       {avatar && <img className={classes.label__img} src={avatar} />}
-      <input className={classes.label__input} type="file" accept="image/*" disabled={disabled} {...control.register(name)} onChange={handleChange} />
+      <input className={classes.label__input} type="file" accept="image/*" disabled={disabled} onChange={handleChange} />
     </label>
   );
 };

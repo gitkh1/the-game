@@ -39,7 +39,9 @@ export const Form = <T_Data extends FieldValues = FieldValues, T_Schema extends 
 
   const onFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    void formApi.handleSubmit((data) => onSubmit?.(data))(event);
+    void formApi.handleSubmit((data) => {
+      void onSubmit?.(data);
+    })(event);
   };
 
   return (

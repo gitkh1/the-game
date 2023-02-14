@@ -39,5 +39,5 @@ export interface I_PasswordPayload {
 }
 
 export interface I_AvatarPayload {
-  avatar: File;
+  avatar?: File;
 }
