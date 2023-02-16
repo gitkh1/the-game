@@ -14,7 +14,7 @@ import { Layout } from "./src/components/Layout";
 import createEmotionCache from "./src/global/mui/createEmotionCache";
 import { createStore, T_Store } from "./src/global/store";
 import theme from "./src/global/theme/index";
-import { ErrorBoundary } from "./src/modules/ErrorBoundary/ErrorBoundary";
+import { ErrorBoundary } from "./src/modules/ErrorBoundary";
 import { routesWithoutAuth } from "./src/routes";
 
 export { createStore };

@@ -3,7 +3,6 @@ import { RouteObject } from "react-router-dom";
 import { Game } from "../game";
 import { GuestOnlyRouter, SignedInOnlyRouter } from "../modules/RouterWithAuth";
 import { AboutPage } from "../pages/AboutPage";
-import { ErrorPage } from "../pages/ErrorPage";
 import { GameMainMenu } from "../pages/GameMainMenu";
 import { GameOverPage } from "../pages/GameOverPage";
 import { LeaderBoard } from "../pages/LeaderBoard";
@@ -50,12 +49,7 @@ export const routes: RouteObject[] = [
         path: PATHS.SIGN_UP,
         element: <SignupPage />,
       },
-    ].map((child) => {
-      return {
-        ...child,
-        errorElement: <ErrorPage />,
-      };
-    }),
+    ],
   },
   {
     element: <SignedInOnlyRouter redirectInvalidTo={PATHS.MAIN} />,
@@ -100,17 +94,11 @@ export const routes: RouteObject[] = [
         path: PATHS.ABOUT,
         element: <AboutPage />,
       },
-    ].map((child) => {
-      return {
-        ...child,
-        errorElement: <ErrorPage />,
-      };
-    }),
+    ],
   },
   {
     path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
-    errorElement: <ErrorPage />,
   },
 ];
 
@@ -173,9 +161,4 @@ export const routesWithoutAuth: RouteObject[] = [
     path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
   },
-].map((child) => {
-  return {
-    ...child,
-    errorElement: <ErrorPage />,
-  };
-});
+];

@@ -12,7 +12,7 @@ import { Layout } from "./components/Layout";
 import createEmotionCache from "./global/mui/createEmotionCache";
 import { createStore } from "./global/store";
 import theme from "./global/theme/index";
-import { ErrorBoundary } from "./modules/ErrorBoundary/ErrorBoundary";
+import { ErrorBoundary } from "./modules/ErrorBoundary";
 import App from "./App";
 
 import "./main.scss";
@@ -45,12 +45,11 @@ const loadWorker = async () => {
   }
 };
 
-// window.addEventListener("load", () => void loadFunc());
 // Отключили service Worker на время разработки ssr
+// window.addEventListener("load", () => void loadFunc());
 window.addEventListener("load", () => void fetchServerData());
 
-ReactDOM.hydrateRoot(
-  document.getElementById("root") as HTMLElement,
+const app = (
   <StrictMode>
     <ErrorBoundary>
       <CacheProvider value={cache}>
@@ -63,5 +62,12 @@ ReactDOM.hydrateRoot(
         </ThemeProvider>
       </CacheProvider>
     </ErrorBoundary>
-  </StrictMode>,
+  </StrictMode>
 );
+
+const root = document.getElementById("root") as HTMLElement;
+if (root.childElementCount) {
+  ReactDOM.hydrateRoot(root, app);
+} else {
+  ReactDOM.createRoot(root).render(app);
+}
