@@ -1,9 +1,10 @@
 import { FC, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
-import { authApi } from "../../api";
+import { authApi, oAuthApi } from "../../api";
+import yandexIcon from "../../assets/icons/yandex-icon.jpg";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
 import { useNotification } from "../../global/hooks";
@@ -13,6 +14,7 @@ import { yup } from "../../modules/formBuilder/constants/validation";
 import { PATHS } from "../../routes";
 
 import global from "../../global/styles/Global.module.scss";
+import classes from "./SigninPage.module.scss";
 
 const FIELDS: T_FormFieldNames = ["login", "password"];
 
@@ -60,6 +62,16 @@ export const SigninPage: FC = () => {
     }
   };
 
+  const oAuthSignin = async () => {
+    try {
+      await oAuthApi.getServiceId();
+    } catch (e) {
+      if (e instanceof Error && showAlert) {
+        showAlert(e.message);
+      }
+    }
+  };
+
   const getFormApi = (api: UseFormReturn) => {
     if (!formApi) setFormApi(api);
   };
@@ -74,6 +86,17 @@ export const SigninPage: FC = () => {
           getFormApi={getFormApi}
           displayAvatar={false}
         />
+        <Button
+          style={{
+            borderRadius: 20,
+            backgroundColor: "black",
+          }}
+          variant="contained"
+          onClick={() => void oAuthSignin()}
+        >
+          <img src={yandexIcon} alt="yandex-icon" className={classes.icon} />
+          Войти с Яндекс ID
+        </Button>
       </Box>
     </Background>
   );

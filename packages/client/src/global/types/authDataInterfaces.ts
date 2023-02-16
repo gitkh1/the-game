@@ -6,6 +6,11 @@ export interface I_Signin {
   password: string;
 }
 
+export interface I_OAuthSignin {
+  code: string;
+  redirectUri: string;
+}
+
 export interface I_Signup {
   mail: string;
   login: string;
