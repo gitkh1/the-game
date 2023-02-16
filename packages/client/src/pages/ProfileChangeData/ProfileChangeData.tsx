@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { FC, useRef, useState } from "react";
+import { FC, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";

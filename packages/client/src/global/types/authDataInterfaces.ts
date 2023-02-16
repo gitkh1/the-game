@@ -13,6 +13,11 @@ export interface I_SignupPayload extends I_SigninPayload {
   confirmPassword: string;
 }
 
+export interface I_OAuthSignin {
+  code: string;
+  redirectUri: string;
+}
+
 export interface I_UserInfo {
   id: number;
   first_name: string;

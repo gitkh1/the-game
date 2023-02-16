@@ -1,13 +1,42 @@
-import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
+import { oAuthApi } from "../../api";
+import { REDIRECT_URL } from "../../api/constants";
 import mainPageBG from "../../assets/images/main-page-bg.jpg";
 import { Background } from "../../components/Background";
+import { useNotification } from "../../global/hooks";
+import { PATHS } from "../../routes";
 
 import classes from "./MainPage.module.scss";
 
 export const MainPage: FC = () => {
+  const { showAlert } = useNotification();
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    const code = searchParams.get(`code`);
+    if (code) {
+      const body = {
+        code,
+        redirectUri: REDIRECT_URL,
+      };
+
+      oAuthApi
+        .signin(body)
+        .then(() => {
+          navigate(PATHS.MAIN_MENU);
+        })
+        .catch((e) => {
+          if (e instanceof Error && showAlert) {
+            showAlert(e.message);
+          }
+        });
+    }
+  }, [searchParams]);
+
   return (
     <Background src={mainPageBG}>
       <div className={classes["main-page"]}>
