@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import * as Sentry from "@sentry/react";
 
 import gameBackground from "../assets/images/game-page-bg.jpg";
 import { Background } from "../components/Background";
@@ -55,7 +56,9 @@ export const Game: FC = () => {
       .then(() => {
         gameRunner.start();
       })
-      .catch((e) => console.log(e));
+      .catch((error) => {
+        Sentry.captureException(error);
+      });
     gameRunner.onStateChanged(setGameState);
 
     return () => gameRunner.destroy();
