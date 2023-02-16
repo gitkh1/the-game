@@ -1,19 +1,25 @@
-import { configureStore, createSelector } from "@reduxjs/toolkit";
+import { configureStore, createSelector, PreloadedState } from "@reduxjs/toolkit";
 
 import { leaderboardReducer } from "./slices/leaderboard";
 import { userReducer } from "./slices/user";
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    leaderboard: leaderboardReducer,
-  },
-  devTools: true,
-});
+type T_Reducers = typeof userReducer & typeof leaderboardReducer;
 
-export const dispatch = store.dispatch;
-export type T_RootState = ReturnType<typeof store.getState>;
-export type T_AppDispatch = typeof store.dispatch;
+export type T_CreateStore = typeof createStore;
+export type T_Store = ReturnType<T_CreateStore>;
+export type T_RootState = ReturnType<T_Store["getState"]>;
+export type T_AppDispatch = T_Store["dispatch"];
+
+export function createStore(preloadedState?: PreloadedState<T_Reducers>) {
+  return configureStore({
+    reducer: {
+      user: userReducer,
+      leaderboard: leaderboardReducer,
+    },
+    devTools: true,
+    preloadedState,
+  });
+}
 
 const selectUser = (state: T_RootState) => state.user;
 export const selectUserInfo = createSelector(selectUser, (user) => user.data);

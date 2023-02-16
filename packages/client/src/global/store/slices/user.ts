@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { authApi } from "../../../api";
-import { I_UserInfo } from "../../types";
+import type { I_UserInfo } from "../../types";
 
 interface I_State {
   data: I_UserInfo | null;
@@ -57,7 +57,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const userSliceActions = {
+export const userActions = {
   ...userSlice.actions,
   getUser,
 };
