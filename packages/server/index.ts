@@ -44,8 +44,17 @@ const startServer = async () => {
   const ssrClientPath = require.resolve("client/dist-ssr/ssr.cjs");
 
   if (isDev()) {
+    const certificate = fs.readFileSync(path.resolve("certificate", "certificate.pem"), "utf8");
+    const key = fs.readFileSync(path.resolve("certificate", "key.pem"), "utf8");
+
     vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        https: {
+          cert: certificate,
+          key,
+        },
+      },
       root: srcPath,
       appType: "custom",
     });
