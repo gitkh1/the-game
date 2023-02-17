@@ -12,12 +12,14 @@ import { ThemeProvider } from "@mui/material";
 
 import { Layout } from "./src/components/Layout";
 import createEmotionCache from "./src/global/mui/createEmotionCache";
-import { store } from "./src/global/store";
+import { createStore, T_Store } from "./src/global/store";
 import theme from "./src/global/theme/index";
 import { ErrorBoundary } from "./src/modules/ErrorBoundary/ErrorBoundary";
 import { routesWithoutAuth } from "./src/routes";
 
-export function render(path: string): string[] {
+export { createStore };
+
+export function render(path: string, store: T_Store): string[] {
   const cache = createEmotionCache();
   const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache);
 
@@ -26,7 +28,7 @@ export function render(path: string): string[] {
       <ErrorBoundary>
         <CacheProvider value={cache}>
           <ThemeProvider theme={theme}>
-            <Provider store={store}>
+            <Provider store={store} serverState={store.getState()}>
               <Layout>
                 <RouterProvider router={createMemoryRouter(routesWithoutAuth, { initialEntries: [path] })} />
               </Layout>

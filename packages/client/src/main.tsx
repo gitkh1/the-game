@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -9,12 +10,15 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { Layout } from "./components/Layout";
 import createEmotionCache from "./global/mui/createEmotionCache";
-import { store } from "./global/store";
+import { createStore } from "./global/store";
 import theme from "./global/theme/index";
 import { ErrorBoundary } from "./modules/ErrorBoundary/ErrorBoundary";
 import App from "./App";
 
 import "./main.scss";
+
+const store = createStore(window.__PRELOADED_STATE__);
+delete window.__PRELOADED_STATE__;
 
 const cache = createEmotionCache();
 
@@ -29,6 +33,7 @@ const fetchServerData = async () => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const loadWorker = async () => {
   if ("serviceWorker" in navigator) {
     try {

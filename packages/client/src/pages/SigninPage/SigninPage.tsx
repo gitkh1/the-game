@@ -7,21 +7,21 @@ import { authApi, oAuthApi } from "../../api";
 import yandexIcon from "../../assets/icons/yandex-icon.jpg";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
+import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
 import { useNotification } from "../../global/hooks";
-import { I_Signin } from "../../global/types";
-import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
-import { yup } from "../../modules/formBuilder/constants/validation";
+import { I_SigninPayload } from "../../global/types";
+import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
 
 import global from "../../global/styles/Global.module.scss";
 import classes from "./SigninPage.module.scss";
 
-const FIELDS: T_FormFieldNames = ["login", "password"];
+const FIELDS = [FORM_FIELDS.LOGIN, FORM_FIELDS.PASSWORD];
 
-const getFormStructure = (): T_FormStructure => {
+const getFormStructure = () => {
   return {
     title: "Вход",
-    fields: getFormFields(FIELDS),
+    fields: FIELDS.map((field) => FORM_FIELDS_META[field]),
     links: [
       {
         to: PATHS.SIGN_UP,
@@ -50,7 +50,7 @@ export const SigninPage: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: I_Signin) => {
+  const onSubmit = async (data: I_SigninPayload) => {
     try {
       await authApi.signin(data);
       navigate(PATHS.PROFILE);
@@ -79,12 +79,11 @@ export const SigninPage: FC = () => {
   return (
     <Background src={signBG}>
       <Box className={global["form-wrapper"]}>
-        <FormBuilder<I_Signin, T_Schema>
+        <Form<I_SigninPayload, T_Schema>
           onSubmit={(data) => void onSubmit(data)}
           structure={getFormStructure()}
           validationSchema={validationSchema}
           getFormApi={getFormApi}
-          displayAvatar={false}
         />
         <Button
           style={{

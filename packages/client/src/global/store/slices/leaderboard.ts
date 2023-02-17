@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { leaderboardApi } from "../../../api";
 import { LEADERBOARD_ROWS_LIMIT } from "../../../api/constants";
-import { T_LeaderboardPayload } from "../../types";
+import type { T_LeaderboardPayload } from "../../types";
 
 interface I_State {
   data: T_LeaderboardPayload[];
@@ -31,7 +31,7 @@ const getResults = createAsyncThunk("leaderboard/getResults", async (page: numbe
 
 const sendResult = createAsyncThunk("leaderboard/sendResult", async (payload: T_LeaderboardPayload, { rejectWithValue }) => {
   try {
-    await leaderboardApi.sendResult(payload);
+    return await leaderboardApi.sendResult(payload);
   } catch (e) {
     return rejectWithValue(e);
   }
@@ -67,7 +67,7 @@ export const leaderboardSlice = createSlice({
   },
 });
 
-export const leaderboardSliceActions = {
+export const leaderboardActions = {
   ...leaderboardSlice.actions,
   getResults,
   sendResult,
