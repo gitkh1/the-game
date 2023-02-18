@@ -4,13 +4,17 @@ import { DEFAULT_HEADERS, DEFAULT_TIMEOUT, ERROR_MESSAGE, METHODS, T_CrudMethods
 export class Api {
   constructor(private baseUrl: string) {}
 
-  private async parseResponse(response: Response) {
+  private async parseResponse<T = unknown>(response: Response): Promise<T> {
     if (!response.ok) {
       const error = (await response.json()) as Record<string, unknown>;
       const message = ("reason" in error ? error.reason : ERROR_MESSAGE) as string;
       throw new Error(message);
     }
-    return await response.json();
+    try {
+      return await response.json();
+    } catch (error) {
+      return new Promise((resolve) => resolve(error as T));
+    }
   }
 
   private async fetchMethod<T = unknown>(url: string, method: T_CrudMethods, data?: unknown): Promise<T> {
@@ -24,7 +28,7 @@ export class Api {
         requestInit.body = JSON.stringify(data);
       }
       const response = await fetch(url, requestInit);
-      return await this.parseResponse(response);
+      return await this.parseResponse<T>(response);
     } catch (err) {
       if (err instanceof Error) throw err;
       throw new Error(ERROR_MESSAGE);

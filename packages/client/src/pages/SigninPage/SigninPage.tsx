@@ -8,7 +8,8 @@ import yandexIcon from "../../assets/icons/yandex-icon.jpg";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
-import { useNotification } from "../../global/hooks";
+import { useAppDispatch, useNotification } from "../../global/hooks";
+import { userActions } from "../../global/store/slices/user";
 import { I_SigninPayload } from "../../global/types";
 import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
@@ -44,6 +45,7 @@ type T_Schema = typeof validationSchema;
 export const SigninPage: FC = () => {
   const navigate = useNavigate();
   const { showAlert } = useNotification();
+  const dispatch = useAppDispatch();
   const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
 
   const setFieldErrors = () => {
@@ -53,7 +55,8 @@ export const SigninPage: FC = () => {
   const onSubmit = async (data: I_SigninPayload) => {
     try {
       await authApi.signin(data);
-      navigate(PATHS.PROFILE);
+      await dispatch(userActions.getUser());
+      navigate(PATHS.MAIN_MENU);
     } catch (e) {
       if (e instanceof Error && showAlert) {
         showAlert(e.message);

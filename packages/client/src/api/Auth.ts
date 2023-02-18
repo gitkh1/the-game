@@ -9,6 +9,9 @@ export const authApi = {
   signin: async <T = unknown>(data: I_SigninPayload): Promise<T> => {
     return await api.post("/signin", data);
   },
+  logout: async () => {
+    return await api.post("/logout");
+  },
   signup: async <T = unknown>(data: I_SignupPayload): Promise<T> => {
     return await api.post("/signup", data);
   },
