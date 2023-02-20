@@ -6,10 +6,10 @@ import { AUTH_BASE_URL, ERROR_MESSAGE, RESOURCES_BASE_URL } from "./constants";
 const api = new Api(AUTH_BASE_URL);
 
 export const authApi = {
-  signin: async <T = unknown>(data: I_SigninPayload): Promise<T> => {
+  signin: async <T = string>(data: I_SigninPayload): Promise<T> => {
     return await api.post("/signin", data);
   },
-  logout: async () => {
+  logout: async <T = string>(): Promise<T> => {
     return await api.post("/logout");
   },
   signup: async <T = unknown>(data: I_SignupPayload): Promise<T> => {

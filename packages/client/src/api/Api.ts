@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { DEFAULT_HEADERS, DEFAULT_TIMEOUT, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
 
 export class Api {
@@ -10,10 +9,11 @@ export class Api {
       const message = ("reason" in error ? error.reason : ERROR_MESSAGE) as string;
       throw new Error(message);
     }
+    const body = await response.text();
     try {
-      return await response.json();
+      return JSON.parse(body) as T;
     } catch (error) {
-      return new Promise((resolve) => resolve(error as T));
+      return body as T;
     }
   }
 
