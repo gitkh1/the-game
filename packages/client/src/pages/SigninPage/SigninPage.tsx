@@ -8,7 +8,8 @@ import yandexIcon from "../../assets/icons/yandex-icon.jpg";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
-import { useNotification } from "../../global/hooks";
+import { useAppDispatch } from "../../global/hooks";
+import { notificationActions } from "../../global/store/slices/notification";
 import { I_SigninPayload } from "../../global/types";
 import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
@@ -43,7 +44,7 @@ type T_Schema = typeof validationSchema;
 
 export const SigninPage: FC = () => {
   const navigate = useNavigate();
-  const { showAlert } = useNotification();
+  const dispatch = useAppDispatch();
   const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
 
   const setFieldErrors = () => {
@@ -55,8 +56,8 @@ export const SigninPage: FC = () => {
       await authApi.signin(data);
       navigate(PATHS.PROFILE);
     } catch (e) {
-      if (e instanceof Error && showAlert) {
-        showAlert(e.message);
+      if (e instanceof Error) {
+        dispatch(notificationActions.setNotification({ errorMessage: e.message }));
         setFieldErrors();
       }
     }
@@ -66,8 +67,8 @@ export const SigninPage: FC = () => {
     try {
       await oAuthApi.getServiceId();
     } catch (e) {
-      if (e instanceof Error && showAlert) {
-        showAlert(e.message);
+      if (e instanceof Error) {
+        dispatch(notificationActions.setNotification({ errorMessage: e.message }));
       }
     }
   };

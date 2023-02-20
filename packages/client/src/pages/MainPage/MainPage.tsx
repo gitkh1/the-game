@@ -6,13 +6,14 @@ import { oAuthApi } from "../../api";
 import { REDIRECT_URL } from "../../api/constants";
 import mainPageBG from "../../assets/images/main-page-bg.jpg";
 import { Background } from "../../components/Background";
-import { useNotification } from "../../global/hooks";
+import { useAppDispatch } from "../../global/hooks";
+import { notificationActions } from "../../global/store/slices/notification";
 import { PATHS } from "../../routes";
 
 import classes from "./MainPage.module.scss";
 
 export const MainPage: FC = () => {
-  const { showAlert } = useNotification();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -30,8 +31,8 @@ export const MainPage: FC = () => {
           navigate(PATHS.MAIN_MENU);
         })
         .catch((e) => {
-          if (e instanceof Error && showAlert) {
-            showAlert(e.message);
+          if (e instanceof Error) {
+            dispatch(notificationActions.setNotification({ errorMessage: e.message }));
           }
         });
     }

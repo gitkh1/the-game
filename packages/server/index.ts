@@ -37,6 +37,9 @@ if (isDev()) {
   }
 }
 
+createClientAndConnect();
+connectMongo();
+
 const startServer = async () => {
   const app = express();
   app.use(cors());
@@ -65,8 +68,6 @@ const startServer = async () => {
     });
     app.use(vite.middlewares);
   }
-
-  createClientAndConnect();
 
   app.use(feedbackRouter);
 
@@ -133,4 +134,4 @@ const startServer = async () => {
   }
 };
 
-connectMongo().on("error", console.log).on("disconnect", connectMongo).on("open", startServer);
+startServer();

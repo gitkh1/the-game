@@ -11,6 +11,7 @@ export const REDIRECT_URL = "http://localhost:3000";
 export const USER_BASE_URL = BASE_URL + "/user";
 export const LEADERBOARD_BASE_URL = BASE_URL + "/leaderboard";
 export const RESOURCES_BASE_URL = BASE_URL + "/resources";
+export const FEEDBACK_BASE_URL = "https://my-app.localhost.ya-praktikum.tech:3001/api/feedback";
 
 export const METHODS = {
   GET: "GET",

@@ -1,32 +1,47 @@
-import React, { FC, PropsWithChildren, useState } from "react";
+import React, { FC, PropsWithChildren, useEffect, useMemo } from "react";
 import { Alert, Box } from "@mui/material";
 
-import { NotificationContext } from "../../global/context";
+import { useAppDispatch, useAppSelector } from "../../global/hooks";
+import { notificationActions, notificationSelector } from "../../global/store/slices/notification";
 
 import classes from "./Notification.module.scss";
 
+const DELAY = 2000;
+
 export const Notification: FC<PropsWithChildren> = ({ children }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [message, setMessage] = useState<string>("");
+  const { notification } = useAppSelector(notificationSelector);
+  const dispatch = useAppDispatch();
 
-  const showAlert = (message: string, delay = 2000) => {
-    setMessage(message);
-    setIsVisible(true);
+  const { type, message } = useMemo(() => {
+    if (notification?.errorMessage) {
+      return { type: "error", message: notification.errorMessage } as const;
+    }
+    if (notification?.warningMessage) {
+      return { type: "warning", message: notification.warningMessage } as const;
+    }
+    if (notification?.successMessage) {
+      return { type: "success", message: notification.successMessage } as const;
+    }
 
-    setTimeout(() => {
-      setIsVisible(false);
-      setMessage("");
-    }, delay);
-  };
+    return {};
+  }, [notification]);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      dispatch(notificationActions.clearNotification());
+    }, notification?.delay ?? DELAY);
+
+    return () => clearTimeout(timerId);
+  }, [message]);
 
   return (
-    <NotificationContext.Provider value={{ showAlert }}>
-      {isVisible && (
+    <>
+      {message && type && (
         <Box className={classes.notification}>
-          <Alert severity="error">{message}</Alert>
+          <Alert severity={type}>{message}</Alert>
         </Box>
       )}
       {children}
-    </NotificationContext.Provider>
+    </>
   );
 };
