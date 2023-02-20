@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable no-duplicate-imports */
@@ -19,8 +20,10 @@ import express from "express";
 import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
 
+import { connectMongo } from "./database/mongo";
+import { createClientAndConnect } from "./database/postgres";
 import devHosts from "./hosts/hosts.json";
-import { createClientAndConnect } from "./db";
+import { feedbackRouter } from "./routes/feedbackRoute";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -37,6 +40,7 @@ if (isDev()) {
 const startServer = async () => {
   const app = express();
   app.use(cors());
+  app.use(express.json());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   let vite: ViteDevServer | undefined;
@@ -63,6 +67,8 @@ const startServer = async () => {
   }
 
   createClientAndConnect();
+
+  app.use(feedbackRouter);
 
   app.get("/api", (_, res) => {
     res.json("👋 Howdy from the server :)");
@@ -127,4 +133,4 @@ const startServer = async () => {
   }
 };
 
-startServer();
+connectMongo().on("error", console.log).on("disconnect", connectMongo).on("open", startServer);

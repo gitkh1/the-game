@@ -1,0 +1,70 @@
+@import "../../global/styles/colors";
+
+.feedback {
+  position: relative;
+}
+
+.btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(94%);
+  }
+}
+
+.form {
+  position: absolute;
+  bottom: 0;
+  border-radius: 10px;
+  background: #00000080;
+  box-shadow: 0 0 26px -11px #fff;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.show {
+  animation: show 500ms;
+  height: 450px;
+  width: 350px;
+  right: 60px;
+}
+
+.hide {
+  animation: hide 500ms;
+  height: 0;
+  right: 20px;
+}
+
+@keyframes show {
+  0% {
+    height: 0;
+    width: 0;
+    right: 20px;
+  }
+
+  100% {
+    height: 450px;
+    width: 350px;
+    right: 60px;
+  }
+}
+@keyframes hide {
+  0% {
+    height: 450px;
+    width: 350px;
+    right: 60px;
+  }
+
+  100% {
+    bottom: 0;
+    width: 0;
+    right: 20px;
+  }
+}
