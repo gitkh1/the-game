@@ -18,7 +18,8 @@ export const oAuthApi = {
     try {
       return api.post("/", data);
     } catch (err) {
-      console.log(ERROR_MESSAGE, err);
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
     }
   },
 };

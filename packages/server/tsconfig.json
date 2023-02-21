@@ -24,7 +24,7 @@
     "paths": {
       "*": ["types/*"]
     },
-    "outDir": "dist"
+    "outDir": "dist",
   },
-  "include": ["./hosts/hosts.json"]
+  "include": ["**/*", "**/*.json"]
 }

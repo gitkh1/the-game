@@ -40,9 +40,9 @@ const startServer = async () => {
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   let vite: ViteDevServer | undefined;
-  const distPath = path.dirname(require.resolve("client/dist/index.html"));
-  const srcPath = path.dirname(require.resolve("client"));
-  const ssrClientPath = require.resolve("client/dist-ssr/ssr.cjs");
+  const distPath = path.dirname(require.resolve("index.html"));
+  const srcPath = path.dirname(require.resolve("index.html"));
+  const ssrClientPath = require.resolve("ssr.cjs");
 
   if (isDev()) {
     const certificate = fs.readFileSync(path.resolve("certificate", "certificate.pem"), "utf8");
