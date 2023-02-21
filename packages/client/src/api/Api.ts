@@ -9,8 +9,13 @@ export class Api {
       const message = ("reason" in error ? error.reason : ERROR_MESSAGE) as string;
       throw new Error(message);
     }
-    const isJson = response.headers.get('content-type')?.startsWith('application/json');
-    return isJson ? response.json() : response.text() as T;
+    let text = "";
+    try {
+      text = await response.text();
+      return JSON.parse(text) as T;
+    } catch (e) {
+      return text as T;
+    }
   }
 
   private async fetchMethod<T = unknown>(url: string, method: T_CrudMethods, data?: unknown): Promise<T> {
