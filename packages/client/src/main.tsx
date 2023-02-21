@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -7,12 +6,14 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
+import * as Sentry from "@sentry/react";
 
 import { Layout } from "./components/Layout";
 import createEmotionCache from "./global/mui/createEmotionCache";
 import { createStore } from "./global/store";
 import theme from "./global/theme/index";
-import { ErrorBoundary } from "./modules/ErrorBoundary/ErrorBoundary";
+import { setUserCityFromGeolocation } from "./global/utils";
+import { ErrorBoundary } from "./modules/ErrorBoundary";
 import App from "./App";
 
 import "./main.scss";
@@ -29,7 +30,7 @@ const fetchServerData = async () => {
     const data = (await response.json()) as unknown;
     console.log(data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -41,16 +42,17 @@ const loadWorker = async () => {
       console.log("SW registered");
     } catch (error) {
       console.log("SW failed");
+      Sentry.captureException(error);
     }
   }
 };
 
-// window.addEventListener("load", () => void loadFunc());
 // Отключили service Worker на время разработки ssr
+// window.addEventListener("load", () => void loadFunc());
+window.addEventListener("load", () => void setUserCityFromGeolocation(store.dispatch));
 window.addEventListener("load", () => void fetchServerData());
 
-ReactDOM.hydrateRoot(
-  document.getElementById("root") as HTMLElement,
+const app = (
   <StrictMode>
     <ErrorBoundary>
       <CacheProvider value={cache}>
@@ -63,5 +65,12 @@ ReactDOM.hydrateRoot(
         </ThemeProvider>
       </CacheProvider>
     </ErrorBoundary>
-  </StrictMode>,
+  </StrictMode>
 );
+
+const root = document.getElementById("root") as HTMLElement;
+if (root.childElementCount) {
+  ReactDOM.hydrateRoot(root, app);
+} else {
+  ReactDOM.createRoot(root).render(app);
+}

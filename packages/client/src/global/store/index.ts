@@ -1,4 +1,5 @@
-import { configureStore, createSelector, PreloadedState } from "@reduxjs/toolkit";
+import { configureStore, createSelector, PreloadedState, StoreEnhancer } from "@reduxjs/toolkit";
+import * as Sentry from "@sentry/react";
 
 import { leaderboardReducer } from "./slices/leaderboard";
 import { userReducer } from "./slices/user";
@@ -18,6 +19,7 @@ export function createStore(preloadedState?: PreloadedState<T_Reducers>) {
     },
     devTools: true,
     preloadedState,
+    enhancers: [Sentry.createReduxEnhancer() as StoreEnhancer],
   });
 }
 
