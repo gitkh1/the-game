@@ -15,8 +15,8 @@
     "preview": "lerna run preview",
     "start:server": "lerna run start --scope=server",
     "setup-hosts": "lerna run setup-hosts --scope=server",
-    "mongo:start": "docker build -f Dockerfile.mongo -t mongo_db . && docker run -p27017:27017 -d --env-file ./.env --rm --name mongo_container mongo_db",
-    "mongo:stop": "docker stop mongo_container && docker image rm mongo_db"
+    "database:start": "docker-compose -f docker-compose.dev.yml up",
+    "database:stop": "docker-compose down"
   },
   "license": "MIT",
   "workspaces": [

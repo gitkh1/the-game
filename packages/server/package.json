@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "rimraf dist && tsc --p ./tsconfig.prod.json && yarn link client",
+    "build": "rimraf dist && tsc --p ./tsconfig.prod.json",
     "start": "cross-env NODE_ENV=production node ./index.js",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
