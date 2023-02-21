@@ -22,7 +22,7 @@ import type { ViteDevServer } from "vite";
 import { connectMongo } from "./database/mongo";
 import { createClientAndConnect } from "./database/postgres";
 import { feedbackRouter } from "./routes/feedbackRoute";
-import {devHosts} from "./hosts";
+import { devHosts } from "./hosts";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
