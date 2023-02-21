@@ -1,11 +1,13 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 
+import { authApi } from "../../api";
 import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
-import { useUserInfo } from "../../global/hooks";
+import { useAppDispatch, useNotification, useUserInfo } from "../../global/hooks";
+import { userActions } from "../../global/store/slices/user";
 import { I_UserInfo } from "../../global/types";
 import { PATHS } from "../../routes";
 
@@ -37,6 +39,21 @@ const getFormStructure = (data: I_UserInfo | null) => {
 
 export const Profile: FC = () => {
   const userInfo = useUserInfo();
+  const { showAlert } = useNotification();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onLogout = async () => {
+    try {
+      await authApi.logout();
+      await dispatch(userActions.getUser());
+      navigate(PATHS.MAIN);
+    } catch (e) {
+      if (e instanceof Error && showAlert) {
+        showAlert(e.message);
+      }
+    }
+  };
 
   return (
     <Background>
@@ -61,11 +78,9 @@ export const Profile: FC = () => {
             Вернуться в меню
           </Button>
         </NavLink>
-        <NavLink to={PATHS.MAIN} className={global["profile__button"]}>
-          <Button color="error" variant="contained">
-            Выйти из аккаунта
-          </Button>
-        </NavLink>
+        <Button color="error" variant="contained" className={global["profile__button"]} onClick={() => void onLogout()}>
+          Выйти из аккаунта
+        </Button>
       </div>
     </Background>
   );
