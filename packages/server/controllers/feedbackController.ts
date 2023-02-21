@@ -1,9 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Request, Response } from "express";
 import { CallbackError } from "mongoose";
 
+import type { I_Notifier } from "../interfaces/notifier";
 import { Feedback, I_Feedback } from "../models/feedbackModels";
 
-class FeedbackController {
+export class FeedbackController {
+  private notifier: I_Notifier;
+  constructor(notifier: I_Notifier) {
+    this.notifier = notifier;
+    this.post = this.post.bind(this);
+    this.get = this.get.bind(this);
+  }
+
   post(req: Request<void, I_Feedback, I_Feedback>, res: Response<I_Feedback | CallbackError>) {
     const { email, feedback: text, login } = req.body;
     const feedback = new Feedback({
@@ -15,7 +24,8 @@ class FeedbackController {
       if (err) {
         res.status(500).json(err);
       }
-      res.json(record);
+      void this.notifier.send({ email: record.email, name: record.login, message: record.feedback });
+      res.json({ email: record.email, login: record.login, feedback: record.feedback });
     });
   }
   async get(_: Request, res: Response<I_Feedback[] | CallbackError>) {
@@ -23,5 +33,3 @@ class FeedbackController {
     res.json(records);
   }
 }
-
-export const feedbackController = new FeedbackController();

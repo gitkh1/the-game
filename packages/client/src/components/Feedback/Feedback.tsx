@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { FC, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import cn from "classnames";
 
@@ -55,6 +56,7 @@ const FORM_STATE = {
 
 export const Feedback: FC = () => {
   const [showForm, setShowForm] = useState<keyof typeof FORM_STATE>(FORM_STATE.unset);
+  const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
   const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
@@ -69,12 +71,17 @@ export const Feedback: FC = () => {
     try {
       await feedbackApi.send(data);
       dispatch(notificationActions.setNotification({ successMessage: "Отзыв успешно отправлен" }));
+      formApi?.resetField(FORM_FIELDS.FEEDBACK);
       clickHandler();
     } catch (e) {
       if (e instanceof Error) {
         dispatch(notificationActions.setNotification({ errorMessage: e.message }));
       }
     }
+  };
+
+  const getFormApi = (api: UseFormReturn) => {
+    setFormApi(api);
   };
 
   return (
@@ -95,6 +102,7 @@ export const Feedback: FC = () => {
               structure={getFormStructure(userInfo)}
               validationSchema={validationSchema}
               onSubmit={(data) => handleSubmit(data)}
+              getFormApi={(api) => getFormApi(api)}
             />
           </div>
         </div>
