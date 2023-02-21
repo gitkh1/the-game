@@ -18,12 +18,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import type { ViteDevServer } from "vite";
-import { createServer as createViteServer } from "vite";
 
 import { connectMongo } from "./database/mongo";
 import { createClientAndConnect } from "./database/postgres";
-import devHosts from "./hosts/hosts.json";
 import { feedbackRouter } from "./routes/feedbackRoute";
+import {devHosts} from "./hosts";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -52,10 +51,11 @@ const startServer = async () => {
   const ssrClientPath = require.resolve("client/dist-ssr/ssr.cjs");
 
   if (isDev()) {
+    const { createServer } = await import("vite");
     const certificate = fs.readFileSync(path.resolve("certificate", "certificate.pem"), "utf8");
     const key = fs.readFileSync(path.resolve("certificate", "key.pem"), "utf8");
 
-    vite = await createViteServer({
+    vite = await createServer({
       server: {
         middlewareMode: true,
         https: {

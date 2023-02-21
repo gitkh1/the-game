@@ -11,14 +11,16 @@ export const oAuthApi = {
       const { service_id: serviceId } = await api.get<{ service_id: string }>("/service-id");
       window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URL}`);
     } catch (err) {
-      console.log(ERROR_MESSAGE, err);
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
     }
   },
-  signin: async <T>(data: I_OAuthSignin): Promise<T | unknown> => {
+  signin: async <T>(data: I_OAuthSignin): Promise<T> => {
     try {
-      return api.post("/", data);
+      return api.post<T>("/", data);
     } catch (err) {
-      console.log(ERROR_MESSAGE, err);
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
     }
   },
 };
