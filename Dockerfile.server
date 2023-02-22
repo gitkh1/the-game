@@ -19,7 +19,6 @@ RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
 
-COPY --from=builder /app/packages/server/node_modules/client /app/
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
 RUN yarn install --production=true
