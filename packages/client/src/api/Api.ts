@@ -1,16 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { DEFAULT_HEADERS, DEFAULT_TIMEOUT, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
 
 export class Api {
   constructor(private baseUrl: string) {}
 
-  private async parseResponse(response: Response) {
+  private async parseResponse<T = unknown>(response: Response): Promise<T> {
     if (!response.ok) {
       const error = (await response.json()) as Record<string, unknown>;
       const message = ("reason" in error ? error.reason : ERROR_MESSAGE) as string;
       throw new Error(message);
     }
-    return await response.json();
+    let text = "";
+    try {
+      text = await response.text();
+      return JSON.parse(text) as T;
+    } catch (e) {
+      return text as T;
+    }
   }
 
   private async fetchMethod<T = unknown>(url: string, method: T_CrudMethods, data?: unknown): Promise<T> {
@@ -24,7 +29,7 @@ export class Api {
         requestInit.body = JSON.stringify(data);
       }
       const response = await fetch(url, requestInit);
-      return await this.parseResponse(response);
+      return await this.parseResponse<T>(response);
     } catch (err) {
       if (err instanceof Error) throw err;
       throw new Error(ERROR_MESSAGE);

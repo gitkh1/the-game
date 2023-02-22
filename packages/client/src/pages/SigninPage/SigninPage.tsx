@@ -10,6 +10,7 @@ import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
 import { useAppDispatch } from "../../global/hooks";
 import { notificationActions } from "../../global/store/slices/notification";
+import { userActions } from "../../global/store/slices/user";
 import { I_SigninPayload } from "../../global/types";
 import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
@@ -54,7 +55,8 @@ export const SigninPage: FC = () => {
   const onSubmit = async (data: I_SigninPayload) => {
     try {
       await authApi.signin(data);
-      navigate(PATHS.PROFILE);
+      await dispatch(userActions.getUser());
+      navigate(PATHS.MAIN_MENU);
     } catch (e) {
       if (e instanceof Error) {
         dispatch(notificationActions.setNotification({ errorMessage: e.message }));

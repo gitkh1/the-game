@@ -1,4 +1,7 @@
-import { configureStore, createSelector, PreloadedState } from "@reduxjs/toolkit";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { configureStore, createSelector, PreloadedState, StoreEnhancer } from "@reduxjs/toolkit";
+import * as Sentry from "@sentry/react";
 
 import { leaderboardReducer } from "./slices/leaderboard";
 import { notificationReducer } from "./slices/notification";
@@ -20,6 +23,7 @@ export function createStore(preloadedState?: PreloadedState<T_Reducers>) {
     },
     devTools: true,
     preloadedState,
+    enhancers: [Sentry.createReduxEnhancer() as StoreEnhancer],
   });
 }
 
