@@ -5,10 +5,11 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Router } from "express";
 
+import { TELEGRAM_CHAT_ID } from "../configuration";
 import { FeedbackController } from "../controllers/feedbackController";
 import { TelegramNotifier } from "../services/telegramNotifier";
 
-const telegramNotifier = new TelegramNotifier("@pl_test2023");
+const telegramNotifier = new TelegramNotifier(TELEGRAM_CHAT_ID);
 const feedbackController = new FeedbackController(telegramNotifier);
 
 const feedbackRouter = Router();
