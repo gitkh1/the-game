@@ -1,0 +1,13 @@
+.comment {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+  &-own {
+    justify-content: flex-end;
+  }
+
+  & > span {
+    max-width: 500px;
+  }
+}
