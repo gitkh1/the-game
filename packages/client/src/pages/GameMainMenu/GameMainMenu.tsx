@@ -31,6 +31,11 @@ export const GameMainMenu: FC = () => {
             Профиль
           </Button>
         </NavLink>
+        <NavLink to={PATHS.FORUM}>
+          <Button color="primary" variant="contained">
+            Форум
+          </Button>
+        </NavLink>
         <NavLink to={PATHS.LEADERS}>
           <Button color="primary" variant="contained">
             Таблица лидеров
