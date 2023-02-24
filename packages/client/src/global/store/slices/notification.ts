@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { T_RootState } from "..";

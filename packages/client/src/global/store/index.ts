@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { configureStore, createSelector, PreloadedState, StoreEnhancer } from "@reduxjs/toolkit";
 import * as Sentry from "@sentry/react";
 
