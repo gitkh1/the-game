@@ -25,6 +25,8 @@
       "*": ["types/*"]
     },
     "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false
   },
   "include": ["**/*", "**/*.json"]
 }
