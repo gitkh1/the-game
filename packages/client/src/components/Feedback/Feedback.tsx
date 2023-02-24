@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import cn from "classnames";
@@ -25,7 +20,7 @@ const getFormStructure = (data: I_UserInfo | null) => {
     title: "Отзыв",
     fields: FIELDS.map((field) => {
       let defaultValue: string | undefined;
-      if (field === FORM_FIELDS.LOGIN || field === FORM_FIELDS.EMAIL) {
+      if ((field === FORM_FIELDS.LOGIN || field === FORM_FIELDS.EMAIL) && data && field in data) {
         defaultValue = data?.[field];
       }
 
@@ -67,7 +62,7 @@ export const Feedback: FC = () => {
     });
   };
 
-  const handleSubmit = async (data: I_Feedback) => {
+  const handleSubmit = async (data: I_Feedback): Promise<void> => {
     try {
       await feedbackApi.send(data);
       dispatch(notificationActions.setNotification({ successMessage: "Отзыв успешно отправлен" }));
@@ -84,29 +79,29 @@ export const Feedback: FC = () => {
     setFormApi(api);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const formClassName: string = cn(styles.form, {
+    [styles.visible]: showForm === FORM_STATE.visible,
+    [styles.hidden]: showForm === FORM_STATE.hidden,
+  }) as string;
+
   return (
     <>
-      {!userInfo && null}
-      {userInfo && (
+      {userInfo ? (
         <div className={styles.feedback}>
           <div className={styles.button}>
             <ChatBubbleIcon onClick={clickHandler} />
           </div>
-          <div
-            className={cn(styles.form, {
-              [styles.visible]: showForm === FORM_STATE.visible,
-              [styles.hidden]: showForm === FORM_STATE.hidden,
-            })}
-          >
+          <div className={formClassName}>
             <Form<I_Feedback, T_ValidationSchema>
               structure={getFormStructure(userInfo)}
               validationSchema={validationSchema}
-              onSubmit={(data) => handleSubmit(data)}
+              onSubmit={(data) => void handleSubmit(data)}
               getFormApi={(api) => getFormApi(api)}
             />
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };
