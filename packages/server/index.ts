@@ -20,7 +20,7 @@ import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
 
 import devHosts from "./hosts/hosts.json";
-import { createClientAndConnect } from "./db";
+import { connectDB } from "./db";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -35,7 +35,7 @@ if (isDev()) {
 }
 
 const startServer = async () => {
-  await createClientAndConnect();
+  await connectDB();
 
   const app = express();
   app.use(cors());
