@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import MaterialTextField from "@mui/material/TextField";

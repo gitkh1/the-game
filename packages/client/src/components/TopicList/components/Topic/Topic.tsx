@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from "react";
+import { FC, MouseEventHandler } from "react";
 import ForumIcon from "@mui/icons-material/Forum";
 import { Button } from "@mui/material";
 

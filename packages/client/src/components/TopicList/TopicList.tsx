@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { FC } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
 import { I_Topic } from "../../global/store/slices/forum";

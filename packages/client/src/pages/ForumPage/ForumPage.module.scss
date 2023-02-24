@@ -8,57 +8,57 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
 
-  .forum {
-    display: flex;
-    align-items: unset;
-    gap: 20px;
-    height: 100%;
+.forum {
+  display: flex;
+  align-items: unset;
+  gap: 20px;
+  height: 100%;
+}
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-    }
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 
-    .content {
-      position: relative;
-      overflow-x: hidden;
-      height: 100%;
+.content {
+  position: relative;
+  overflow-x: hidden;
+  height: 100%;
+}
 
-      .topic {
-        position: absolute;
-        width: 100%;
+.comments {
+  position: absolute;
+  width: 100%;
 
-        &-hidden {
-          animation: slide-out-left 300ms;
-          left: -100%;
-          visibility: hidden;
-        }
+  &-hidden {
+    animation: slide-out-right 300ms;
+    right: -100%;
+    visibility: hidden;
+  }
 
-        &-visible {
-          animation: slide-in-left 300ms;
-          left: 0;
-          visibility: visible;
-        }
-      }
+  &-visible {
+    animation: slide-in-right 300ms;
+    right: 0;
+    visibility: visible;
+  }
+}
 
-      .comments {
-        position: absolute;
-        width: 100%;
+.topic {
+  position: absolute;
+  width: 100%;
 
-        &-hidden {
-          animation: slide-out-right 300ms;
-          right: -100%;
-          visibility: hidden;
-        }
+  &-hidden {
+    animation: slide-out-left 300ms;
+    left: -100%;
+    visibility: hidden;
+  }
 
-        &-visible {
-          animation: slide-in-right 300ms;
-          right: 0;
-          visibility: visible;
-        }
-      }
-    }
+  &-visible {
+    animation: slide-in-left 300ms;
+    left: 0;
+    visibility: visible;
   }
 }
 
