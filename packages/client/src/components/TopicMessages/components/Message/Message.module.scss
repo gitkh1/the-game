@@ -10,16 +10,16 @@
 
 .own {
   justify-content: flex-end;
-
-  & > .title {
-    text-align: end;
-  }
 }
 
 .title {
   font-size: 22px;
   max-width: 50%;
   text-align: start;
+}
+
+.left {
+  text-align: end;
 }
 
 .remove {

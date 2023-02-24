@@ -1,43 +1,42 @@
 .comments {
-    height: 716px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  height: 716px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 78%;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
-  
-  .header {
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 24px;
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    flex-grow: 1;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    height: 78%;
-  
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-  
-  .active {
-    display: flex;
-    gap: 22px;
-  }
-  
-  .input {
-    flex-grow: 1;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 4px;
-  }
-  
+}
+
+.active {
+  display: flex;
+  gap: 22px;
+}
+
+.input {
+  flex-grow: 1;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+}

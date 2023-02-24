@@ -34,7 +34,12 @@ export const Message: FC<I_Props> = ({ message, removeMessage, isOwn }) => {
       })}
     >
       <Tooltip title={isOwn ? removeNode : null} placement="right">
-        <span ref={ref} className={styles.title}>
+        <span
+          ref={ref}
+          className={cn(styles.title, {
+            [styles.left]: isOwn,
+          })}
+        >
           {message.text}
         </span>
       </Tooltip>
