@@ -16,12 +16,16 @@
 }
 
 .content {
-  position: relative;
-  overflow-x: hidden;
-  height: 716px;
+  height: 100%;
 }
 
-.field {
+.active {
+  display: flex;
+  gap: 22px;
+}
+
+.input {
+  flex-grow: 1;
   width: 100%;
   background-color: #fff;
   border-radius: 4px;

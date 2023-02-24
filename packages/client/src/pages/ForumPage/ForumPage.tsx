@@ -1,40 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ChangeEventHandler, FC, MouseEventHandler, useRef } from "react";
-import styled from "@emotion/styled";
-import { Button, TextField as MaterialTextField } from "@mui/material";
-import cn from "classnames";
+import { useNavigate } from "react-router-dom";
+import { Button, TextField } from "@mui/material";
 
 import { Background } from "../../components/Background";
 import { Modal } from "../../components/Modal";
-import { TopicComments } from "../../components/TopicComments";
-import { TopicList } from "../../components/TopicList/TopicList";
+import { Topic } from "../../components/Topic";
 import { useAppDispatch, useAppSelector } from "../../global/hooks";
 import { selectUserInfo } from "../../global/store";
-import { forumActions, forumSelector } from "../../global/store/slices/forum";
+import { forumActions, forumSelector, I_Topic } from "../../global/store/slices/forum";
+import { PATHS } from "../../routes";
 
-import global from "../../global/styles/Global.module.scss";
 import styles from "./ForumPage.module.scss";
 
-const TextField = styled(MaterialTextField)({
-  "& .MuiInputBase-root": {
-    borderRadius: 10,
-    backgroundColor: "white",
-    padding: "3px 10px",
-  },
-});
-
 export const ForumPage: FC = () => {
-  const selectedTopicIsDitty = useRef<boolean>(false);
   const topicValue = useRef<string>("");
-  const { topics, selectedTopic, isOpenModal } = useAppSelector(forumSelector);
+  const navigate = useNavigate();
+  const { topics, isOpenModal } = useAppSelector(forumSelector);
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
-  const handleBackClick: MouseEventHandler = () => {
-    selectedTopicIsDitty.current = true;
-    dispatch(forumActions.unselectTopic());
+  const handleClick = (topic: I_Topic): void => {
+    dispatch(forumActions.selectTopic(topic));
+    navigate(`${PATHS.FORUM}/${topic.id}`);
   };
 
   const handleTopicValueChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -61,53 +48,28 @@ export const ForumPage: FC = () => {
     dispatch(forumActions.closeModal());
   };
 
-  const handleNewTopicClick: MouseEventHandler = () => {
+  const handleAddTopicClick: MouseEventHandler = () => {
     dispatch(forumActions.openModal());
   };
 
   return (
     <Background>
       <div className={styles.container}>
-        <div className={cn(global["form-wrapper"], styles["full-width"], styles.forum)}>
-          <div className={styles.header}>
-            <h1>Форум</h1>
-            {!selectedTopic && (
-              <Button variant="contained" onClick={handleNewTopicClick}>
-                Новая тема
-              </Button>
-            )}
-            {selectedTopic && (
-              <Button variant="contained" onClick={handleBackClick}>
-                Назад
-              </Button>
-            )}
-          </div>
-          <hr />
-          <div className={styles.content}>
-            <TopicList
-              topics={topics}
-              className={cn(styles.topic, {
-                [styles["topic-hidden"]]: !!selectedTopic,
-                [styles["topic-visible"]]: !selectedTopic && selectedTopicIsDitty.current,
-              })}
-            />
-
-            {selectedTopic && (
-              <TopicComments
-                className={cn(styles.comments, {
-                  [styles["comments-hidden"]]: !selectedTopic && selectedTopicIsDitty.current,
-                  [styles["comments-visible"]]: !!selectedTopic,
-                })}
-                topic={selectedTopic}
-                comments={[]}
-                userId={user?.id}
-              />
-            )}
-          </div>
+        <div className={styles.header}>
+          <h1>Форум</h1>
+          <Button variant="contained" onClick={handleAddTopicClick}>
+            Новая тема
+          </Button>
+        </div>
+        <hr />
+        <div className={styles.content}>
+          {topics.map((topic) => (
+            <Topic key={topic.id} topic={topic} handleBtnClick={handleClick} />
+          ))}
         </div>
       </div>
       <Modal isOpen={isOpenModal} handleClose={handleCloseModal} handleSave={handleSaveModal} title="Новый топик">
-        <TextField className={styles["full-width"]} defaultValue={topicValue.current} onChange={handleTopicValueChange} />
+        <TextField className={styles.field} defaultValue={topicValue.current} onChange={handleTopicValueChange} />
       </Modal>
     </Background>
   );

@@ -5,6 +5,7 @@ import { GuestOnlyRouter, SignedInOnlyRouter } from "../modules/RouterWithAuth";
 import { AboutPage } from "../pages/AboutPage";
 import { ErrorPage } from "../pages/ErrorPage";
 import { ForumPage } from "../pages/ForumPage";
+import { ForumTopicPage } from "../pages/ForumTopicPage";
 import { GameMainMenu } from "../pages/GameMainMenu";
 import { GameOverPage } from "../pages/GameOverPage";
 import { LeaderBoard } from "../pages/LeaderBoard";
@@ -33,6 +34,7 @@ export const PATHS = {
   LEADERS: "/leaders",
   ABOUT: "/about",
   FORUM: "/forum",
+  FORUM_TOPIC: "/forum/:id",
   NOT_FOUND_PAGE: "*",
 };
 
@@ -105,6 +107,10 @@ export const routes: RouteObject[] = [
       {
         path: PATHS.FORUM,
         element: <ForumPage />,
+      },
+      {
+        path: PATHS.FORUM_TOPIC,
+        element: <ForumTopicPage />,
       },
     ],
   },
