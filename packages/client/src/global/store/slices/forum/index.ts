@@ -5,7 +5,6 @@ import { T_RootState } from "../..";
 import { I_Comment, I_Message, I_Topic } from "./models";
 
 interface I_InitialState {
-  isOpenModal: boolean;
   topics: I_Topic[];
   isLoading: boolean;
   errorMessage: string | null;
@@ -19,7 +18,6 @@ const initialState: I_InitialState = {
   topics: [],
   isLoading: false,
   errorMessage: null,
-  isOpenModal: false,
   comments: [],
   messages: [],
   selectedTopic: null,
@@ -30,26 +28,20 @@ const forumSlice = createSlice({
   name: "forum",
   initialState,
   reducers: {
-    openModal: (state: I_InitialState) => {
-      state.isOpenModal = true;
-    },
-    closeModal: (state: I_InitialState) => {
-      state.isOpenModal = false;
+    createTopic: (state: I_InitialState, action: PayloadAction<I_Topic>) => {
+      state.topics = [...state.topics, action.payload];
     },
     selectTopic: (state: I_InitialState, action: PayloadAction<I_Topic>) => {
       state.selectedTopic = action.payload;
     },
-    selectComment: (state: I_InitialState, action: PayloadAction<I_Comment>) => {
-      state.selectedComment = action.payload;
-    },
     unselectTopic: (state: I_InitialState) => {
       state.selectedTopic = null;
     },
+    selectComment: (state: I_InitialState, action: PayloadAction<I_Comment>) => {
+      state.selectedComment = action.payload;
+    },
     unselectComment: (state: I_InitialState) => {
       state.selectedComment = null;
-    },
-    addTopic: (state: I_InitialState, action: PayloadAction<I_Topic>) => {
-      state.topics = [...state.topics, action.payload];
     },
     createComment: (state: I_InitialState, action: PayloadAction<I_Comment>) => {
       state.comments = [...state.comments, action.payload];

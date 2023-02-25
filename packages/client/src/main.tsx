@@ -8,12 +8,12 @@ import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 import * as Sentry from "@sentry/react";
 
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import createEmotionCache from "./global/mui/createEmotionCache";
 import { createStore } from "./global/store";
 import theme from "./global/theme/index";
 import { setUserCityFromGeolocation } from "./global/utils";
-import { ErrorBoundary } from "./modules/ErrorBoundary";
 import App from "./App";
 
 import "./main.scss";

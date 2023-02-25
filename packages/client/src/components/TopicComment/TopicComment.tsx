@@ -3,9 +3,9 @@ import CommentIcon from "@mui/icons-material/Comment";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { IconButton } from "@mui/material";
 
-import { I_Comment } from "../../../../global/store/slices/forum";
+import { I_Comment } from "../../global/store/slices/forum";
 
-import styles from "./Comment.module.scss";
+import styles from "./TopicComment.module.scss";
 
 interface I_Props {
   isOwn: boolean;
@@ -14,7 +14,7 @@ interface I_Props {
   showMessages?: (comment: I_Comment) => void;
 }
 
-export const Comment: FC<I_Props> = ({ comment, removeComment, showMessages, isOwn }) => {
+export const TopicComment: FC<I_Props> = ({ comment, removeComment, showMessages, isOwn }) => {
   return (
     <div className={styles.comment}>
       <span className={styles.title}>{comment.text}</span>

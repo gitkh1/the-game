@@ -4,9 +4,9 @@ import { FC, useRef } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import cn from "classnames";
 
-import { I_Message } from "../../../../global/store/slices/forum";
+import { I_Message } from "../../global/store/slices/forum";
 
-import styles from "./Message.module.scss";
+import styles from "./TopicMessage.module.scss";
 
 interface I_Props {
   isOwn: boolean;
@@ -14,7 +14,7 @@ interface I_Props {
   removeMessage?: (id: number) => void;
 }
 
-export const Message: FC<I_Props> = ({ message, removeMessage, isOwn }) => {
+export const TopicMessage: FC<I_Props> = ({ message, removeMessage, isOwn }) => {
   const ref = useRef<HTMLSpanElement | null>(null);
 
   const handleRemoveClick = () => {
