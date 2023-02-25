@@ -42,7 +42,7 @@
   flex-grow: 1;
   overflow-y: scroll;
   height: 78%;
-
+  -ms-overflow-style: none;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
