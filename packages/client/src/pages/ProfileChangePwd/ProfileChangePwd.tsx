@@ -6,24 +6,36 @@ import Box from "@mui/material/Box";
 
 import { userApi } from "../../api/User";
 import { Background } from "../../components/Background";
+import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
 import { useNotification } from "../../global/hooks";
-import { I_UserInfo, I_UserPwd, T_ProfileSchema, validationProfileSchema } from "../../global/types";
-import { FormBuilder, getFormFields, T_FormFieldNames, T_FormStructure } from "../../modules/formBuilder";
+import { I_PasswordPayload } from "../../global/types";
+import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
 
 import global from "../../global/styles/Global.module.scss";
 
-const FIELDS: T_FormFieldNames = ["oldPassword", "newPassword", "confirmPassword"];
+const FIELDS = [FORM_FIELDS.OLD_PASSWORD, FORM_FIELDS.NEW_PASSWORD, FORM_FIELDS.CONFIRM_PASSWORD];
 
-const getFormStructure = (): T_FormStructure => {
+const getFormStructure = () => {
   return {
     title: "Пользователь",
-    fields: getFormFields(FIELDS),
+    fields: FIELDS.map((field) => FORM_FIELDS_META[field]),
     submit: {
       title: "Сохранить",
     },
   };
 };
+
+export const validationSchema = yup.object().shape({
+  oldPassword: yup.string().password(),
+  newPassword: yup.string().password(),
+  confirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref("newPassword")]),
+});
+
+type T_ValidationSchema = typeof validationSchema;
 
 export const ProfileChangePwd: FC = () => {
   const navigate = useNavigate();
@@ -34,7 +46,7 @@ export const ProfileChangePwd: FC = () => {
     FIELDS.forEach((name) => formApi?.setError(name, {}));
   };
 
-  const onSubmit = async (data: I_UserPwd) => {
+  const onSubmit = async (data: I_PasswordPayload) => {
     try {
       await userApi.changePwd(data);
       navigate(PATHS.PROFILE);
@@ -53,13 +65,11 @@ export const ProfileChangePwd: FC = () => {
   return (
     <Background>
       <Box className={global["form-wrapper"]}>
-        <FormBuilder<I_UserInfo, T_ProfileSchema>
+        <Form<I_PasswordPayload, T_ValidationSchema>
           onSubmit={(data) => void onSubmit(data)}
           structure={getFormStructure()}
-          validationSchema={validationProfileSchema}
+          validationSchema={validationSchema}
           getFormApi={getFormApi}
-          values={null}
-          displayAvatar={false}
         />
         <NavLink to={PATHS.PROFILE} className={global["profile__button"]}>
           <Button color="primary" variant="contained">

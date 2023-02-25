@@ -3,14 +3,17 @@
   "private": true,
   "scripts": {
     "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
-    "build": "lerna run build",
-    "dev:client": "lerna run dev  --scope=client",
+    "build": "lerna run build --scope=client && lerna run build --scope=server",
+    "serve": "cross-env NODE_ENV=production node packages/server/dist/index.js",
+    "build-serve": "yarn build && yarn serve",
+    "dev:client": "lerna run dev --scope=client",
     "dev:server": "lerna run dev --scope=server",
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "setup-hosts": "lerna run setup-hosts --scope=server"
   },
   "license": "MIT",
   "workspaces": [

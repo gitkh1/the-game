@@ -1,50 +1,55 @@
-import { DEFAULT_HEADERS, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
+import { DEFAULT_HEADERS, DEFAULT_TIMEOUT, ERROR_MESSAGE, METHODS, T_CrudMethods } from "./constants";
 
-const DEFAULT_TIMEOUT = 500;
 export class Api {
   constructor(private baseUrl: string) {}
 
-  private async parseResponse(response: Response) {
+  private async parseResponse<T = unknown>(response: Response): Promise<T> {
     if (!response.ok) {
       const error = (await response.json()) as Record<string, unknown>;
       const message = ("reason" in error ? error.reason : ERROR_MESSAGE) as string;
       throw new Error(message);
     }
-    return response;
+    let text = "";
+    try {
+      text = await response.text();
+      return JSON.parse(text) as T;
+    } catch (e) {
+      return text as T;
+    }
   }
 
-  private async fetchMethod(url: string, method: T_CrudMethods, data?: unknown) {
+  private async fetchMethod<T = unknown>(url: string, method: T_CrudMethods, data?: unknown): Promise<T> {
     try {
-      let requestInit: RequestInit = {
+      const requestInit: RequestInit = {
         method: method,
         credentials: "include",
         headers: DEFAULT_HEADERS,
       };
       if (data) {
-        requestInit = { ...requestInit, body: JSON.stringify(data) };
+        requestInit.body = JSON.stringify(data);
       }
       const response = await fetch(url, requestInit);
-      return await this.parseResponse(response);
+      return await this.parseResponse<T>(response);
     } catch (err) {
       if (err instanceof Error) throw err;
       throw new Error(ERROR_MESSAGE);
     }
   }
 
-  public async get(endPoint: string): Promise<Response> {
-    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.GET);
+  public async get<T = unknown>(endPoint: string): Promise<T> {
+    return await this.fetchMethod<T>(`${this.baseUrl}${endPoint}`, METHODS.GET);
   }
 
-  public async put(endPoint: string, data?: unknown): Promise<Response> {
-    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.PUT, data);
+  public async put<T = unknown>(endPoint: string, data?: unknown): Promise<T> {
+    return await this.fetchMethod<T>(`${this.baseUrl}${endPoint}`, METHODS.PUT, data);
   }
 
-  public async post(endPoint: string, data?: unknown): Promise<Response> {
-    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.POST, data);
+  public async post<T = unknown>(endPoint: string, data?: unknown): Promise<T> {
+    return await this.fetchMethod<T>(`${this.baseUrl}${endPoint}`, METHODS.POST, data);
   }
 
-  public async delete(endPoint: string, data?: unknown): Promise<Response> {
-    return await this.fetchMethod(`${this.baseUrl}${endPoint}`, METHODS.DELETE, data);
+  public async delete<T = unknown>(endPoint: string, data?: unknown): Promise<T> {
+    return await this.fetchMethod<T>(`${this.baseUrl}${endPoint}`, METHODS.DELETE, data);
   }
 
   public async putFile(endPoint: string, data?: FormData): Promise<XMLHttpRequest> {

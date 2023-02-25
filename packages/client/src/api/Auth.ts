@@ -1,4 +1,4 @@
-import { I_Signin, I_Signup, I_UserInfo } from "../global/types";
+import type { I_SigninPayload, I_SignupPayload, I_UserInfo } from "../global/types";
 
 import { Api } from "./Api";
 import { AUTH_BASE_URL, ERROR_MESSAGE, RESOURCES_BASE_URL } from "./constants";
@@ -6,32 +6,25 @@ import { AUTH_BASE_URL, ERROR_MESSAGE, RESOURCES_BASE_URL } from "./constants";
 const api = new Api(AUTH_BASE_URL);
 
 export const authApi = {
-  signin: async <T>(data: I_Signin): Promise<T | unknown> => {
-    try {
-      return api.post("/signin", data);
-    } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-    }
+  signin: async <T = string>(data: I_SigninPayload): Promise<T> => {
+    return await api.post("/signin", data);
   },
-  signup: async <T>(data: I_Signup): Promise<T | unknown> => {
-    try {
-      const response = await api.post("/signup", data);
-      return (await response.json()) as Response;
-    } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-    }
+  logout: async <T = string>(): Promise<T> => {
+    return await api.post("/logout");
+  },
+  signup: async <T = unknown>(data: I_SignupPayload): Promise<T> => {
+    return await api.post("/signup", data);
   },
   getUser: async (): Promise<I_UserInfo> => {
     try {
-      const response = await api.get(`/user`);
-      const data = (await response.json()) as I_UserInfo;
-      if (data.avatar) {
-        data.avatar = `${RESOURCES_BASE_URL}${data.avatar}`;
+      const response = await api.get<I_UserInfo>(`/user`);
+      if (response.avatar) {
+        response.avatar = `${RESOURCES_BASE_URL}${response.avatar}`;
       }
-      return data;
+      return response;
     } catch (err) {
-      console.log(ERROR_MESSAGE, err);
-      throw err;
+      if (err instanceof Error) throw err;
+      throw new Error(ERROR_MESSAGE);
     }
   },
 };

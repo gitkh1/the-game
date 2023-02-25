@@ -39,18 +39,12 @@ export class GameRunner {
   }
 
   isReady = false;
-  error?: Error;
   async loadResources() {
     if (!this.model) throw new Error("GameRunner not yet setuped");
     if (this.isReady) return;
 
-    try {
-      await downloadAssets(this.model.assets);
-      this.isReady = true;
-    } catch (error) {
-      console.error(error);
-      this.error = new Error("Что-то пошло не так при загрузке ресурсов..", { cause: error });
-    }
+    await downloadAssets(this.model.assets);
+    this.isReady = true;
   }
   protected gameLoop = rafLoop(() => {
     this.model?.events.emit("update");

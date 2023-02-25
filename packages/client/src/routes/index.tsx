@@ -34,9 +34,13 @@ export const PATHS = {
   NOT_FOUND_PAGE: "*",
 };
 
+const isDev = process.env.NODE_ENV === "development";
+const errorElement = isDev ? undefined : <ErrorPage />;
+
 export const routes: RouteObject[] = [
   {
     element: <GuestOnlyRouter redirectInvalidTo={PATHS.MAIN_MENU} />,
+    errorElement,
     children: [
       {
         path: PATHS.MAIN,
@@ -50,15 +54,11 @@ export const routes: RouteObject[] = [
         path: PATHS.SIGN_UP,
         element: <SignupPage />,
       },
-    ].map((child) => {
-      return {
-        ...child,
-        errorElement: <ErrorPage />,
-      };
-    }),
+    ],
   },
   {
     element: <SignedInOnlyRouter redirectInvalidTo={PATHS.MAIN} />,
+    errorElement,
     children: [
       {
         path: PATHS.MAIN_MENU,
@@ -100,16 +100,10 @@ export const routes: RouteObject[] = [
         path: PATHS.ABOUT,
         element: <AboutPage />,
       },
-    ].map((child) => {
-      return {
-        ...child,
-        errorElement: <ErrorPage />,
-      };
-    }),
+    ],
   },
   {
     path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
-    errorElement: <ErrorPage />,
   },
 ];
