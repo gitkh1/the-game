@@ -3,6 +3,7 @@ import * as Sentry from "@sentry/react";
 
 import { forumReducer } from "./slices/forum";
 import { leaderboardReducer } from "./slices/leaderboard";
+import { notificationReducer } from "./slices/notification";
 import { userReducer } from "./slices/user";
 
 type T_Reducers = typeof userReducer & typeof leaderboardReducer;
@@ -18,6 +19,7 @@ export function createStore(preloadedState?: PreloadedState<T_Reducers>) {
       user: userReducer,
       leaderboard: leaderboardReducer,
       forum: forumReducer,
+      notification: notificationReducer,
     },
     devTools: true,
     preloadedState,

@@ -8,7 +8,8 @@ import { authApi } from "../../api";
 import signBG from "../../assets/images/signup-signin-bg.jpg";
 import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
-import { useNotification } from "../../global/hooks";
+import { useAppDispatch } from "../../global/hooks";
+import { notificationActions } from "../../global/store/slices/notification";
 import { I_SignupPayload } from "../../global/types";
 import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
@@ -55,7 +56,7 @@ export type T_ValidationSchema = typeof validationSchema;
 
 export const SignupPage: FC = () => {
   const navigate = useNavigate();
-  const { showAlert } = useNotification();
+  const dispatch = useAppDispatch();
   const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
 
   const setFieldErrors = () => {
@@ -67,8 +68,8 @@ export const SignupPage: FC = () => {
       await authApi.signup(data);
       navigate(PATHS.MAIN);
     } catch (e) {
-      if (e instanceof Error && showAlert) {
-        showAlert(e.message);
+      if (e instanceof Error) {
+        dispatch(notificationActions.setNotification({ errorMessage: e.message }));
         setFieldErrors();
       }
     }

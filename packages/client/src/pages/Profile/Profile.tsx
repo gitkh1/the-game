@@ -6,7 +6,8 @@ import Box from "@mui/material/Box";
 import { authApi } from "../../api";
 import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
-import { useAppDispatch, useNotification, useUserInfo } from "../../global/hooks";
+import { useAppDispatch, useUserInfo } from "../../global/hooks";
+import { notificationActions } from "../../global/store/slices/notification";
 import { userActions } from "../../global/store/slices/user";
 import { I_UserInfo } from "../../global/types";
 import { PATHS } from "../../routes";
@@ -39,7 +40,6 @@ const getFormStructure = (data: I_UserInfo | null) => {
 
 export const Profile: FC = () => {
   const userInfo = useUserInfo();
-  const { showAlert } = useNotification();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -49,8 +49,8 @@ export const Profile: FC = () => {
       await dispatch(userActions.getUser());
       navigate(PATHS.MAIN);
     } catch (e) {
-      if (e instanceof Error && showAlert) {
-        showAlert(e.message);
+      if (e instanceof Error) {
+        dispatch(notificationActions.setNotification({ errorMessage: e.message }));
       }
     }
   };

@@ -32,6 +32,7 @@ export enum E_FormFieldType {
   Avatar = "avatar",
   Text = "text",
   Password = "password",
+  Input = "input",
 }
 
 export const FORM_FIELDS = {
@@ -39,6 +40,7 @@ export const FORM_FIELDS = {
   LOGIN: "login",
   PASSWORD: "password",
   EMAIL: "email",
+  FEEDBACK: "feedback",
   FIRST_NAME: "first_name",
   SECOND_NAME: "second_name",
   DISPLAY_NAME: "display_name",
@@ -57,7 +59,7 @@ export const FORM_FIELDS_META: Record<T_FormFieldNames, T_FormField> = {
   },
   [FORM_FIELDS.LOGIN]: {
     id: "login",
-    type: E_FormFieldType.Text,
+    type: E_FormFieldType.Input,
     name: "login",
     label: "Логин",
   },
@@ -69,31 +71,31 @@ export const FORM_FIELDS_META: Record<T_FormFieldNames, T_FormField> = {
   },
   [FORM_FIELDS.EMAIL]: {
     id: "email",
-    type: E_FormFieldType.Text,
+    type: E_FormFieldType.Input,
     name: "email",
     label: "Почта",
   },
   [FORM_FIELDS.FIRST_NAME]: {
     id: "first_name",
-    type: E_FormFieldType.Text,
+    type: E_FormFieldType.Input,
     name: "first_name",
     label: "Имя",
   },
   [FORM_FIELDS.SECOND_NAME]: {
     id: "second_name",
-    type: E_FormFieldType.Text,
+    type: E_FormFieldType.Input,
     name: "second_name",
     label: "Фамилия",
   },
   [FORM_FIELDS.DISPLAY_NAME]: {
     id: "display_name",
-    type: E_FormFieldType.Text,
+    type: E_FormFieldType.Input,
     name: "display_name",
     label: "Имя в чате",
   },
   [FORM_FIELDS.PHONE]: {
     id: "phone",
-    type: E_FormFieldType.Text,
+    type: E_FormFieldType.Input,
     name: "phone",
     label: "Телефон",
   },
@@ -114,5 +116,11 @@ export const FORM_FIELDS_META: Record<T_FormFieldNames, T_FormField> = {
     type: E_FormFieldType.Password,
     name: "confirmPassword",
     label: "Пароль (ещё раз)",
+  },
+  [FORM_FIELDS.FEEDBACK]: {
+    id: "feedback",
+    type: E_FormFieldType.Text,
+    name: "feedback",
+    label: "Отзыв",
   },
 };

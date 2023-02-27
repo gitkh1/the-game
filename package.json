@@ -13,7 +13,10 @@
     "lint": "lerna run lint",
     "format": "lerna run format",
     "preview": "lerna run preview",
-    "setup-hosts": "lerna run setup-hosts --scope=server"
+    "start:server": "lerna run start --scope=server",
+    "setup-hosts": "lerna run setup-hosts --scope=server",
+    "database:start": "docker-compose -f docker-compose.dev.yml up",
+    "database:stop": "docker-compose down"
   },
   "license": "MIT",
   "workspaces": [
