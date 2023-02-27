@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:latest
+    env_file:
+      - ./.env
+    ports:
+      - "${MONGO_PORT}:${MONGO_PORT}"
+    volumes:
+      - ./tmp/mongodata:/data/db
+    networks:
+      - popstart-network
+
+volumes:
+  mongo:
+
+
+networks:
+  popstart-network:
+    driver: bridge

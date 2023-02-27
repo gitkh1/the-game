@@ -2,6 +2,7 @@ import { configureStore, createSelector, PreloadedState, StoreEnhancer } from "@
 import * as Sentry from "@sentry/react";
 
 import { leaderboardReducer } from "./slices/leaderboard";
+import { notificationReducer } from "./slices/notification";
 import { userReducer } from "./slices/user";
 
 type T_Reducers = typeof userReducer & typeof leaderboardReducer;
@@ -16,6 +17,7 @@ export function createStore(preloadedState?: PreloadedState<T_Reducers>) {
     reducer: {
       user: userReducer,
       leaderboard: leaderboardReducer,
+      notification: notificationReducer,
     },
     devTools: true,
     preloadedState,

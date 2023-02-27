@@ -17,7 +17,7 @@ const CssTextField = styled(MaterialTextField)({
   },
 });
 
-export const TextField: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = "" }) => {
+export const InputField: FC<T_FormField> = ({ label, name, type, disabled = false, defaultValue = "" }) => {
   const {
     control,
     formState: { errors },
@@ -33,8 +33,6 @@ export const TextField: FC<T_FormField> = ({ label, name, type, disabled = false
   return (
     <CssTextField
       variant="standard"
-      multiline
-      rows={6}
       InputProps={{
         startAdornment: <InputAdornment position="start">{label}</InputAdornment>,
       }}

@@ -8,7 +8,8 @@ import Box from "@mui/material/Box";
 import { userApi } from "../../api/User";
 import { Background } from "../../components/Background";
 import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
-import { useNotification, useUserInfo } from "../../global/hooks";
+import { useAppDispatch, useUserInfo } from "../../global/hooks";
+import { notificationActions } from "../../global/store/slices/notification";
 import { I_AvatarPayload, I_ProfilePayload, I_UserInfo } from "../../global/types";
 import { yup } from "../../global/yup";
 import { PATHS } from "../../routes";
@@ -55,7 +56,7 @@ type T_ValidationSchema = typeof validationSchema;
 
 export const ProfileChangeData: FC = () => {
   const navigate = useNavigate();
-  const { showAlert } = useNotification();
+  const dispatch = useAppDispatch();
   const [formApi, setFormApi] = useState<UseFormReturn | null>(null);
 
   const setFieldErrors = () => {
@@ -75,8 +76,8 @@ export const ProfileChangeData: FC = () => {
       }
       navigate(PATHS.PROFILE);
     } catch (e) {
-      if (e instanceof Error && showAlert) {
-        showAlert(e.message);
+      if (e instanceof Error) {
+        dispatch(notificationActions.setNotification({ errorMessage: e.message }));
         setFieldErrors();
       }
     }
