@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ForumIcon from "@mui/icons-material/Forum";
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { I_Topic } from "../../global/store/slices/forum";
 
