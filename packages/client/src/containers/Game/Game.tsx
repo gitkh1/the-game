@@ -6,11 +6,11 @@ import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import * as Sentry from "@sentry/react";
 
-import gameBackground from "../assets/images/game-page-bg.jpg";
-import { Background } from "../components/Background";
-import { useUserInfo } from "../global/hooks";
-import { useLeaderboardSend } from "../global/hooks/leaderboardHooks";
-import { PATHS } from "../routes";
+import gameBackground from "../../assets/images/game-page-bg.jpg";
+import { Background } from "../../components/Background";
+import { useUserInfo } from "../../global/hooks";
+import { useLeaderboardSend } from "../../global/hooks/leaderboardHooks";
+import { PATHS } from "../../routes";
 
 import { GameRunner, T_GameState } from "./engine";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -29,6 +30,11 @@ export const GameMainMenu: FC = () => {
         <NavLink to={PATHS.PROFILE}>
           <Button color="primary" variant="contained">
             Профиль
+          </Button>
+        </NavLink>
+        <NavLink to={PATHS.FORUM}>
+          <Button color="primary" variant="contained">
+            Форум
           </Button>
         </NavLink>
         <NavLink to={PATHS.LEADERS}>

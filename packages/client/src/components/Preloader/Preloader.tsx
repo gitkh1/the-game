@@ -15,7 +15,7 @@ export const Preloader: FC<T_Props> = ({ showLoading, children }) => {
         <div>{children}</div>
       </Fade>
       <Fade className={classes.preloader__placeholder} in={showLoading}>
-        <div>Loading...</div>
+        <div>Загрузка...</div>
       </Fade>
     </Box>
   );

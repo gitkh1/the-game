@@ -1,0 +1,27 @@
+.message {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 20px;
+}
+
+.own {
+  justify-content: flex-end;
+}
+
+.title {
+  font-size: 22px;
+  max-width: 50%;
+  text-align: start;
+}
+
+.left {
+  text-align: end;
+}
+
+.remove {
+  cursor: pointer;
+}

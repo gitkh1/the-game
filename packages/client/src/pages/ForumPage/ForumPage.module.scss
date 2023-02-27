@@ -1,0 +1,11 @@
+@import "../../global/styles/mixins";
+
+.container {
+  height: 856px;
+  width: 624px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include form-wrapper;
+}
