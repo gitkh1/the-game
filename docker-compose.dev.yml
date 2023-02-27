@@ -4,7 +4,7 @@ services:
   mongo:
     image: mongo:latest
     env_file:
-      - ./.env
+      - .env
     ports:
       - "${MONGO_PORT}:${MONGO_PORT}"
     volumes:
@@ -12,8 +12,24 @@ services:
     networks:
       - popstart-network
 
+  postgres:
+    image: postgres:14
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./tmp/pgdata:/var/lib/postgresql/data
+    networks:
+      - popstar-network
+
 volumes:
   mongo:
+  postgres:
 
 
 networks:
