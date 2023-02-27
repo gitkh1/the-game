@@ -15,11 +15,11 @@ export const TopicComments: FC = () => {
   const [commentValue, setCommentValue] = useState<string>("");
 
   const handleBackClick: MouseEventHandler = () => {
-    dispatch(forumActions.unselectTopic());
+    dispatch(forumActions.setSelectedTopic(null));
   };
 
   const showMessages = (comment: I_Comment) => {
-    dispatch(forumActions.selectComment(comment));
+    dispatch(forumActions.setSelectedComment(comment));
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {

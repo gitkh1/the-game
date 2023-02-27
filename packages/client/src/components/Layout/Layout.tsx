@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren } from "react";
 import { CssBaseline } from "@mui/material";
 
-import { Feedback } from "../Feedback";
-import { Notification } from "../Notification";
+import { Feedback } from "../../containers/Feedback";
+import { Notification } from "../../containers/Notification";
 
 import styles from "./Layout.module.scss";
 
