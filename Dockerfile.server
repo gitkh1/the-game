@@ -2,7 +2,7 @@ ARG NODE_VERSION=16
 
 FROM node:$NODE_VERSION-buster
 WORKDIR /app
-COPY package.json yarn.lock
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY . .
 RUN yarn lerna bootstrap && \
