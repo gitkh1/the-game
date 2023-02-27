@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { leaderboardApi } from "../../../api";
-import { LEADERBOARD_ROWS_LIMIT } from "../../../api/constants";
-import type { T_LeaderboardPayload } from "../../types";
+import { leaderboardApi } from "../../../../api";
+import { LEADERBOARD_ROWS_LIMIT } from "../../../../api/constants";
+import type { T_LeaderboardPayload } from "../../../types";
 
 interface I_State {
   data: T_LeaderboardPayload[];
