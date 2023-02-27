@@ -18,12 +18,13 @@ import type { T_CreateStore, T_Store } from "client/src/global/store";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import helmet from "helmet";
 import type { ViteDevServer } from "vite";
 
 import { connectMongo } from "./database/mongo";
-import { createClientAndConnect } from "./database/postgres";
-import { feedbackRouter } from "./routes/feedbackRoute";
+import { connectDB } from "./database/postgres";
 import { devHosts } from "./hosts";
+import { mainRouter } from "./routes";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -37,13 +38,14 @@ if (isDev()) {
   }
 }
 
-createClientAndConnect();
+connectDB();
 connectMongo();
 
 const startServer = async () => {
   const app = express();
   app.use(cors());
   app.use(express.json());
+  app.use(helmet());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   let vite: ViteDevServer | undefined;
@@ -70,7 +72,7 @@ const startServer = async () => {
     app.use(vite.middlewares);
   }
 
-  app.use(feedbackRouter);
+  app.use("/api", mainRouter);
 
   app.get("/api", (_, res) => {
     res.json("👋 Howdy from the server :)");

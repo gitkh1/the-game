@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { HOST, MONGO_PORT } from "../configuration";
+const { HOST, MONGO_PORT } = process.env;
 
 export function connectMongo() {
   mongoose.set("strictQuery", true);
