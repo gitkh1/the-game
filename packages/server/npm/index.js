@@ -7,9 +7,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 const hostile = require("hostile");
-const hosts = require("../hosts/hosts.json");
+const { devHosts } = require("../hosts");
 
-hosts.map(({ ip, host }) => {
+devHosts.map(({ ip, host }) => {
   hostile.set(ip, host, (err) => {
     if (err) {
       console.error(err);

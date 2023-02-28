@@ -16,6 +16,22 @@ services:
     networks:
       - popstar-network
 
+  mongo:
+    image: mongo:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.mongo
+    env_file:
+      - ./.env
+    ports:
+      - "${MONGO_PORT}:${MONGO_PORT}"
+    volumes:
+      - ./tmp/mongodata:/data/db
+    depends_on:
+      - postgres
+    networks:
+      - popstar-network
+
   server:
     container_name: server
     image: server
@@ -61,7 +77,8 @@ services:
 volumes:
   postgres:
   pgadmin-data:
+  mongo:
 
 networks:
   popstar-network:
-    driver: bridge
+      driver: bridge

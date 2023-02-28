@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 

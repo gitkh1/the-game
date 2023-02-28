@@ -10,12 +10,12 @@ import { CacheProvider } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
 import { ThemeProvider } from "@mui/material";
 
+import { ErrorBoundary } from "./src/components/ErrorBoundary";
 import { Layout } from "./src/components/Layout";
 import createEmotionCache from "./src/global/mui/createEmotionCache";
 import { createStore, T_Store } from "./src/global/store";
 import theme from "./src/global/theme/index";
-import { ErrorBoundary } from "./src/modules/ErrorBoundary/ErrorBoundary";
-import { routesWithoutAuth } from "./src/routes";
+import { routes } from "./src/routes";
 
 export { createStore };
 
@@ -30,7 +30,7 @@ export function render(path: string, store: T_Store): string[] {
           <ThemeProvider theme={theme}>
             <Provider store={store} serverState={store.getState()}>
               <Layout>
-                <RouterProvider router={createMemoryRouter(routesWithoutAuth, { initialEntries: [path] })} />
+                <RouterProvider router={createMemoryRouter(routes, { initialEntries: [path] })} />
               </Layout>
             </Provider>
           </ThemeProvider>

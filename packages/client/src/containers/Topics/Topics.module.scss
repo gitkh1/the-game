@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  position: relative;
+  overflow-y: scroll;
+  height: 716px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.field {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+}

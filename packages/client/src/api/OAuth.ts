@@ -10,7 +10,7 @@ export const oAuthApi = {
     const { service_id: serviceId } = await api.get<{ service_id: string }>("/service-id");
     window.location.replace(`https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URL}`);
   },
-  signin: async <T>(data: I_OAuthSignin): Promise<T | unknown> => {
-    return api.post("/", data);
+  signin: async <T>(data: I_OAuthSignin): Promise<T> => {
+    return api.post<T>("/", data);
   },
 };
