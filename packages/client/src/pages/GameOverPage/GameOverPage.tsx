@@ -2,7 +2,8 @@ import { FC } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import gameOverBG from "../../assets/images/game-over-bg.jpg";
+import gameOverBGDark from "../../assets/images/dark theme/game-over-bg.jpg";
+import gameOverBGLight from "../../assets/images/light theme/game-over-bg.jpg";
 import { Background } from "../../components/Background";
 import { PATHS } from "../../routes";
 
@@ -13,7 +14,7 @@ export const GameOverPage: FC = () => {
   const score = searchParams.get("score") ?? 0;
 
   return (
-    <Background src={gameOverBG}>
+    <Background src={gameOverBGDark} whiteBg={gameOverBGLight}>
       <div className={classes["game-over"]}>
         <h2 className={classes["game-over__title"]}>Конец игры</h2>
         <span className={classes["game-over__score"]}>Итоговый счёт: {score}</span>
