@@ -9,8 +9,8 @@ import classes from "./MainMenuSettings.module.scss";
 
 type T_WindowMode = "Оконный" | "Полноэкранный";
 type T_Theme = {
-  mode: "Тёмная" | "Светлая",
-  isWhiteBg: boolean,
+  mode: "Тёмная" | "Светлая";
+  isWhiteBg: boolean;
 };
 
 export const MainMenuSettings = () => {
