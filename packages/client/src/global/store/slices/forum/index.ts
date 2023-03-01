@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { T_RootState } from "../..";
 
-import { I_Comment, I_Message, I_Topic } from "./models";
+import { I_Comment, I_Emoji, I_Message, I_Topic } from "./models";
 
 export interface I_ForumState {
   topics: I_Topic[];
@@ -40,20 +40,14 @@ const forumSlice = createSlice({
     setSelectedTopic: (state: I_ForumState, action: PayloadAction<I_Topic | null>) => {
       state.selectedTopic = action.payload;
     },
+    setComments: (state: I_ForumState, action: PayloadAction<I_Comment[]>) => {
+      state.comments = action.payload;
+    },
     setSelectedComment: (state: I_ForumState, action: PayloadAction<I_Comment | null>) => {
       state.selectedComment = action.payload;
     },
-    createComment: (state: I_ForumState, action: PayloadAction<I_Comment>) => {
-      state.comments = [...state.comments, action.payload];
-    },
-    createMessage: (state: I_ForumState, action: PayloadAction<I_Message>) => {
-      state.messages = [...state.messages, action.payload];
-    },
-    removeComment: (state: I_ForumState, action: PayloadAction<number>) => {
-      state.comments = state.comments.filter((comment) => comment.id !== action.payload);
-    },
-    removeMessage: (state: I_ForumState, action: PayloadAction<number>) => {
-      state.messages = state.messages.filter((message) => message.id !== action.payload);
+    setMessages: (state: I_ForumState, action: PayloadAction<I_Message[]>) => {
+      state.messages = action.payload;
     },
   },
 });
@@ -61,5 +55,5 @@ const forumSlice = createSlice({
 const forumActions = forumSlice.actions;
 const forumReducer = forumSlice.reducer;
 const forumSelector = (state: T_RootState) => state.forum;
-export type { I_Comment, I_Message, I_Topic };
+export type { I_Comment, I_Emoji, I_Message, I_Topic };
 export { forumActions, forumReducer, forumSelector };

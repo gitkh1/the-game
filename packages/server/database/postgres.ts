@@ -19,7 +19,7 @@ export const sequelize = new Sequelize(sequelizeOptions);
 export const connectDB = async () => {
   try {
     await sequelize.authenticate();
-    await import("../models/topicModels");
+    await import("../models/forumModels");
     await sequelize.sync();
     console.log("🎸 Connection has been established successfully.");
   } catch (e) {

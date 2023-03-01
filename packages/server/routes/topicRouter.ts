@@ -7,9 +7,8 @@ const topicController = new TopicController();
 
 const topicRouter = Router();
 
-topicRouter.get("/", topicController.getAll);
-topicRouter.get("/:id", topicController.getById);
-topicRouter.post("/", topicController.post);
-topicRouter.delete("/:id", topicController.delete);
+topicRouter.get("/", topicController.getAllTopics);
+topicRouter.post("/", topicController.createTopic);
+topicRouter.delete("/:id", topicController.deleteTopic);
 
 export { topicRouter };
