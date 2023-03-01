@@ -8,12 +8,17 @@ import { PATHS } from "../../routes";
 import classes from "./MainMenuSettings.module.scss";
 
 type T_WindowMode = "Оконный" | "Полноэкранный";
-type T_Theme = "Тёмная" | "Светлая";
+type T_Theme = {
+  mode: "Тёмная" | "Светлая",
+  isWhiteBg: boolean,
+};
 
 export const MainMenuSettings = () => {
   const [windowMode, setWindowMode] = useState<T_WindowMode>("Оконный");
-  const [theme, setTheme] = useState<T_Theme>(localStorage.getItem("theme") === "dark" ? "Тёмная" : "Светлая");
-  const [isWhiteBg, setIsWhiteBg] = useState<boolean>(false);
+  const [theme, setTheme] = useState<T_Theme>({
+    mode: localStorage.getItem("theme") === "dark" ? "Тёмная" : "Светлая",
+    isWhiteBg: false,
+  });
 
   function toggleWindowMode() {
     if (document.fullscreenElement) {
@@ -24,14 +29,18 @@ export const MainMenuSettings = () => {
   }
 
   function toggleTheme() {
-    if (theme === "Тёмная") {
+    if (theme.mode === "Тёмная") {
       localStorage.setItem("theme", "light");
-      setIsWhiteBg(true);
-      setTheme("Светлая");
+      setTheme({
+        mode: "Светлая",
+        isWhiteBg: true,
+      });
     } else {
       localStorage.setItem("theme", "dark");
-      setIsWhiteBg(false);
-      setTheme("Тёмная");
+      setTheme({
+        mode: "Тёмная",
+        isWhiteBg: false,
+      });
     }
   }
 
@@ -61,7 +70,7 @@ export const MainMenuSettings = () => {
   }
 
   return (
-    <Background isWhiteBg={isWhiteBg}>
+    <Background isWhiteBg={theme.isWhiteBg}>
       <div className={classes["settings"]}>
         <h2 className={classes["settings__header"]}>Настройки</h2>
         <div className={classes["settings__item"]}>
@@ -73,7 +82,7 @@ export const MainMenuSettings = () => {
         <div className={classes["settings__item"]}>
           <div className={classes["settings__description"]}>Тема:</div>
           <Button color="primary" variant="contained" onClick={toggleTheme}>
-            {theme}
+            {theme.mode}
           </Button>
         </div>
         <NavLink to={PATHS.MAIN_MENU}>

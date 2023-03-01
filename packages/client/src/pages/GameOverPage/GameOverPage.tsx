@@ -2,8 +2,8 @@ import { FC } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import gameOverBGDark from "../../assets/images/dark theme/game-over-bg.jpg";
-import gameOverBGLight from "../../assets/images/light theme/game-over-bg.jpg";
+import gameOverBGDark from "../../assets/images/dark-theme/game-over-bg.jpg";
+import gameOverBGLight from "../../assets/images/light-theme/game-over-bg.jpg";
 import { Background } from "../../components/Background";
 import { PATHS } from "../../routes";
 

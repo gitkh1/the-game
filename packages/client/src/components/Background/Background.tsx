@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren } from "react";
 import { Box } from "@mui/system";
 
-import darkBg from "../../assets/images/dark theme/game-main-menu-bg.jpg";
-import lightBg from "../../assets/images/light theme/game-main-menu-bg.jpg";
+import darkBg from "../../assets/images/dark-theme/game-main-menu-bg.jpg";
+import lightBg from "../../assets/images/light-theme/game-main-menu-bg.jpg";
 
 import global from "../../global/styles/Global.module.scss";
 
