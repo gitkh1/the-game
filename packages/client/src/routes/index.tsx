@@ -1,9 +1,10 @@
 import { RouteObject } from "react-router-dom";
 
-import { Game } from "../game";
-import { GuestOnlyRouter, SignedInOnlyRouter } from "../modules/RouterWithAuth";
+import { Game } from "../containers/Game";
+import { GuestOnlyRouter, SignedInOnlyRouter } from "../containers/RouterWithAuth";
 import { AboutPage } from "../pages/AboutPage";
 import { ErrorPage } from "../pages/ErrorPage";
+import { ForumPage } from "../pages/ForumPage";
 import { GameMainMenu } from "../pages/GameMainMenu";
 import { GameOverPage } from "../pages/GameOverPage";
 import { LeaderBoard } from "../pages/LeaderBoard";
@@ -31,12 +32,17 @@ export const PATHS = {
   PROFILE_CHANGE_PWD: "/profilechangepwd",
   LEADERS: "/leaders",
   ABOUT: "/about",
+  FORUM: "/forum",
   NOT_FOUND_PAGE: "*",
 };
+
+const isDev = process.env.NODE_ENV === "development";
+const errorElement = isDev ? undefined : <ErrorPage />;
 
 export const routes: RouteObject[] = [
   {
     element: <GuestOnlyRouter redirectInvalidTo={PATHS.MAIN_MENU} />,
+    errorElement,
     children: [
       {
         path: PATHS.MAIN,
@@ -50,15 +56,11 @@ export const routes: RouteObject[] = [
         path: PATHS.SIGN_UP,
         element: <SignupPage />,
       },
-    ].map((child) => {
-      return {
-        ...child,
-        errorElement: <ErrorPage />,
-      };
-    }),
+    ],
   },
   {
     element: <SignedInOnlyRouter redirectInvalidTo={PATHS.MAIN} />,
+    errorElement,
     children: [
       {
         path: PATHS.MAIN_MENU,
@@ -100,82 +102,14 @@ export const routes: RouteObject[] = [
         path: PATHS.ABOUT,
         element: <AboutPage />,
       },
-    ].map((child) => {
-      return {
-        ...child,
-        errorElement: <ErrorPage />,
-      };
-    }),
+      {
+        path: PATHS.FORUM,
+        element: <ForumPage />,
+      },
+    ],
   },
   {
     path: PATHS.NOT_FOUND_PAGE,
     element: <NotFoundPage />,
-    errorElement: <ErrorPage />,
   },
 ];
-
-// Вначале попробуем для ssr не проверять авторизацию
-export const routesWithoutAuth: RouteObject[] = [
-  {
-    index: true,
-    path: PATHS.MAIN,
-    element: <MainPage />,
-  },
-  {
-    path: PATHS.SIGN_IN,
-    element: <SigninPage />,
-  },
-  {
-    path: PATHS.SIGN_UP,
-    element: <SignupPage />,
-  },
-  {
-    path: PATHS.MAIN_MENU,
-    element: <GameMainMenu />,
-  },
-  {
-    path: PATHS.GAME,
-    element: <Game />,
-  },
-  {
-    path: PATHS.TUTORIAL,
-    element: <TutorialPage />,
-  },
-  {
-    path: PATHS.SETTINGS,
-    element: <MainMenuSettings />,
-  },
-  {
-    path: PATHS.GAMEOVER,
-    element: <GameOverPage />,
-  },
-  {
-    path: PATHS.PROFILE,
-    element: <Profile />,
-  },
-  {
-    path: PATHS.PROFILE_CHANGE_DATA,
-    element: <ProfileChangeData />,
-  },
-  {
-    path: PATHS.PROFILE_CHANGE_PWD,
-    element: <ProfileChangePwd />,
-  },
-  {
-    path: PATHS.LEADERS,
-    element: <LeaderBoard />,
-  },
-  {
-    path: PATHS.ABOUT,
-    element: <AboutPage />,
-  },
-  {
-    path: PATHS.NOT_FOUND_PAGE,
-    element: <NotFoundPage />,
-  },
-].map((child) => {
-  return {
-    ...child,
-    errorElement: <ErrorPage />,
-  };
-});

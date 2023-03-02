@@ -15,8 +15,7 @@ const getCurrentPosition = (): Promise<GeolocationPosition> => {
   });
 };
 
-export const setUserCityFromGeolocation = async () => {
-  const dispatch = useAppDispatch();
+export const setUserCityFromGeolocation = async (dispatch: ReturnType<typeof useAppDispatch>) => {
   try {
     const pos = await getCurrentPosition();
     const city = await geoApi.getCity(pos.coords);

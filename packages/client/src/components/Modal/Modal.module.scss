@@ -1,0 +1,30 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .content {
+    max-height: 900px;
+    width: 600px;
+    border-radius: 10px;
+    border: 1px solid;
+    box-shadow: 0 0 10px 0 #fff;
+    background: #00000080;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: #fff;
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+}

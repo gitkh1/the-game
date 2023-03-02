@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { Button, MobileStepper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";

@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.active {
+  display: flex;
+  gap: 22px;
+}
+
+.input {
+  flex-grow: 1;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.content {
+  height: 716px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.messages {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.container {
+  flex-grow: 1;
+  overflow-y: scroll;
+  height: 78%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

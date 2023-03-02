@@ -47,6 +47,9 @@ services:
       - "${SERVER_PORT}:${SERVER_PORT}"
     environment:
       SERVER_PORT: ${SERVER_PORT}
+      HOST: ${HOST}
+      MONGO_PORT: ${MONGO_PORT}
+      NODE_ENV: production
     depends_on:
       - postgres
       - mongo

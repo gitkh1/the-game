@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable no-duplicate-imports */
@@ -17,10 +19,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import type { ViteDevServer } from "vite";
-import { createServer as createViteServer } from "vite";
 
+import { connectMongo } from "./database/mongo";
 import { connectDB } from "./database/postgres";
-import devHosts from "./hosts/hosts.json";
+import { feedbackRouter } from "./routes/feedbackRoute";
+import { devHosts } from "./hosts";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -35,12 +38,14 @@ if (isDev()) {
 }
 
 connectDB();
+connectMongo();
 
 const startServer = async () => {
   await connectDB();
 
   const app = express();
   app.use(cors());
+  app.use(express.json());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   let vite: ViteDevServer | undefined;
@@ -49,10 +54,11 @@ const startServer = async () => {
   const ssrClientPath = require.resolve("client/dist-ssr/ssr.cjs");
 
   if (isDev()) {
+    const { createServer } = await import("vite");
     const certificate = fs.readFileSync(path.resolve("certificate", "certificate.pem"), "utf8");
     const key = fs.readFileSync(path.resolve("certificate", "key.pem"), "utf8");
 
-    vite = await createViteServer({
+    vite = await createServer({
       server: {
         middlewareMode: true,
         https: {
@@ -65,6 +71,8 @@ const startServer = async () => {
     });
     app.use(vite.middlewares);
   }
+
+  app.use(feedbackRouter);
 
   app.get("/api", (_, res) => {
     res.json("👋 Howdy from the server :)");
