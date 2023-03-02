@@ -24,6 +24,7 @@ import { connectMongo } from "./database/mongo";
 import { connectDB } from "./database/postgres";
 import { feedbackRouter } from "./routes/feedbackRoute";
 import { devHosts } from "./hosts";
+import { geoProxy, swaggerProxy } from "./proxy";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -81,6 +82,9 @@ const startServer = async () => {
   if (!isDev()) {
     app.get("*/assets/*", express.static(distPath));
   }
+
+  app.use("/proxy", swaggerProxy);
+  app.use("/geo", geoProxy);
 
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl as string;
