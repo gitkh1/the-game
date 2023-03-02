@@ -19,8 +19,8 @@ import express from "express";
 import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
 
+import { connectDB } from "./database/postgres";
 import devHosts from "./hosts/hosts.json";
-import { connectDB } from "./db";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -33,6 +33,8 @@ if (isDev()) {
     APP_HOSTS.push(devLocalIP);
   }
 }
+
+connectDB();
 
 const startServer = async () => {
   await connectDB();
