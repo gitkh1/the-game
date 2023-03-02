@@ -23,6 +23,7 @@ import type { ViteDevServer } from "vite";
 import { connectMongo } from "./database/mongo";
 import { createClientAndConnect } from "./database/postgres";
 import { feedbackRouter } from "./routes/feedbackRoute";
+import { paymentRouter } from "./routes/paymentRoute";
 import { devHosts } from "./hosts";
 import { findIP, makeStartLogsText } from "./utils";
 
@@ -71,6 +72,7 @@ const startServer = async () => {
   }
 
   app.use(feedbackRouter);
+  app.use(paymentRouter);
 
   app.get("/api", (_, res) => {
     res.json("👋 Howdy from the server :)");

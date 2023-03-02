@@ -2958,7 +2958,7 @@
   resolved "https://registry.npmjs.org/@types/minimist/-/minimist-1.2.2.tgz"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node-telegram-bot-api@^0.61.2":
+"@types/node-telegram-bot-api@0.61.2":
   version "0.61.2"
   resolved "https://registry.yarnpkg.com/@types/node-telegram-bot-api/-/node-telegram-bot-api-0.61.2.tgz#77ca107dfc801550fc3dfb6b74baf2b7eccbeef8"
   integrity sha512-ZbImQoPN7ZQeBWcN9g/aN3Kqt3Ko2nZX5DPgwWchhhIG/Ul0kYXjj0/bPpVg44ZS9fJM2+yRgATeRpnVK6qnmQ==
@@ -3530,6 +3530,15 @@ aws4@^1.8.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.12.0.tgz#ce1c9d143389679e253b314241ea9aa5cec980d3"
   integrity sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==
+
+axios@1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.4.tgz#f5760cefd9cfb51fd2481acf88c05f67c4523024"
+  integrity sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axios@^1.0.0:
   version "1.2.2"
@@ -5931,6 +5940,11 @@ ignore@^5.0.4, ignore@^5.2.0, ignore@^5.2.1:
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.4.tgz"
   integrity sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==
 
+immediate@~3.0.5:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+  integrity sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==
+
 immer@^9.0.16:
   version "9.0.18"
   resolved "https://registry.npmjs.org/immer/-/immer-9.0.18.tgz"
@@ -7127,6 +7141,13 @@ libnpmpublish@^6.0.4:
     semver "^7.3.7"
     ssri "^9.0.0"
 
+lie@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
+  integrity sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==
+  dependencies:
+    immediate "~3.0.5"
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
@@ -7156,6 +7177,13 @@ load-json-file@^6.2.0:
     parse-json "^5.0.0"
     strip-bom "^4.0.0"
     type-fest "^0.6.0"
+
+localforage@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.10.0.tgz#5c465dc5f62b2807c3a84c0c6a1b1b3212781dd4"
+  integrity sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==
+  dependencies:
+    lie "3.1.1"
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -7562,7 +7590,7 @@ mongodb@4.13.0:
     "@aws-sdk/credential-providers" "^3.186.0"
     saslprep "^1.0.3"
 
-mongoose@^6.9.2:
+mongoose@6.9.2:
   version "6.9.2"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.9.2.tgz#4077d96c1e1d0769eb55ac77eb30d0e8fb1777c2"
   integrity sha512-Yb9rWJhYm+7Yf839QuKx2dXcclbA0GAMxtdDiaedHsOQU+y28cD/8gKYp1wTwwyAjKesqaGfLG4ez7D9lKpwBw==
@@ -7694,7 +7722,7 @@ node-releases@^2.0.6:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.8.tgz"
   integrity sha512-dFSmB8fFHEH/s81Xi+Y/15DQY6VHW81nXRj86EMSL3lmuTmK1e+aT4wrFCkTbm+gSwkw4KpX+rT/pMM2c1mF+A==
 
-node-telegram-bot-api@^0.61.0:
+node-telegram-bot-api@0.61.0:
   version "0.61.0"
   resolved "https://registry.yarnpkg.com/node-telegram-bot-api/-/node-telegram-bot-api-0.61.0.tgz#e5d10e219e4d3e8d347dbafd0ded0262409cf4cf"
   integrity sha512-BZXd8Bh2C5+uBEQuuI3FD7TFJF3alV+6oFQt8CNLx3ldX/hsd+NYyllTX+Y+5X0tG+xtcRQQjbfLgz/4sRvmBQ==

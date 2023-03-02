@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Resource } from "./components/Resource";
-import { T_GameModel, T_GameState, T_Score } from "./types/game";
+import { T_Ability, T_GameModel, T_GameState, T_Score } from "./types/game";
 import rafLoop from "./utils/rafLoop";
 import { GameController } from "./GameController";
 import { configureDefaultGameModel } from "./GameModel";
@@ -74,6 +74,11 @@ export class GameRunner {
     this.controller = undefined;
     this.view = undefined;
     this.isReady = false;
+  }
+
+  applyAbility(ability: T_Ability) {
+    if (!this.model) return false;
+    return ability.apply(this.model);
   }
 }
 

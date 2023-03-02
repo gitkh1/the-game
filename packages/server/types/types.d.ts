@@ -9,4 +9,3 @@ declare module "interfaces/notifier" {
     send(message: string): Promise<string>;
   }
 }
-declare module "configuration";

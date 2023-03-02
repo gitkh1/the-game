@@ -16,6 +16,7 @@ import { ProfileChangeData } from "../pages/ProfileChangeData";
 import { ProfileChangePwd } from "../pages/ProfileChangePwd";
 import { SigninPage } from "../pages/SigninPage";
 import { SignupPage } from "../pages/SignupPage";
+import { ThanksPage } from "../pages/ThanksPage";
 import { TutorialPage } from "../pages/TutorialPage";
 
 export const PATHS = {
@@ -33,6 +34,7 @@ export const PATHS = {
   LEADERS: "/leaders",
   ABOUT: "/about",
   FORUM: "/forum",
+  THANKS: "/thanks",
   NOT_FOUND_PAGE: "*",
 };
 
@@ -105,6 +107,10 @@ export const routes: RouteObject[] = [
       {
         path: PATHS.FORUM,
         element: <ForumPage />,
+      },
+      {
+        path: PATHS.THANKS,
+        element: <ThanksPage />,
       },
     ],
   },
