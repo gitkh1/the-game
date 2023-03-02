@@ -21,7 +21,7 @@ import express from "express";
 import type { ViteDevServer } from "vite";
 
 import { connectMongo } from "./database/mongo";
-import { createClientAndConnect } from "./database/postgres";
+import { connectDB } from "./database/postgres";
 import { feedbackRouter } from "./routes/feedbackRoute";
 import { devHosts } from "./hosts";
 import { findIP, makeStartLogsText } from "./utils";
@@ -37,10 +37,12 @@ if (isDev()) {
   }
 }
 
-createClientAndConnect();
+connectDB();
 connectMongo();
 
 const startServer = async () => {
+  await connectDB();
+
   const app = express();
   app.use(cors());
   app.use(express.json());
