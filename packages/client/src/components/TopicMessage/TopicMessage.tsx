@@ -9,7 +9,7 @@ import { I_Message } from "../../global/store/slices/forum";
 import styles from "./TopicMessage.module.scss";
 
 interface I_Props {
-  isOwn: boolean;
+  userId?: number;
   message: I_Message;
   removeMessage?: (id: number) => void;
   createEmoji?: (id: number, emojiHex: string) => void;
@@ -22,14 +22,18 @@ const emojiHexNodes: Record<string, JSX.Element> = {
   ["1F44E"]: <>&#x1F44E;</>,
 };
 
-export const TopicMessage: FC<I_Props> = ({ message, removeMessage, isOwn, createEmoji, removeEmoji }) => {
+export const TopicMessage: FC<I_Props> = ({ message, removeMessage, userId, createEmoji, removeEmoji }) => {
   const ref = useRef<HTMLSpanElement | null>(null);
+
+  const isOwn = userId === message.authorId;
 
   const handleRemoveClick = () => {
     removeMessage?.(message.id);
   };
 
   const handleCreateEmoji = (hex: string) => {
+    const isExist = message.emojis.find((emoji) => emoji.hex === hex && emoji.authorId === userId);
+    if (isExist) return;
     createEmoji?.(message.id, hex);
   };
 
@@ -37,25 +41,25 @@ export const TopicMessage: FC<I_Props> = ({ message, removeMessage, isOwn, creat
     removeEmoji?.(message.id, id);
   };
 
-  const removeNode = (
-    <span className={styles.pointer} onClick={handleRemoveClick}>
-      Удалить
-    </span>
-  );
-
-  const emojiList = (
-    <div
-      className={cn(styles.emojis, {
-        [styles.reverse]: isOwn,
-      })}
-    >
-      {Object.keys(emojiHexNodes).map((key) => (
-        <span className={styles.pointer} key={key} onClick={() => handleCreateEmoji(key)}>
-          {emojiHexNodes[key]}
-        </span>
-      ))}
-    </div>
-  );
+  const getTooltipElement = () => {
+    return isOwn ? (
+      <span className={styles.pointer} onClick={handleRemoveClick}>
+        Удалить
+      </span>
+    ) : (
+      <div
+        className={cn(styles.emojis, {
+          [styles.reverse]: isOwn,
+        })}
+      >
+        {Object.keys(emojiHexNodes).map((key) => (
+          <span className={styles.pointer} key={key} onClick={() => handleCreateEmoji(key)}>
+            {emojiHexNodes[key]}
+          </span>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div
@@ -63,31 +67,29 @@ export const TopicMessage: FC<I_Props> = ({ message, removeMessage, isOwn, creat
         [styles.own]: isOwn,
       })}
     >
-      <Tooltip title={isOwn ? null : emojiList} placement="left">
-        <div className={styles.content}>
-          <Tooltip title={isOwn ? removeNode : null} placement="right">
-            <span
-              ref={ref}
-              className={cn(styles.title, {
-                [styles.own]: isOwn,
-              })}
-            >
-              {message.text}
-            </span>
-          </Tooltip>
-          <div
-            className={cn(styles.emojis, {
-              [styles.reverse]: isOwn,
+      <div className={styles.content}>
+        <Tooltip title={getTooltipElement()} placement="right">
+          <span
+            ref={ref}
+            className={cn(styles.title, {
+              [styles.own]: isOwn,
             })}
           >
-            {message.emojis?.map((emoji) => (
-              <span className={styles.pointer} key={emoji.id} onClick={() => handleRemoveEmoji(emoji.id)}>
-                {emojiHexNodes[emoji.hex]}
-              </span>
-            ))}
-          </div>
+            {message.text}
+          </span>
+        </Tooltip>
+        <div
+          className={cn(styles.emojis, {
+            [styles.reverse]: isOwn,
+          })}
+        >
+          {message.emojis?.map((emoji) => (
+            <span className={styles.pointer} key={emoji.id} onClick={() => handleRemoveEmoji(emoji.id)}>
+              {emojiHexNodes[emoji.hex]}
+            </span>
+          ))}
         </div>
-      </Tooltip>
+      </div>
     </div>
   );
 };

@@ -21,6 +21,7 @@ export class MessageController {
       const { commentId } = req.query;
       const messages: I_Message[] = await Message.findAll({
         where: { commentId },
+        order: [["createdAt", "ASC"]],
         include: {
           model: Emoji,
         },

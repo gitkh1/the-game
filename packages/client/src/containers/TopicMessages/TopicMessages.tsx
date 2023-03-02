@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, MouseEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler, FC, FormEventHandler, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import { TopicMessage } from "../../components/TopicMessage";
@@ -11,6 +11,7 @@ import { notificationActions } from "../../global/store/slices/notification";
 import styles from "./TopicMessages.module.scss";
 
 export const TopicMessages: FC = () => {
+  const container = useRef<HTMLDivElement | null>(null);
   const user = useAppSelector(selectUserInfo);
   const { messages, selectedComment, errorMessage } = useAppSelector(forumSelector);
   const dispatch = useAppDispatch();
@@ -20,6 +21,11 @@ export const TopicMessages: FC = () => {
     if (!selectedComment?.id) return;
     void dispatch(getMessagesByCommentId(selectedComment.id));
   }, []);
+
+  useEffect(() => {
+    if (!container.current) return;
+    container.current.scrollTo(0, container.current.scrollHeight);
+  }, [messages.length]);
 
   useEffect(() => {
     if (!errorMessage) return;
@@ -39,7 +45,8 @@ export const TopicMessages: FC = () => {
     setMessageValue(event.target.value);
   };
 
-  const handleCreateMessage = () => {
+  const handleCreateMessage: FormEventHandler = (event) => {
+    event.preventDefault();
     if (!messageValue || !user?.id || !selectedComment?.id) return;
     void dispatch(
       createMessage({
@@ -89,26 +96,26 @@ export const TopicMessages: FC = () => {
         <div className={styles.title}>
           <span>{selectedComment?.text ?? ""}</span>
         </div>
-        <div className={styles.container}>
+        <div ref={container} className={styles.container}>
           <div className={styles.messages}>
             {messages.map((message) => (
               <TopicMessage
                 key={message.id}
                 message={message}
                 removeMessage={handleRemoveMessage}
-                isOwn={user?.id === message.authorId}
+                userId={user?.id}
                 createEmoji={handleCreateEmoji}
                 removeEmoji={handleRemoveEmoji}
               />
             ))}
           </div>
         </div>
-        <div className={styles.active}>
+        <form className={styles.active} onSubmit={handleCreateMessage}>
           <TextField className={styles.input} value={messageValue} onChange={handleInputChange} placeholder="Отправить сообщение" />
-          <Button variant="contained" onClick={handleCreateMessage}>
+          <Button variant="contained" type="submit">
             Отправить
           </Button>
-        </div>
+        </form>
       </div>
     </>
   );
