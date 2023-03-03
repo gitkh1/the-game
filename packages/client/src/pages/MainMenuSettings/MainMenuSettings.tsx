@@ -70,7 +70,7 @@ export const MainMenuSettings = () => {
   }
 
   return (
-    <Background isWhiteBg={theme.isWhiteBg}>
+    <Background>
       <div className={classes["settings"]}>
         <h2 className={classes["settings__header"]}>Настройки</h2>
         <div className={classes["settings__item"]}>

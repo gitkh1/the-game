@@ -6,17 +6,14 @@ import lightBg from "../../assets/images/light-theme/game-main-menu-bg.jpg";
 
 import global from "../../global/styles/Global.module.scss";
 
-type T_BackgroundProps = PropsWithChildren<{ src?: string; isWhiteBg?: boolean; whiteBg?: string }>;
+type T_BackgroundProps = PropsWithChildren<{ src?: string; whiteBg?: string }>;
 
-export const Background: FC<T_BackgroundProps> = ({ children, src = darkBg, isWhiteBg = false, whiteBg = lightBg }) => {
-  isWhiteBg = localStorage.getItem("theme") === "light";
+export const Background: FC<T_BackgroundProps> = ({ children, src = darkBg, whiteBg = lightBg }) => {
+  const isWhiteBg = localStorage.getItem("theme") === "light";
+  const imgSrc = isWhiteBg ? whiteBg : src;
   return (
     <Box className={global["container"]}>
-      {!isWhiteBg ? (
-        <img src={src} alt={"background"} className={global["background"]} />
-      ) : (
-        <img src={whiteBg} alt={"background"} className={global["background"]} />
-      )}
+      <img src={imgSrc} alt={"background"} className={global["background"]} />
       {children}
     </Box>
   );
