@@ -5,7 +5,7 @@ import { Background } from "../../components/Background";
 
 export const ErrorPage: FC = () => {
   return (
-    <Background isWhiteBg={true}>
+    <Background>
       <Typography variant="h1" fontWeight="400">
         Ошибка
       </Typography>
