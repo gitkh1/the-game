@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, MouseEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler, FC, FormEventHandler, MouseEventHandler, useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import { TopicComment } from "../../components/TopicComment";
@@ -43,7 +43,8 @@ export const TopicComments: FC = () => {
     setCommentValue(event.target.value);
   };
 
-  const handleCreateComment = () => {
+  const handleCreateComment: FormEventHandler = (event) => {
+    event.preventDefault();
     if (!commentValue || !user?.id || !selectedTopic?.id) return;
     void dispatch(
       createComment({
@@ -87,12 +88,12 @@ export const TopicComments: FC = () => {
             {!comments.length && <span>Комментариев нет</span>}
           </div>
         </div>
-        <div className={styles.active}>
+        <form className={styles.active} onSubmit={handleCreateComment}>
           <TextField className={styles.input} value={commentValue} onChange={handleInputChange} placeholder="Отправить комментарий" />
-          <Button variant="contained" onClick={handleCreateComment}>
+          <Button variant="contained" type="submit">
             Отправить
           </Button>
-        </div>
+        </form>
       </div>
     </>
   );
