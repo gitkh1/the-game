@@ -4,12 +4,12 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import cn from "classnames";
 
 import { feedbackApi } from "../../api/Feedback";
+import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../../components/Form";
 import { useAppDispatch, useAppSelector } from "../../global/hooks";
 import { selectUserInfo } from "../../global/store";
 import { notificationActions } from "../../global/store/slices/notification";
 import { I_Feedback, I_UserInfo } from "../../global/types";
 import { yup } from "../../global/yup";
-import { Form, FORM_FIELDS, FORM_FIELDS_META } from "../Form";
 
 import styles from "./Feedback.module.scss";
 

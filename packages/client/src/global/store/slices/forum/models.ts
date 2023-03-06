@@ -8,12 +8,21 @@ export interface I_Topic {
 export interface I_Comment {
   id: number;
   text: string;
-  messageCount?: number;
   authorId: number;
+  topicId: number;
 }
 
 export interface I_Message {
   id: number;
   text: string;
   authorId: number;
+  commentId: number;
+  emojis: I_Emoji[];
+}
+
+export interface I_Emoji {
+  id: number;
+  hex: string;
+  authorId: number;
+  messageId: number;
 }

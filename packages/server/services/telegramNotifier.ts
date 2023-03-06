@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import TelegramBot from "node-telegram-bot-api";
 
-import { TELEGRAM_TOKEN } from "../configuration";
 import { I_Notifier } from "../interfaces/notifier";
 
 export class TelegramNotifier implements I_Notifier {
@@ -14,13 +13,15 @@ export class TelegramNotifier implements I_Notifier {
   private bot: TelegramBot | null = null;
   private chatId: number | null = null;
 
-  constructor(chatLink: string) {
-    void this.init(chatLink);
+  constructor(chatLink?: string, token?: string) {
+    void this.init(chatLink, token);
   }
 
-  async init(chatLink: string) {
+  async init(chatLink?: string, token?: string) {
+    if (!chatLink || !token) return;
+
     try {
-      this.bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
+      this.bot = new TelegramBot(token, { polling: true });
       this.chatId = (await this.bot.getChat(chatLink))?.id;
     } catch (_) {
       this.bot = null;

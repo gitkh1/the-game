@@ -1,45 +1,63 @@
-import { ChangeEventHandler, FC, MouseEventHandler, useState } from "react";
+import { ChangeEventHandler, FC, FormEventHandler, MouseEventHandler, useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import { TopicComment } from "../../components/TopicComment";
 import { useAppDispatch, useAppSelector } from "../../global/hooks";
 import { selectUserInfo } from "../../global/store";
 import { forumActions, forumSelector, I_Comment } from "../../global/store/slices/forum";
+import { createComment, getCommentsByTopicId, removeComment } from "../../global/store/slices/forum/thunks";
+import { notificationActions } from "../../global/store/slices/notification";
 
 import styles from "./TopicComments.module.scss";
 
 export const TopicComments: FC = () => {
-  const { comments, selectedTopic } = useAppSelector(forumSelector);
+  const { comments, selectedTopic, errorMessage } = useAppSelector(forumSelector);
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
   const [commentValue, setCommentValue] = useState<string>("");
 
+  useEffect(() => {
+    if (!selectedTopic?.id) return;
+    void dispatch(getCommentsByTopicId(selectedTopic.id));
+  }, []);
+
+  useEffect(() => {
+    if (!errorMessage) return;
+    void dispatch(
+      notificationActions.setNotification({
+        errorMessage,
+      }),
+    );
+  }, [errorMessage]);
+
   const handleBackClick: MouseEventHandler = () => {
-    dispatch(forumActions.unselectTopic());
+    dispatch(forumActions.setSelectedTopic(null));
+    dispatch(forumActions.setComments([]));
   };
 
   const showMessages = (comment: I_Comment) => {
-    dispatch(forumActions.selectComment(comment));
+    dispatch(forumActions.setSelectedComment(comment));
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setCommentValue(event.target.value);
   };
 
-  const createComment = () => {
-    if (!commentValue || !user?.id) return;
-    dispatch(
-      forumActions.createComment({
-        id: comments.length,
+  const handleCreateComment: FormEventHandler = (event) => {
+    event.preventDefault();
+    if (!commentValue || !user?.id || !selectedTopic?.id) return;
+    void dispatch(
+      createComment({
         authorId: user.id,
         text: commentValue,
+        topicId: selectedTopic.id,
       }),
     );
     setCommentValue("");
   };
 
-  const removeComment = (id: number) => {
-    dispatch(forumActions.removeComment(id));
+  const handleRemoveComment = (id: number) => {
+    void dispatch(removeComment(id));
   };
   return (
     <>
@@ -63,19 +81,19 @@ export const TopicComments: FC = () => {
                   key={comment.id}
                   comment={comment}
                   isOwn={user?.id === comment.authorId}
-                  removeComment={removeComment}
+                  removeComment={handleRemoveComment}
                   showMessages={showMessages}
                 />
               ))}
             {!comments.length && <span>Комментариев нет</span>}
           </div>
         </div>
-        <div className={styles.active}>
+        <form className={styles.active} onSubmit={handleCreateComment}>
           <TextField className={styles.input} value={commentValue} onChange={handleInputChange} placeholder="Отправить комментарий" />
-          <Button variant="contained" onClick={() => createComment()}>
+          <Button variant="contained" type="submit">
             Отправить
           </Button>
-        </div>
+        </form>
       </div>
     </>
   );

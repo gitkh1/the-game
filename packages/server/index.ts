@@ -22,9 +22,9 @@ import type { ViteDevServer } from "vite";
 
 import { connectMongo } from "./database/mongo";
 import { connectDB } from "./database/postgres";
-import { feedbackRouter } from "./routes/feedbackRoute";
 import { devHosts } from "./hosts";
 import { geoProxy, swaggerProxy } from "./proxy";
+import { mainRouter } from "./routes";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -73,7 +73,7 @@ const startServer = async () => {
     app.use(vite.middlewares);
   }
 
-  app.use(feedbackRouter);
+  app.use("/api", mainRouter);
 
   app.get("/api", (_, res) => {
     res.json("👋 Howdy from the server :)");

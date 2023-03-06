@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, MouseEventHandler, useRef, useState } from "react";
+import { ChangeEventHandler, FC, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import { Modal } from "../../components/Modal";
@@ -6,18 +6,33 @@ import { Topic } from "../../components/Topic";
 import { useAppDispatch, useAppSelector } from "../../global/hooks";
 import { selectUserInfo } from "../../global/store";
 import { forumActions, forumSelector, I_Topic } from "../../global/store/slices/forum";
+import { createTopic, getAllTopics, removeTopic } from "../../global/store/slices/forum/thunks";
+import { notificationActions } from "../../global/store/slices/notification";
 
 import styles from "./Topics.module.scss";
 
 export const Topics: FC = () => {
   const topicValue = useRef<string>("");
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const { topics } = useAppSelector(forumSelector);
+  const { topics, errorMessage } = useAppSelector(forumSelector);
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    void dispatch(getAllTopics());
+  }, []);
+
+  useEffect(() => {
+    if (!errorMessage) return;
+    void dispatch(
+      notificationActions.setNotification({
+        errorMessage,
+      }),
+    );
+  }, [errorMessage]);
+
   const handleClick = (topic: I_Topic): void => {
-    dispatch(forumActions.selectTopic(topic));
+    dispatch(forumActions.setSelectedTopic(topic));
   };
 
   const handleTopicValueChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -31,16 +46,19 @@ export const Topics: FC = () => {
 
   const handleSaveModal = () => {
     if (user && topicValue.current) {
-      dispatch(
-        forumActions.createTopic({
+      void dispatch(
+        createTopic({
           author: user.login,
           authorId: user.id,
-          id: topics.length,
           text: topicValue.current,
         }),
       );
     }
     handleCloseModal();
+  };
+
+  const handleRemoveTopic = (id: number) => {
+    void dispatch(removeTopic(id));
   };
 
   const handleAddTopicClick: MouseEventHandler = () => {
@@ -59,7 +77,7 @@ export const Topics: FC = () => {
       <div className={styles.content}>
         <div className={styles.topics}>
           {topics.map((topic) => (
-            <Topic key={topic.id} topic={topic} handleBtnClick={handleClick} />
+            <Topic key={topic.id} topic={topic} handleBtnClick={handleClick} userId={user?.id} removeTopic={handleRemoveTopic} />
           ))}
         </div>
       </div>

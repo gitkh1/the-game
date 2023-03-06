@@ -13,15 +13,29 @@
 }
 
 .title {
+  display: flex;
+  width: fit-content;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
   font-size: 22px;
+  width: fit-content;
   max-width: 50%;
-  text-align: start;
+  justify-content: flex-start;
 }
 
-.left {
-  text-align: end;
-}
-
-.remove {
+.pointer {
   cursor: pointer;
+}
+
+.emojis {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.reverse {
+  flex-direction: row-reverse;
 }
