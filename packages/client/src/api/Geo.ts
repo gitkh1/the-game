@@ -1,3 +1,5 @@
+import { GEO_URL } from "./constants";
+
 interface I_YaGeoObject {
   GeoObject: {
     name: string;
@@ -14,8 +16,7 @@ interface I_YaGeoResponse {
 export type T_GeoCoords = Pick<GeolocationCoordinates, "latitude" | "longitude">;
 
 export class GeoApi {
-  private url = (coords: T_GeoCoords) =>
-    `https://geocode-maps.yandex.ru/1.x/?apikey=0b1ae83c-cabe-4a13-94d9-9910b90ef315&format=json&geocode=${coords.longitude}, ${coords.latitude}&kind=locality&results=1`;
+  private url = (coords: T_GeoCoords) => `${GEO_URL}/?geocode=${coords.longitude}, ${coords.latitude}&kind=locality&results=1`;
 
   getCity = async (coords: T_GeoCoords) => {
     const DEFAULT_CITY = "Москва";

@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "yarn && node init.js && lerna clean && yarn && lerna bootstrap",
-    "build": "lerna run build --scope=client && lerna run build --scope=server",
+    "build": "lerna run build",
     "serve": "cross-env NODE_ENV=production node packages/server/dist/index.js",
     "build-serve": "yarn build && yarn serve",
     "dev:client": "lerna run dev --scope=client",

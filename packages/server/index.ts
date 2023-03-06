@@ -23,6 +23,7 @@ import type { ViteDevServer } from "vite";
 import { connectMongo } from "./database/mongo";
 import { connectDB } from "./database/postgres";
 import { devHosts } from "./hosts";
+import { geoProxy, swaggerProxy } from "./proxy";
 import { mainRouter } from "./routes";
 import { findIP, makeStartLogsText } from "./utils";
 
@@ -41,6 +42,8 @@ connectDB();
 connectMongo();
 
 const startServer = async () => {
+  await connectDB();
+
   const app = express();
   app.use(cors());
   app.use(express.json());
@@ -79,6 +82,9 @@ const startServer = async () => {
   if (!isDev()) {
     app.get("*/assets/*", express.static(distPath));
   }
+
+  app.use("/proxy", swaggerProxy);
+  app.use("/geo", geoProxy);
 
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl as string;
