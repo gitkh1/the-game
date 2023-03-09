@@ -50,7 +50,7 @@ export const ShopDialog: FC<T_Props> = ({ items, setAmount, open, onClose, onBuy
     if (!paymentConfirmation) return;
 
     void paymentApi.waitForStatusChange(paymentConfirmation.paymentId).then((payment) => {
-      console.log(payment);
+      console.log("Статус платежа", payment);
       setPayment(payment);
       setPaymentConfirmation(undefined);
       if (payment.status === "succeeded") {

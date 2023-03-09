@@ -18,6 +18,8 @@ const POPSTART_API_BASE_URL = `https://${HOST}/api`;
 export const FEEDBACK_BASE_URL = POPSTART_API_BASE_URL + "/feedback";
 export const PAYMENTS_BASE_URL = POPSTART_API_BASE_URL + "/payments";
 
+export const PAYMENT_TIMEOUT = 5 * 60 * 1000; /* 5 minutes */
+
 export const METHODS = {
   GET: "GET",
   PUT: "PUT",
