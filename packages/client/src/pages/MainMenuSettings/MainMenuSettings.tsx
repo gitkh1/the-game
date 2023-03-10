@@ -8,15 +8,39 @@ import { PATHS } from "../../routes";
 import classes from "./MainMenuSettings.module.scss";
 
 type T_WindowMode = "Оконный" | "Полноэкранный";
+type T_Theme = {
+  mode: "Тёмная" | "Светлая";
+  isWhiteBg: boolean;
+};
 
 export const MainMenuSettings = () => {
   const [windowMode, setWindowMode] = useState<T_WindowMode>("Оконный");
+  const [theme, setTheme] = useState<T_Theme>({
+    mode: localStorage.getItem("theme") === "dark" ? "Тёмная" : "Светлая",
+    isWhiteBg: false,
+  });
 
   function toggleWindowMode() {
     if (document.fullscreenElement) {
       setWindowMode("Полноэкранный");
     } else {
       setWindowMode("Оконный");
+    }
+  }
+
+  function toggleTheme() {
+    if (theme.mode === "Тёмная") {
+      localStorage.setItem("theme", "light");
+      setTheme({
+        mode: "Светлая",
+        isWhiteBg: true,
+      });
+    } else {
+      localStorage.setItem("theme", "dark");
+      setTheme({
+        mode: "Тёмная",
+        isWhiteBg: false,
+      });
     }
   }
 
@@ -53,6 +77,12 @@ export const MainMenuSettings = () => {
           <div className={classes["settings__description"]}>Режим экрана:</div>
           <Button color="primary" variant="contained" onClick={toggleFullscreen}>
             {windowMode}
+          </Button>
+        </div>
+        <div className={classes["settings__item"]}>
+          <div className={classes["settings__description"]}>Тема:</div>
+          <Button color="primary" variant="contained" onClick={toggleTheme}>
+            {theme.mode}
           </Button>
         </div>
         <NavLink to={PATHS.MAIN_MENU}>

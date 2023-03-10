@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { T_RootState } from "..";
+import { T_RootState } from "../..";
 
-interface I_Notification {
-  errorMessage?: string;
-  successMessage?: string;
-  warningMessage?: string;
-  delay?: number;
-}
+import { I_Notification } from "./models";
 
 interface I_State {
   notification?: I_Notification;

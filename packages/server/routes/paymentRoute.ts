@@ -1,16 +1,15 @@
-import { Request, Router } from "express";
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import { Router } from "express";
 
-import { HOST } from "../configuration";
 import { PaymentController } from "../controllers/paymentController";
-import { T_CheckId } from "../types/payments";
+
+const { HOST, SERVER_PORT } = process.env;
+
+const paymentController = new PaymentController({ returnUrl: `https://${HOST}:${SERVER_PORT}/thanks` });
 
 const paymentRouter = Router();
 
-const paymentController = new PaymentController({ returnUrl: `https://${HOST}/thanks` });
-
-paymentRouter.post("/api/payments", (req, res) => void paymentController.post(req, res));
-paymentRouter.get("/api/payments/:paymentId", (req: Request<T_CheckId>, res) => {
-  void paymentController.get(req, res);
-});
+paymentRouter.post("/", paymentController.post);
+paymentRouter.get("/:id", paymentController.get);
 
 export { paymentRouter };

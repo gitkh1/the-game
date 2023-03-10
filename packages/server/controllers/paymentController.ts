@@ -11,7 +11,7 @@ export class PaymentController {
     this.returnUrl = returnUrl;
   }
 
-  post = async (req: Request<unknown, T_CreateAmount, T_CreateAmount>, res: Response<T_PaymentConfirmation | Error>) => {
+  post = async (req: Request<void, T_PaymentConfirmation | Error, T_CreateAmount>, res: Response<T_PaymentConfirmation | Error>) => {
     try {
       const { amount } = req.body;
       const payment = await paymentService.create({
@@ -32,7 +32,7 @@ export class PaymentController {
 
   get = async (req: Request<T_CheckId>, res: Response<T_SimplePayment | Error>) => {
     try {
-      const { paymentId } = req.params;
+      const { id: paymentId } = req.params;
       const payment = await paymentService.get(paymentId);
       const { id, status } = payment;
       res.json({ id, status });

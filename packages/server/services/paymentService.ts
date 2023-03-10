@@ -1,7 +1,9 @@
 import axios from "axios";
 
-import { YOOKASSA_ID, YOOKASSA_TOKEN } from "../configuration";
 import { T_CreatePaymentOptions, T_CreatePaymentPayload, T_Payment } from "../types/payments";
+
+const { YOOKASSA_ID, YOOKASSA_TOKEN } = process.env;
+if (!YOOKASSA_ID || !YOOKASSA_TOKEN) throw new Error("Не указана переменная YOOKASSA_ID или YOOKASSA_TOKEN");
 
 const http = axios.create({
   baseURL: "https://api.yookassa.ru/v3/payments",

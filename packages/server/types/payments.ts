@@ -1,5 +1,5 @@
 export type T_CheckId = {
-  paymentId: string;
+  id: string;
 };
 
 export type T_CreateAmount = {

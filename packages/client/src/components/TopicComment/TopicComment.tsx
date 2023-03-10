@@ -20,7 +20,6 @@ export const TopicComment: FC<I_Props> = ({ comment, removeComment, showMessages
       <span className={styles.title}>{comment.text}</span>
       <div className={styles.panel}>
         <IconButton className={styles.button} onClick={() => showMessages?.(comment)}>
-          {comment.messageCount && <span className={styles.count}>{comment.messageCount}</span>}
           <CommentIcon className={styles.icon} />
         </IconButton>
         {isOwn && (

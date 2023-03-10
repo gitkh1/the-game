@@ -24,6 +24,9 @@
     "paths": {
       "*": ["types/*"]
     },
-    "outDir": "dist"
-  }
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false
+  },
+  "include": ["**/*", "**/*.json"]
 }

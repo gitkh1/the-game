@@ -13,6 +13,11 @@ export type T_Store = ReturnType<T_CreateStore>;
 export type T_RootState = ReturnType<T_Store["getState"]>;
 export type T_AppDispatch = T_Store["dispatch"];
 
+export interface I_AsyncThunkConfig {
+  dispatch: T_AppDispatch;
+  state: T_RootState;
+}
+
 export function createStore(preloadedState?: PreloadedState<T_Reducers>) {
   return configureStore({
     reducer: {

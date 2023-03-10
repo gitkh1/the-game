@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 20px 10px;
   gap: 30px;
 }
 
@@ -19,4 +19,10 @@
 
 .author {
   font-size: 12px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

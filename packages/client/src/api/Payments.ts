@@ -2,9 +2,9 @@ import type { T_Payment, T_PaymentConfirmation } from "../global/types";
 import { sleep } from "../global/utils";
 
 import { Api } from "./Api";
-import { PAYMENT_TIMEOUT, PAYMENTS_BASE_URL } from "./constants";
+import { API_URL, PAYMENT_TIMEOUT } from "./constants";
 
-const api = new Api(PAYMENTS_BASE_URL);
+const api = new Api(API_URL + "/payment");
 
 export const paymentApi = new (class {
   createNew = async (price: number): Promise<T_PaymentConfirmation> => {

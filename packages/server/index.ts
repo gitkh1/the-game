@@ -21,10 +21,10 @@ import express from "express";
 import type { ViteDevServer } from "vite";
 
 import { connectMongo } from "./database/mongo";
-import { createClientAndConnect } from "./database/postgres";
-import { feedbackRouter } from "./routes/feedbackRoute";
-import { paymentRouter } from "./routes/paymentRoute";
+import { connectDB } from "./database/postgres";
 import { devHosts } from "./hosts";
+import { geoProxy, swaggerProxy } from "./proxy";
+import { mainRouter } from "./routes";
 import { findIP, makeStartLogsText } from "./utils";
 
 dotenv.config();
@@ -38,12 +38,18 @@ if (isDev()) {
   }
 }
 
-createClientAndConnect();
+connectDB();
 connectMongo();
 
 const startServer = async () => {
+  await connectDB();
+
   const app = express();
   app.use(cors());
+
+  // для POST запросов прокси должны быть выше express.json()
+  app.use("/proxy", swaggerProxy);
+  app.use("/geo", geoProxy);
   app.use(express.json());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
@@ -71,8 +77,7 @@ const startServer = async () => {
     app.use(vite.middlewares);
   }
 
-  app.use(feedbackRouter);
-  app.use(paymentRouter);
+  app.use("/api", mainRouter);
 
   app.get("/api", (_, res) => {
     res.json("👋 Howdy from the server :)");
