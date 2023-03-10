@@ -46,6 +46,10 @@ const startServer = async () => {
 
   const app = express();
   app.use(cors());
+
+  // для POST запросов прокси должны быть выше express.json()
+  app.use("/proxy", swaggerProxy);
+  app.use("/geo", geoProxy);
   app.use(express.json());
   const port = Number(process.env.SERVER_PORT) || 3001;
 
@@ -82,9 +86,6 @@ const startServer = async () => {
   if (!isDev()) {
     app.get("*/assets/*", express.static(distPath));
   }
-
-  app.use("/proxy", swaggerProxy);
-  app.use("/geo", geoProxy);
 
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl as string;

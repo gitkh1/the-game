@@ -23,17 +23,6 @@ delete window.__PRELOADED_STATE__;
 
 const cache = createEmotionCache();
 
-const fetchServerData = async () => {
-  try {
-    const url = `http://localhost:${__SERVER_PORT__}/api`;
-    const response = await fetch(url);
-    const data = (await response.json()) as unknown;
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const loadWorker = async () => {
   if ("serviceWorker" in navigator) {
@@ -50,7 +39,6 @@ const loadWorker = async () => {
 // Отключили service Worker на время разработки ssr
 // window.addEventListener("load", () => void loadFunc());
 window.addEventListener("load", () => void setUserCityFromGeolocation(store.dispatch));
-window.addEventListener("load", () => void fetchServerData());
 
 const app = (
   <StrictMode>

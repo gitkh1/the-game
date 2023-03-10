@@ -123,3 +123,14 @@ export type T_EffectPoints = {
     spawnDelay: number;
   };
 };
+
+export type T_Ability = {
+  id: string;
+  name: string;
+  icon: string;
+  cost: number;
+  count: number;
+  buyAmount: number;
+  addCount(count: number): void;
+  apply(model: T_GameModel): boolean;
+};

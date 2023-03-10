@@ -4,6 +4,7 @@ import { Api } from "./Api";
 import { ERROR_MESSAGE, LEADERBOARD_BASE_URL, LEADERBOARD_ROWS_LIMIT, TEAM_NAME } from "./constants";
 
 const api = new Api(LEADERBOARD_BASE_URL);
+// const api = new Api("https://ya-praktikum.tech/api/v2/leaderboard");
 
 function getRequestFromPage(page: number, preloadNext: number): I_LeaderboardResultRequest {
   return {

@@ -1,10 +1,9 @@
 import { Api } from "../../../../api/Api";
+import { API_URL } from "../../../../api/constants";
 
 import { I_Comment, I_Emoji, I_Message, I_Topic } from "./models";
 
-const BASE_URL = "https://my-app.localhost.ya-praktikum.tech:3001/api";
-
-const api = new Api(BASE_URL);
+const api = new Api(API_URL);
 
 export const forumApi = {
   getAllTopics: async <T = unknown>(): Promise<T> => {
